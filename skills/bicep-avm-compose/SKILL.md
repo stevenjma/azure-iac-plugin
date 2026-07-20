@@ -163,6 +163,6 @@ Do not claim "complete" unless every required entry in `checklist.json` has `sta
 ## References
 
 - Sibling `avm-module-resolver` — type→module engine; owns `coverage.json`.
-- Sibling `azure-to-avm-bicep-translation` — config→input + AVM-default reconciliation rules (A1.x–A6.x).
+- Sibling `bicep-avm-inputs` — config→input mapping + AVM-default reconciliation rules (A1.x–A5.x).
 - Sibling `bicep-avm-validate` — build (syntax) + what-if (fidelity/reconcile) gate.
 - Counterpart `terraform-avm-compose` — the Terraform lane this mirrors for parity.

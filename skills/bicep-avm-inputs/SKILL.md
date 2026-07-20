@@ -37,15 +37,35 @@ For each module you are reconciling **three** views of every property:
 `Chosen` defaults to `Live` (faithful). You only diverge to the AVM default when `quality_target`
 is `uplift` AND the default is a safe posture improvement AND you log it as `adopt`.
 
+## Reconciliation rules (A1.x–A5.x)
+
+These are the rules the ledger's `rule` field cites — Gate D (in `bicep-avm-validate`) requires every
+`adopt` entry to name one, and `bicep-avm-compose` routes drift back here. Apply them when projecting
+the oracle onto module params (step 2 below):
+
+- **A1.x — direct scalars.** Live ARM scalar maps 1:1 to a same-meaning module param
+  (`minimumTlsVersion`, `skuName`). Pin the live value unless uplifting.
+- **A2.x — renamed / reshaped.** ARM property whose module param has a different name or shape
+  (ARM `supportsHttpsTrafficOnly` → the module's HTTPS-only/WAF-managed param). Map by reading the
+  schema, never by ARM path.
+- **A3.x — nested objects.** ARM nested block → the module's object param (network ACLs, identity,
+  encryption). Wire the whole object; don't blind-copy the ARM body.
+- **A4.x — collections.** ARM child collections → the module's array param (containers, subnets,
+  secrets), keyed by name.
+- **A5.x — safe-default adopt.** Only under `uplift`: when the AVM default is a safe posture
+  improvement (TLS 1.2 min, public network access disabled, infra encryption on), adopt the default
+  and log an `adopt` entry with live, default, and reason. Anything functional (SKU, capacity,
+  region) is always **pinned**, never adopted.
+
 ## Procedure
 
 1. **Load the module input schema** for each module block from 3.1. Identify: required params,
    param names/types, allowed enums, secure params, and each param's **AVM default**.
 2. **Project the oracle onto inputs.** For each module, read its `.avm/harvest/<res>.json` and map
-   live properties to the module's param names (per `azure-to-avm-bicep-translation` Rules
-   A1.x–A4.x). AVM param names are curated, not 1:1 with ARM property paths — e.g. ARM
-   `properties.encryption.services.blob.enabled` → module `blobServices`/`requireInfrastructureEncryption`
-   inputs. Use the translation library; do not blind-copy ARM JSON.
+   live properties to the module's param names — AVM param names are curated, not 1:1 with ARM
+   property paths — e.g. ARM `properties.encryption.services.blob.enabled` → module
+   `blobServices`/`requireInfrastructureEncryption` inputs. Map by reading the module schema; do not
+   blind-copy ARM JSON (Rules A1.x–A4.x).
 3. **Wire required params first** (`name`, `location`, and each module's required set). Never leave
    a required param unset — a missing required input fails compile.
 4. **Reconcile every AVM-default-vs-live difference.** For each param where the live value differs
@@ -54,7 +74,7 @@ is `uplift` AND the default is a safe posture improvement AND you log it as `ado
      entry (so validate expects zero what-if drift there).
    - `uplift` target → if the AVM default is a safe improvement (e.g. TLS 1.2 min, public network
      access disabled, infra encryption on), **adopt**: omit the param (or set the AVM default) and
-     record an `adopt` entry with a `reason` and the live→default delta. Otherwise **pin**.
+     record an `adopt` entry (Rule A5.x) with a `reason` and the live→default delta. Otherwise **pin**.
    - **Never silently adopt.** An unlogged divergence from live is a defect Gate D will catch.
 5. **Fold child resources into parent inputs.** For every `map.json.folded_children`, wire the
    child's live config into the parent module's array/object input (e.g. Key Vault `secrets`,
@@ -72,8 +92,8 @@ is `uplift` AND the default is a safe posture improvement AND you log it as `ado
 
 - `Chosen` defaults to `Live`. Every deviation to an AVM default is an `adopt` ledger entry with a
   `reason` — no exceptions.
-- Never blind-copy ARM `properties.*` into module params — AVM input names differ; use the
-  translation rules.
+- Never blind-copy ARM `properties.*` into module params — AVM input names differ; map via the
+  module schema.
 - Never write a literal secret. Never paste a literal resource ID for a cross-reference.
 - Do not set a param to its own AVM default value redundantly for a `faithful` diff — pin means the
   *live* value, which by definition differs from the default.

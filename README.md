@@ -151,11 +151,9 @@ it as-is as a reference for identity, routing, and prerequisites.
 | `bicep-avm-compose` | Bicep composition orchestrator (gated pipeline) |
 | `bicep-avm-map`, `bicep-avm-inputs`, `bicep-avm-organize`, `bicep-avm-secrets` | Bicep composition passes |
 | `bicep-avm-validate` | Bicep gated validate (`bicep build`/lint + what-if, reconciliation-aware) |
-| `azure-to-avm-bicep-translation` | Bicep config→input + AVM-default reconciliation rule library |
 | `terraform-avm-compose` | Terraform composition orchestrator (gated pipeline) |
 | `terraform-avm-map`, `terraform-avm-inputs`, `terraform-avm-organize`, `terraform-avm-secrets` | Terraform composition passes |
 | `terraform-avm-validate` | Terraform gated validate (`terraform validate` + `plan`, reconciliation-aware) |
-| `azure-to-avm-terraform-translation` | Terraform config→input + AVM-default reconciliation rule library |
 
 ## Non-goals
 

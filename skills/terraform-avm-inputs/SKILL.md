@@ -27,10 +27,10 @@ views, and every divergence is reconciled on the record:
 
 ## Procedure
 
-1. **Load the oracle** for each module's live resource. Consult
-   `azure-to-avm-terraform-translation` (Rules A1.x–A6.x) for every ARM-property → module-variable
-   mapping; do not guess variable names — read the schema.
-2. **Translate ARM → variables** (translation-library rules):
+1. **Load the oracle** for each module's live resource. Apply the reconciliation **Rules A1.x–A5.x
+   below** for every ARM-property → module-variable mapping; do not guess variable names — read the
+   schema.
+2. **Translate ARM → variables** (reconciliation rules):
    - A1.x direct scalars (`minimum_tls_version`, `account_tier`).
    - A2.x renamed/reshaped (ARM `supportsHttpsTrafficOnly` → module `https_traffic_only_enabled`
      or the module's WAF-managed equivalent).

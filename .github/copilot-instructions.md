@@ -46,8 +46,8 @@ the relevant skill.
 | Compose or refine existing **Bicep** into AVM modules | `bicep-avm-compose` (orchestrator) |
 | Validate-only / dry-run **Terraform** AVM composition against live infra | `terraform-avm-validate` (standalone) |
 | Validate-only / dry-run **Bicep** AVM composition against live infra | `bicep-avm-validate` (standalone) |
-| Terraform plan shows drift vs a module, input names look wrong | `azure-to-avm-terraform-translation` |
-| Bicep module inputs / `@secure()` / defaults look wrong | `azure-to-avm-bicep-translation` |
+| Terraform plan shows drift vs a module, input names look wrong | `terraform-avm-inputs` |
+| Bicep module inputs / `@secure()` / defaults look wrong | `bicep-avm-inputs` |
 
 `brownfield-avm-adopt` performs Phase 0 intake, picks the language, discovers resources + harvests live
 config (via ARG + the export oracle), then hands off to the matching compose orchestrator.

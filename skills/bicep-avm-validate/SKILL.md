@@ -71,8 +71,8 @@ in the same turn.
 1. Run **Gates A, B, C, D**. If any fails, stop.
 2. **Syntax gate** — `az bicep build --file main.bicep` (compile) and `az bicep lint --file
    main.bicep` (lint). If either fails, categorize:
-   - Missing/typed module input → invoke `azure-to-avm-bicep-translation` for the matching rule, or
-     re-read the module input schema and fix (return to `bicep-avm-inputs`).
+   - Missing/typed module input → re-read the module input schema and fix the mapping (return to
+     `bicep-avm-inputs`, which owns ARM-property → param translation).
    - Symbol/reference error → return to `bicep-avm-map` or `bicep-avm-organize`.
    - Module restore failure → confirm the pinned version exists (re-run `avm-module-resolver`
      version resolution); never downgrade to floating.
@@ -86,8 +86,7 @@ in the same turn.
    - `Modify` that matches an `adopt` entry (same module + param + live→avm_default delta) →
      **intentional**; keep, cite the ledger entry.
    - `Modify` that matches a `pin` entry, or matches nothing → **defect**: the pinned live value did
-     not reproduce. Invoke `azure-to-avm-bicep-translation` for the input-mapping rule, or return to
-     `bicep-avm-inputs`. Do not reclassify it as intentional.
+     not reproduce. Re-map the input (return to `bicep-avm-inputs`). Do not reclassify it as intentional.
    - Secure-placeholder `Modify` (from `@secure()` example values) → intentional; note it.
    - **Any `Delete`** → STOP, do not iterate. Surface to user (a delete means a live resource is not
      represented — likely a `defer` gap that should not have been deferred).
@@ -101,10 +100,11 @@ in the same turn.
 |---|---|---|
 | Adopt uplift (expected) | `allowBlobPublicAccess` live→AVM-default | Intentional — must match an `adopt` ledger entry (Rule A5.x) |
 | Pin not reproduced (defect) | live `minimumTlsVersion` not applied | Fix input mapping — Rule A2.x / A3.x (`bicep-avm-inputs`) |
-| Curated-input mismatch | ARM property mapped to wrong module param | Re-map via translation library — Rule A1.x |
+| Curated-input mismatch | ARM property mapped to wrong module param | Re-map via `bicep-avm-inputs` — Rule A1.x |
 | Missing required input | module default overrode live | Wire the live value — `bicep-avm-inputs` |
 | Secure placeholder diff | `@secure()` forces `Modify` on a key | Accept as intentional; note it |
 | Delete | live resource absent from composition | STOP — a `defer`/gap was mis-handled |
+| Net-new create (defect) | live resource shows as `Create` in what-if (composition doesn't match a live resource) | STOP — an in-scope live resource must reconcile to `NoChange`/`Modify`, not `Create` |
 
 ## Acceptance Criteria (mandatory)
 
@@ -133,6 +133,9 @@ The pass is **not complete** unless:
 - Gates A, B, C, D output appears in the same turn as the success summary.
 - `bicep_build == "pass"` and `bicep_lint == "pass"`.
 - `final_whatif.delete == 0`.
+- `final_whatif.create == 0` — a brownfield adoption what-if reconciles against live resources; any
+  `Create` means the composition doesn't match a live resource. STOP unless it maps to a deliberate,
+  ledgered net-new.
 - Every `modify` line maps to an `adopt` entry in `reconciliation.json` (`ledger_lines_matched: true`);
   no `pin` produced drift.
 

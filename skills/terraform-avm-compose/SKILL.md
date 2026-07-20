@@ -160,6 +160,6 @@ with a `reason`).
 ## References
 
 - Sibling `avm-module-resolver` — type→module engine; owns `coverage.json`.
-- Sibling `azure-to-avm-terraform-translation` — config→variable + AVM-default reconciliation rules (A1.x–A6.x).
+- Sibling `terraform-avm-inputs` — config→variable mapping + AVM-default reconciliation rules (A1.x–A5.x).
 - Sibling `terraform-avm-validate` — validate (syntax) + plan (fidelity/reconcile) gate.
 - Counterpart `bicep-avm-compose` — the Bicep lane this mirrors for parity.
