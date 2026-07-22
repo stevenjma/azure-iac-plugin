@@ -173,6 +173,15 @@ Fix engine artifacts that would block downstream validation. **Do not** do full 
      leaving it makes `terraform plan` fail with "Cannot import non-existent remote object".
    Cross-check `import.tf` against **both** `skippedResources` **and** `errors[]` — not just the
    set of emitted `resource` blocks.
+   **Auto-remediation helper** (`reference/strip-orphan-imports.ps1`, live-proven on the export
+   result): parses `properties.errors[]` (TF address is the token after `" as "` in each
+   `ImportError` message) and the declared `resource "<type>" "<name>"` set from
+   `properties.configuration`, then rebuilds `import.tf` dropping every `import{}` block that is
+   either a **failed-import** (address in `errors[]`) or a **skipped-target** (address with no
+   matching `resource{}` block). Dry-run by default; `-WriteChanges` to apply. On the live 9-block
+   export it stripped exactly the 2 unreadable imports (`azurerm_key_vault_secret`,
+   `azurerm_storage_account_queue_properties`) and kept the 7 good ones, so the first
+   `terraform plan` is clean with no manual triage.
 2. **Strip credentials from the provider block** — remove `client_id`, `client_secret`,
    `tenant_id`, `use_cli`, `use_oidc`, `use_msi`, default `environment`. Keep `features {}`.
    Extract `subscription_id` → `var.subscription_id` (ask; default to detected). Never hardcode.
@@ -188,8 +197,9 @@ Fix engine artifacts that would block downstream validation. **Do not** do full 
    `bicep-cleanup` will parameterize (`@secure()` params, `param location`, etc.).
 4. **LAW export-explosion filter (no exclude-param equivalent!)** — a Log Analytics workspace
    auto-materializes hundreds of `workspaces/tables` + `workspaces/savedSearches` into the template
-   (live: **715 of 726 resources = 98.5% noise** from a single workspace). **Asymmetry with the TF
-   lane:** `exportTerraform` suppresses these at source via `excludeTerraformResource`, but
+   (live, reproduced across **two** independent deployments: **715 of 726 resources = 98.5% noise**
+   — 676 `tables` + 39 `savedSearches` — collapsing to **11** real resources both times). **Asymmetry
+   with the TF lane:** `exportTerraform` suppresses these at source via `excludeTerraformResource`, but
    `exportTemplate` has **no exclusion parameter** — you MUST post-export filter
    `Microsoft.OperationalInsights/workspaces/tables` and `.../savedSearches` out of `template.json`
    **before** decompile, or the tree is unusable.
@@ -259,6 +269,7 @@ Quality target == "quick export"?
 ## References
 
 - `reference/examples.md` — exact `az rest` invocations, LRO polling, decompile, dispatch probe.
+- `reference/strip-orphan-imports.ps1` — orphan-import auto-remediation (failed-import + skipped-target sweep).
 - Sibling `terraform-cleanup` — gated Terraform post-export refinement.
 - Sibling `bicep-cleanup` — gated Bicep post-decompile refinement.
 - Sibling `azure-to-terraform-translation` — Terraform drift/translation rule library (Rule 1.x–9.x).
