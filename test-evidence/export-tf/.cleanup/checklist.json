@@ -1,0 +1,19 @@
+{
+  "schema": "cleanup-checklist/v1",
+  "language": "terraform",
+  "provider": "azurerm",
+  "mode": "full",
+  "workdir": "live-test-pr1/export-tf",
+  "required_upstream": [
+    {"id": "3.1-references", "status": "complete", "artifact": ".cleanup/references.json"},
+    {"id": "3.2-variables", "status": "complete", "artifact": ".cleanup/variables.json"},
+    {"id": "3.3-prune", "status": "complete", "artifact": ".cleanup/prune.json"},
+    {"id": "3.3.5-consolidate", "status": "skipped", "reason": "7 single-instance distinct-type resources; no repeated shapes to fold into loops/modules", "artifact": ".cleanup/consolidate.json"},
+    {"id": "3.4-organize", "status": "complete", "artifact": ".cleanup/organize.json"},
+    {"id": "3.5-secrets", "status": "complete", "reason": "no secrets reached config (KV secret not exported; 401 data-plane)", "artifact": ".cleanup/secrets.json"}
+  ],
+  "orphaned_import_blocks_removed": [
+    {"target": "azurerm_key_vault_secret.res-2", "resource": "demo-secret", "reason": "export 401 data-plane; no matching resource block generated"},
+    {"target": "azurerm_storage_account_queue_properties.res-725", "reason": "export 403 listKeys; no matching resource block generated"}
+  ]
+}
