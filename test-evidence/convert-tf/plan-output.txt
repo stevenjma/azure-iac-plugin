@@ -1,0 +1,348 @@
+azurerm_resource_group.rg: Preparing import... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t]
+azurerm_resource_group.rg: Refreshing state... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t]
+azurerm_key_vault.kv: Preparing import... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t]
+azurerm_virtual_network.vnet: Preparing import... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t]
+azurerm_storage_account.sa: Preparing import... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t]
+azurerm_log_analytics_workspace.law: Preparing import... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.OperationalInsights/workspaces/law-iacv-v9r4t]
+azurerm_virtual_network.vnet: Refreshing state... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t]
+azurerm_log_analytics_workspace.law: Refreshing state... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.OperationalInsights/workspaces/law-iacv-v9r4t]
+azurerm_key_vault.kv: Refreshing state... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t]
+azurerm_storage_account.sa: Refreshing state... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t]
+azurerm_subnet.app: Preparing import... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t/subnets/snet-app]
+azurerm_subnet.app: Refreshing state... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t/subnets/snet-app]
+azurerm_key_vault_secret.demo: Preparing import... [id=https://kv-iacv-v9r4t.vault.azure.net/secrets/demo-secret/6294afd85515494f80e7df60180e18d4]
+azurerm_key_vault_secret.demo: Refreshing state... [id=https://kv-iacv-v9r4t.vault.azure.net/secrets/demo-secret/6294afd85515494f80e7df60180e18d4]
+azurerm_storage_container.data: Preparing import... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default/containers/data]
+azurerm_storage_container.data: Refreshing state... [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default/containers/data]
+
+Terraform will perform the following actions:
+
+  # azurerm_key_vault.kv will be imported
+    resource "azurerm_key_vault" "kv" {
+        access_policy                   = [
+            {
+                application_id          = null
+                certificate_permissions = []
+                key_permissions         = []
+                object_id               = "4b645026-a054-4404-8f64-62929c02052c"
+                secret_permissions      = [
+                    "Get",
+                    "List",
+                    "Set",
+                    "Delete",
+                    "Purge",
+                    "Recover",
+                ]
+                storage_permissions     = []
+                tenant_id               = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+            },
+        ]
+        enable_rbac_authorization       = false
+        enabled_for_deployment          = false
+        enabled_for_disk_encryption     = false
+        enabled_for_template_deployment = false
+        id                              = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t"
+        location                        = "eastus2"
+        name                            = "kv-iacv-v9r4t"
+        public_network_access_enabled   = true
+        purge_protection_enabled        = false
+        rbac_authorization_enabled      = false
+        resource_group_name             = "rg-iacvanilla-stema-v9r4t"
+        sku_name                        = "standard"
+        soft_delete_retention_days      = 7
+        tags                            = {
+            "environment" = "iacvanillatest"
+            "owner"       = "stema"
+            "purpose"     = "iac-vanilla-livetest"
+        }
+        tenant_id                       = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+        vault_uri                       = "https://kv-iacv-v9r4t.vault.azure.net/"
+
+        network_acls {
+            bypass                     = "AzureServices"
+            default_action             = "Allow"
+            ip_rules                   = []
+            virtual_network_subnet_ids = []
+        }
+    }
+
+  # azurerm_key_vault_secret.demo will be imported
+    resource "azurerm_key_vault_secret" "demo" {
+        content_type            = null
+        expiration_date         = null
+        id                      = "https://kv-iacv-v9r4t.vault.azure.net/secrets/demo-secret/6294afd85515494f80e7df60180e18d4"
+        key_vault_id            = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t"
+        name                    = "demo-secret"
+        not_before_date         = null
+        resource_id             = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t/secrets/demo-secret/versions/6294afd85515494f80e7df60180e18d4"
+        resource_versionless_id = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t/secrets/demo-secret"
+        tags                    = {}
+        value                   = (sensitive value)
+        value_wo                = (write-only attribute)
+        value_wo_version        = 0
+        version                 = "6294afd85515494f80e7df60180e18d4"
+        versionless_id          = "https://kv-iacv-v9r4t.vault.azure.net/secrets/demo-secret"
+    }
+
+  # azurerm_log_analytics_workspace.law will be imported
+    resource "azurerm_log_analytics_workspace" "law" {
+        allow_resource_only_permissions         = true
+        cmk_for_query_forced                    = false
+        daily_quota_gb                          = -1
+        data_collection_rule_id                 = null
+        id                                      = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.OperationalInsights/workspaces/law-iacv-v9r4t"
+        immediate_data_purge_on_30_days_enabled = false
+        internet_ingestion_enabled              = true
+        internet_query_enabled                  = true
+        local_authentication_disabled           = false
+        local_authentication_enabled            = true
+        location                                = "eastus2"
+        name                                    = "law-iacv-v9r4t"
+        primary_shared_key                      = (sensitive value)
+        resource_group_name                     = "rg-iacvanilla-stema-v9r4t"
+        retention_in_days                       = 30
+        secondary_shared_key                    = (sensitive value)
+        sku                                     = "PerGB2018"
+        tags                                    = {
+            "environment" = "iacvanillatest"
+            "owner"       = "stema"
+            "purpose"     = "iac-vanilla-livetest"
+        }
+        workspace_id                            = "5957d3eb-14b1-46c6-8f37-80a55e695e46"
+    }
+
+  # azurerm_resource_group.rg will be imported
+    resource "azurerm_resource_group" "rg" {
+        id         = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t"
+        location   = "eastus2"
+        managed_by = null
+        name       = "rg-iacvanilla-stema-v9r4t"
+        tags       = {
+            "environment" = "iacvanillatest"
+            "owner"       = "stema"
+            "purpose"     = "iac-vanilla-livetest"
+        }
+    }
+
+  # azurerm_storage_account.sa will be imported
+    resource "azurerm_storage_account" "sa" {
+        access_tier                        = "Hot"
+        account_kind                       = "StorageV2"
+        account_replication_type           = "LRS"
+        account_tier                       = "Standard"
+        allow_nested_items_to_be_public    = false
+        allowed_copy_scope                 = null
+        cross_tenant_replication_enabled   = false
+        default_to_oauth_authentication    = false
+        dns_endpoint_type                  = "Standard"
+        edge_zone                          = null
+        https_traffic_only_enabled         = true
+        id                                 = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t"
+        infrastructure_encryption_enabled  = false
+        is_hns_enabled                     = false
+        large_file_share_enabled           = false
+        local_user_enabled                 = true
+        location                           = "eastus2"
+        min_tls_version                    = "TLS1_2"
+        name                               = "stiacvv9r4t"
+        nfsv3_enabled                      = false
+        primary_access_key                 = (sensitive value)
+        primary_blob_connection_string     = (sensitive value)
+        primary_blob_endpoint              = "https://stiacvv9r4t.blob.core.windows.net/"
+        primary_blob_host                  = "stiacvv9r4t.blob.core.windows.net"
+        primary_blob_internet_endpoint     = null
+        primary_blob_internet_host         = null
+        primary_blob_microsoft_endpoint    = null
+        primary_blob_microsoft_host        = null
+        primary_connection_string          = (sensitive value)
+        primary_dfs_endpoint               = "https://stiacvv9r4t.dfs.core.windows.net/"
+        primary_dfs_host                   = "stiacvv9r4t.dfs.core.windows.net"
+        primary_dfs_internet_endpoint      = null
+        primary_dfs_internet_host          = null
+        primary_dfs_microsoft_endpoint     = null
+        primary_dfs_microsoft_host         = null
+        primary_file_endpoint              = "https://stiacvv9r4t.file.core.windows.net/"
+        primary_file_host                  = "stiacvv9r4t.file.core.windows.net"
+        primary_file_internet_endpoint     = null
+        primary_file_internet_host         = null
+        primary_file_microsoft_endpoint    = null
+        primary_file_microsoft_host        = null
+        primary_location                   = "eastus2"
+        primary_queue_endpoint             = "https://stiacvv9r4t.queue.core.windows.net/"
+        primary_queue_host                 = "stiacvv9r4t.queue.core.windows.net"
+        primary_queue_microsoft_endpoint   = null
+        primary_queue_microsoft_host       = null
+        primary_table_endpoint             = "https://stiacvv9r4t.table.core.windows.net/"
+        primary_table_host                 = "stiacvv9r4t.table.core.windows.net"
+        primary_table_microsoft_endpoint   = null
+        primary_table_microsoft_host       = null
+        primary_web_endpoint               = "https://stiacvv9r4t.z20.web.core.windows.net/"
+        primary_web_host                   = "stiacvv9r4t.z20.web.core.windows.net"
+        primary_web_internet_endpoint      = null
+        primary_web_internet_host          = null
+        primary_web_microsoft_endpoint     = null
+        primary_web_microsoft_host         = null
+        provisioned_billing_model_version  = null
+        public_network_access_enabled      = true
+        queue_encryption_key_type          = "Service"
+        resource_group_name                = "rg-iacvanilla-stema-v9r4t"
+        secondary_access_key               = (sensitive value)
+        secondary_blob_connection_string   = (sensitive value)
+        secondary_blob_endpoint            = null
+        secondary_blob_host                = null
+        secondary_blob_internet_endpoint   = null
+        secondary_blob_internet_host       = null
+        secondary_blob_microsoft_endpoint  = null
+        secondary_blob_microsoft_host      = null
+        secondary_connection_string        = (sensitive value)
+        secondary_dfs_endpoint             = null
+        secondary_dfs_host                 = null
+        secondary_dfs_internet_endpoint    = null
+        secondary_dfs_internet_host        = null
+        secondary_dfs_microsoft_endpoint   = null
+        secondary_dfs_microsoft_host       = null
+        secondary_file_endpoint            = null
+        secondary_file_host                = null
+        secondary_file_internet_endpoint   = null
+        secondary_file_internet_host       = null
+        secondary_file_microsoft_endpoint  = null
+        secondary_file_microsoft_host      = null
+        secondary_location                 = null
+        secondary_queue_endpoint           = null
+        secondary_queue_host               = null
+        secondary_queue_microsoft_endpoint = null
+        secondary_queue_microsoft_host     = null
+        secondary_table_endpoint           = null
+        secondary_table_host               = null
+        secondary_table_microsoft_endpoint = null
+        secondary_table_microsoft_host     = null
+        secondary_web_endpoint             = null
+        secondary_web_host                 = null
+        secondary_web_internet_endpoint    = null
+        secondary_web_internet_host        = null
+        secondary_web_microsoft_endpoint   = null
+        secondary_web_microsoft_host       = null
+        sftp_enabled                       = false
+        shared_access_key_enabled          = true
+        table_encryption_key_type          = "Service"
+        tags                               = {
+            "environment" = "iacvanillatest"
+            "owner"       = "stema"
+            "purpose"     = "iac-vanilla-livetest"
+        }
+
+        blob_properties {
+            change_feed_enabled           = false
+            change_feed_retention_in_days = 0
+            default_service_version       = null
+            last_access_time_enabled      = false
+            versioning_enabled            = false
+        }
+
+        queue_properties {
+            hour_metrics {
+                enabled               = false
+                include_apis          = false
+                retention_policy_days = 0
+                version               = "1.0"
+            }
+            logging {
+                delete                = false
+                read                  = false
+                retention_policy_days = 0
+                version               = "1.0"
+                write                 = false
+            }
+            minute_metrics {
+                enabled               = false
+                include_apis          = false
+                retention_policy_days = 0
+                version               = "1.0"
+            }
+        }
+
+        share_properties {
+            retention_policy {
+                days = 7
+            }
+        }
+    }
+
+  # azurerm_storage_container.data will be imported
+    resource "azurerm_storage_container" "data" {
+        container_access_type             = "private"
+        default_encryption_scope          = "$account-encryption-key"
+        encryption_scope_override_enabled = true
+        has_immutability_policy           = false
+        has_legal_hold                    = false
+        id                                = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default/containers/data"
+        metadata                          = {}
+        name                              = "data"
+        resource_manager_id               = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default/containers/data"
+        storage_account_id                = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t"
+        storage_account_name              = null
+        url                               = "https://stiacvv9r4t.blob.core.windows.net/data"
+    }
+
+  # azurerm_subnet.app will be imported
+    resource "azurerm_subnet" "app" {
+        address_prefixes                              = [
+            "10.43.1.0/24",
+        ]
+        default_outbound_access_enabled               = true
+        id                                            = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t/subnets/snet-app"
+        name                                          = "snet-app"
+        private_endpoint_network_policies             = "Disabled"
+        private_link_service_network_policies_enabled = true
+        resource_group_name                           = "rg-iacvanilla-stema-v9r4t"
+        service_endpoint_policy_ids                   = []
+        service_endpoints                             = []
+        sharing_scope                                 = null
+        virtual_network_name                          = "vnet-iacv-v9r4t"
+    }
+
+  # azurerm_virtual_network.vnet will be imported
+    resource "azurerm_virtual_network" "vnet" {
+        address_space                  = [
+            "10.43.0.0/16",
+        ]
+        bgp_community                  = null
+        dns_servers                    = []
+        edge_zone                      = null
+        flow_timeout_in_minutes        = 0
+        guid                           = "e97e83ec-ecb6-40af-ab7c-495e13fcb3d1"
+        id                             = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t"
+        location                       = "eastus2"
+        name                           = "vnet-iacv-v9r4t"
+        private_endpoint_vnet_policies = "Disabled"
+        resource_group_name            = "rg-iacvanilla-stema-v9r4t"
+        subnet                         = [
+            {
+                address_prefixes                              = [
+                    "10.43.1.0/24",
+                ]
+                default_outbound_access_enabled               = true
+                delegation                                    = []
+                id                                            = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t/subnets/snet-app"
+                name                                          = "snet-app"
+                private_endpoint_network_policies             = "Disabled"
+                private_link_service_network_policies_enabled = true
+                route_table_id                                = null
+                security_group                                = null
+                service_endpoint_policy_ids                   = []
+                service_endpoints                             = []
+            },
+        ]
+        tags                           = {
+            "environment" = "iacvanillatest"
+            "owner"       = "stema"
+            "purpose"     = "iac-vanilla-livetest"
+        }
+    }
+
+Plan: 8 to import, 0 to add, 0 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

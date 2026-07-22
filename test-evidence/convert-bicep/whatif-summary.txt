@@ -1,0 +1,8 @@
+VANILLA BICEP LANE — what-if fidelity gate
+RG: rg-iacvanilla-stema-v9r4t
+Pipeline: az group export (726 res) -> filter LAW tables+savedSearches (->11) -> strip vnet inline subnets (BCP080 fix) -> bicep decompile -> what-if
+RESULT: 11 changes = 9 NoChange + 2 Modify + 0 Create/Delete resources + 0 destroy
+Two Modifies (both benign export round-trip artifacts, property-level only):
+  1. containers/data: properties.immutableStorageWithVersioning.enabled=false (Create of default no-op)
+  2. queueServices/default: delete server-managed properties.logging default block
+VERDICT: PASS (estate faithfully reproduced; no resource add/delete/replace; deltas are export defaults, not drift)

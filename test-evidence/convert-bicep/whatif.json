@@ -1,0 +1,685 @@
+{
+  "changes": [
+    {
+      "after": {
+        "apiVersion": "2026-03-01-preview",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t",
+        "location": "eastus2",
+        "name": "kv-iacv-v9r4t",
+        "properties": {
+          "accessPolicies": [
+            {
+              "objectId": "4b645026-a054-4404-8f64-62929c02052c",
+              "permissions": {
+                "secrets": [
+                  "Get",
+                  "List",
+                  "Set",
+                  "Delete",
+                  "Purge",
+                  "Recover"
+                ]
+              },
+              "tenantId": "4f00b3b6-2940-4f2c-b037-94637c180d30"
+            }
+          ],
+          "enableRbacAuthorization": false,
+          "enableSoftDelete": true,
+          "enabledForDeployment": false,
+          "enabledForDiskEncryption": false,
+          "enabledForTemplateDeployment": false,
+          "publicNetworkAccess": "Enabled",
+          "sku": {
+            "family": "A",
+            "name": "standard"
+          },
+          "softDeleteRetentionInDays": 7,
+          "tenantId": "4f00b3b6-2940-4f2c-b037-94637c180d30"
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "tags": {
+          "environment": "iacvanillatest",
+          "owner": "stema",
+          "purpose": "iac-vanilla-livetest"
+        },
+        "type": "Microsoft.KeyVault/vaults"
+      },
+      "before": {
+        "apiVersion": "2026-03-01-preview",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t",
+        "location": "eastus2",
+        "name": "kv-iacv-v9r4t",
+        "properties": {
+          "accessPolicies": [
+            {
+              "objectId": "4b645026-a054-4404-8f64-62929c02052c",
+              "permissions": {
+                "secrets": [
+                  "Get",
+                  "List",
+                  "Set",
+                  "Delete",
+                  "Purge",
+                  "Recover"
+                ]
+              },
+              "tenantId": "4f00b3b6-2940-4f2c-b037-94637c180d30"
+            }
+          ],
+          "enableRbacAuthorization": false,
+          "enableSoftDelete": true,
+          "enabledForDeployment": false,
+          "enabledForDiskEncryption": false,
+          "enabledForTemplateDeployment": false,
+          "publicNetworkAccess": "Enabled",
+          "sku": {
+            "family": "A",
+            "name": "standard"
+          },
+          "softDeleteRetentionInDays": 7,
+          "tenantId": "4f00b3b6-2940-4f2c-b037-94637c180d30"
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "tags": {
+          "environment": "iacvanillatest",
+          "owner": "stema",
+          "purpose": "iac-vanilla-livetest"
+        },
+        "type": "Microsoft.KeyVault/vaults"
+      },
+      "changeType": "NoChange",
+      "delta": [
+        {
+          "after": "https://kv-iacv-v9r4t.vault.azure.net/",
+          "before": null,
+          "children": null,
+          "path": "properties.vaultUri",
+          "propertyChangeType": "NoEffect"
+        },
+        {
+          "after": "Succeeded",
+          "before": null,
+          "children": null,
+          "path": "properties.provisioningState",
+          "propertyChangeType": "NoEffect"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2026-03-01-preview",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t/secrets/demo-secret",
+        "name": "demo-secret",
+        "properties": {
+          "attributes": {
+            "enabled": true
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.KeyVault/vaults/secrets"
+      },
+      "before": {
+        "apiVersion": "2026-03-01-preview",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t/secrets/demo-secret",
+        "name": "demo-secret",
+        "properties": {
+          "attributes": {
+            "enabled": true
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.KeyVault/vaults/secrets"
+      },
+      "changeType": "NoChange",
+      "delta": [
+        {
+          "after": "eastus2",
+          "before": null,
+          "children": null,
+          "path": "location",
+          "propertyChangeType": "NoEffect"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.KeyVault/vaults/kv-iacv-v9r4t/secrets/demo-secret",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2025-07-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t",
+        "location": "eastus2",
+        "name": "vnet-iacv-v9r4t",
+        "properties": {
+          "addressSpace": {
+            "addressPrefixes": [
+              "10.43.0.0/16"
+            ]
+          },
+          "enableDdosProtection": false,
+          "privateEndpointVNetPolicies": "Disabled",
+          "subnets": [
+            {
+              "name": "snet-app",
+              "properties": {
+                "addressPrefix": "10.43.1.0/24",
+                "defaultOutboundAccess": true,
+                "privateEndpointNetworkPolicies": "Disabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+              }
+            }
+          ]
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "tags": {
+          "environment": "iacvanillatest",
+          "owner": "stema",
+          "purpose": "iac-vanilla-livetest"
+        },
+        "type": "Microsoft.Network/virtualNetworks"
+      },
+      "before": {
+        "apiVersion": "2025-07-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t",
+        "location": "eastus2",
+        "name": "vnet-iacv-v9r4t",
+        "properties": {
+          "addressSpace": {
+            "addressPrefixes": [
+              "10.43.0.0/16"
+            ]
+          },
+          "enableDdosProtection": false,
+          "privateEndpointVNetPolicies": "Disabled",
+          "subnets": [
+            {
+              "name": "snet-app",
+              "properties": {
+                "addressPrefix": "10.43.1.0/24",
+                "defaultOutboundAccess": true,
+                "privateEndpointNetworkPolicies": "Disabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+              }
+            }
+          ]
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "tags": {
+          "environment": "iacvanillatest",
+          "owner": "stema",
+          "purpose": "iac-vanilla-livetest"
+        },
+        "type": "Microsoft.Network/virtualNetworks"
+      },
+      "changeType": "NoChange",
+      "delta": [
+        {
+          "after": "Microsoft.Network/virtualNetworks/subnets",
+          "before": null,
+          "children": null,
+          "path": "properties.subnets[0].type",
+          "propertyChangeType": "NoEffect"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2025-07-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t/subnets/snet-app",
+        "name": "snet-app",
+        "properties": {
+          "addressPrefix": "10.43.1.0/24",
+          "defaultOutboundAccess": true,
+          "privateEndpointNetworkPolicies": "Disabled",
+          "privateLinkServiceNetworkPolicies": "Enabled"
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Network/virtualNetworks/subnets"
+      },
+      "before": {
+        "apiVersion": "2025-07-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t/subnets/snet-app",
+        "name": "snet-app",
+        "properties": {
+          "addressPrefix": "10.43.1.0/24",
+          "defaultOutboundAccess": true,
+          "privateEndpointNetworkPolicies": "Disabled",
+          "privateLinkServiceNetworkPolicies": "Enabled"
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Network/virtualNetworks/subnets"
+      },
+      "changeType": "NoChange",
+      "delta": [],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Network/virtualNetworks/vnet-iacv-v9r4t/subnets/snet-app",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2025-07-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.OperationalInsights/workspaces/law-iacv-v9r4t",
+        "location": "eastus2",
+        "name": "law-iacv-v9r4t",
+        "properties": {
+          "publicNetworkAccessForIngestion": "Enabled",
+          "publicNetworkAccessForQuery": "Enabled",
+          "retentionInDays": 30,
+          "sku": {
+            "name": "PerGB2018"
+          },
+          "workspaceCapping": {
+            "dailyQuotaGb": -1.0
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "tags": {
+          "environment": "iacvanillatest",
+          "owner": "stema",
+          "purpose": "iac-vanilla-livetest"
+        },
+        "type": "Microsoft.OperationalInsights/workspaces"
+      },
+      "before": {
+        "apiVersion": "2025-07-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.OperationalInsights/workspaces/law-iacv-v9r4t",
+        "location": "eastus2",
+        "name": "law-iacv-v9r4t",
+        "properties": {
+          "publicNetworkAccessForIngestion": "Enabled",
+          "publicNetworkAccessForQuery": "Enabled",
+          "retentionInDays": 30,
+          "sku": {
+            "name": "PerGB2018"
+          },
+          "workspaceCapping": {
+            "dailyQuotaGb": -1.0
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "tags": {
+          "environment": "iacvanillatest",
+          "owner": "stema",
+          "purpose": "iac-vanilla-livetest"
+        },
+        "type": "Microsoft.OperationalInsights/workspaces"
+      },
+      "changeType": "NoChange",
+      "delta": [
+        {
+          "after": {
+            "disableLocalAuth": false,
+            "enableLogAccessUsingOnlyResourcePermissions": true,
+            "legacy": 0,
+            "searchVersion": 1
+          },
+          "before": null,
+          "children": null,
+          "path": "properties.features",
+          "propertyChangeType": "NoEffect"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.OperationalInsights/workspaces/law-iacv-v9r4t",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t",
+        "identity": {
+          "type": "None"
+        },
+        "kind": "StorageV2",
+        "location": "eastus2",
+        "name": "stiacvv9r4t",
+        "properties": {
+          "accessTier": "Hot",
+          "allowBlobPublicAccess": false,
+          "allowCrossTenantDelegationSas": false,
+          "allowCrossTenantReplication": false,
+          "allowSharedKeyAccess": true,
+          "defaultToOAuthAuthentication": false,
+          "dnsEndpointType": "Standard",
+          "encryption": {
+            "keySource": "Microsoft.Storage"
+          },
+          "isHnsEnabled": false,
+          "isLocalUserEnabled": true,
+          "isNfsV3Enabled": false,
+          "isSftpEnabled": false,
+          "minimumTlsVersion": "TLS1_2",
+          "networkAcls": {
+            "bypass": "AzureServices",
+            "defaultAction": "Allow"
+          },
+          "publicNetworkAccess": "Enabled",
+          "supportsHttpsTrafficOnly": true
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "sku": {
+          "name": "Standard_LRS"
+        },
+        "tags": {
+          "environment": "iacvanillatest",
+          "owner": "stema",
+          "purpose": "iac-vanilla-livetest"
+        },
+        "type": "Microsoft.Storage/storageAccounts"
+      },
+      "before": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t",
+        "identity": {
+          "type": "None"
+        },
+        "kind": "StorageV2",
+        "location": "eastus2",
+        "name": "stiacvv9r4t",
+        "properties": {
+          "accessTier": "Hot",
+          "allowBlobPublicAccess": false,
+          "allowCrossTenantDelegationSas": false,
+          "allowCrossTenantReplication": false,
+          "allowSharedKeyAccess": true,
+          "defaultToOAuthAuthentication": false,
+          "dnsEndpointType": "Standard",
+          "encryption": {
+            "keySource": "Microsoft.Storage"
+          },
+          "isHnsEnabled": false,
+          "isLocalUserEnabled": true,
+          "isNfsV3Enabled": false,
+          "isSftpEnabled": false,
+          "minimumTlsVersion": "TLS1_2",
+          "networkAcls": {
+            "bypass": "AzureServices",
+            "defaultAction": "Allow"
+          },
+          "publicNetworkAccess": "Enabled",
+          "supportsHttpsTrafficOnly": true
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "sku": {
+          "name": "Standard_LRS"
+        },
+        "tags": {
+          "environment": "iacvanillatest",
+          "owner": "stema",
+          "purpose": "iac-vanilla-livetest"
+        },
+        "type": "Microsoft.Storage/storageAccounts"
+      },
+      "changeType": "NoChange",
+      "delta": [
+        {
+          "after": {
+            "blob": {
+              "enabled": true,
+              "keyType": "Account"
+            },
+            "file": {
+              "enabled": true,
+              "keyType": "Account"
+            }
+          },
+          "before": null,
+          "children": null,
+          "path": "properties.encryption.services",
+          "propertyChangeType": "NoEffect"
+        },
+        {
+          "after": "Standard",
+          "before": null,
+          "children": null,
+          "path": "sku.tier",
+          "propertyChangeType": "NoEffect"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default",
+        "name": "default",
+        "properties": {
+          "deleteRetentionPolicy": {
+            "allowPermanentDelete": false,
+            "enabled": false
+          },
+          "staticWebsite": {
+            "enabled": false
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/blobServices"
+      },
+      "before": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default",
+        "name": "default",
+        "properties": {
+          "deleteRetentionPolicy": {
+            "allowPermanentDelete": false,
+            "enabled": false
+          },
+          "staticWebsite": {
+            "enabled": false
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/blobServices"
+      },
+      "changeType": "NoChange",
+      "delta": [
+        {
+          "after": {
+            "name": "Standard_LRS",
+            "tier": "Standard"
+          },
+          "before": null,
+          "children": null,
+          "path": "sku",
+          "propertyChangeType": "NoEffect"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default/containers/data",
+        "name": "data",
+        "properties": {
+          "defaultEncryptionScope": "$account-encryption-key",
+          "denyEncryptionScopeOverride": false,
+          "immutableStorageWithVersioning": {
+            "enabled": false
+          },
+          "publicAccess": "None"
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/blobServices/containers"
+      },
+      "before": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default/containers/data",
+        "name": "data",
+        "properties": {
+          "defaultEncryptionScope": "$account-encryption-key",
+          "denyEncryptionScopeOverride": false,
+          "publicAccess": "None"
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/blobServices/containers"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": {
+            "enabled": false
+          },
+          "before": null,
+          "children": null,
+          "path": "properties.immutableStorageWithVersioning",
+          "propertyChangeType": "Create"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/blobServices/default/containers/data",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/fileServices/default",
+        "name": "default",
+        "properties": {
+          "shareDeleteRetentionPolicy": {
+            "days": 7,
+            "enabled": true
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/fileServices"
+      },
+      "before": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/fileServices/default",
+        "name": "default",
+        "properties": {
+          "shareDeleteRetentionPolicy": {
+            "days": 7,
+            "enabled": true
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/fileServices"
+      },
+      "changeType": "NoChange",
+      "delta": [
+        {
+          "after": {
+            "name": "Standard_LRS",
+            "tier": "Standard"
+          },
+          "before": null,
+          "children": null,
+          "path": "sku",
+          "propertyChangeType": "NoEffect"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/fileServices/default",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/queueServices/default",
+        "name": "default",
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/queueServices"
+      },
+      "before": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/queueServices/default",
+        "name": "default",
+        "properties": {
+          "logging": {
+            "delete": false,
+            "read": false,
+            "retentionPolicy": {
+              "enabled": false
+            },
+            "version": "1.0",
+            "write": false
+          }
+        },
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/queueServices"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": null,
+          "before": {
+            "logging": {
+              "delete": false,
+              "read": false,
+              "retentionPolicy": {
+                "enabled": false
+              },
+              "version": "1.0",
+              "write": false
+            }
+          },
+          "children": null,
+          "path": "properties",
+          "propertyChangeType": "Delete"
+        }
+      ],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/queueServices/default",
+      "symbolicName": null,
+      "unsupportedReason": null
+    },
+    {
+      "after": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/tableServices/default",
+        "name": "default",
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/tableServices"
+      },
+      "before": {
+        "apiVersion": "2026-04-01",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/tableServices/default",
+        "name": "default",
+        "resourceGroup": "rg-iacvanilla-stema-v9r4t",
+        "type": "Microsoft.Storage/storageAccounts/tableServices"
+      },
+      "changeType": "NoChange",
+      "delta": [],
+      "deploymentId": null,
+      "identifiers": null,
+      "resourceId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacvanilla-stema-v9r4t/providers/Microsoft.Storage/storageAccounts/stiacvv9r4t/tableServices/default",
+      "symbolicName": null,
+      "unsupportedReason": null
+    }
+  ],
+  "diagnostics": null,
+  "error": null,
+  "potentialChanges": null,
+  "status": "Succeeded"
+}
