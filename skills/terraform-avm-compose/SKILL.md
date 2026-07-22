@@ -85,6 +85,15 @@ Invoke `terraform-avm-validate`. Its hard precondition is **Gates A, B, C, D** (
 grep/file cross-checks; mode audit; **reconciliation-ledger completeness**). Gate commands are tool
 calls run in the same turn as the validate result.
 
+> **Field-proven residual (Round-1 live evidence).** A brownfield AVM adopt does **not** reach an
+> empty plan. Expect **import-only + exactly one unconditional `time_sleep` "add"** (an AVM helper
+> with no `count`/`for_each`, hence no Azure counterpart) plus cosmetic `~change` lines from azapi
+> null-normalization and api-version pin churn. The gate asserts **zero *real* drift**, not an empty
+> plan: every non-import line must map to a `reconciliation.json` `adopt` entry, and there must be
+> **no destroy** and no value-changing update. Import-wiring gotchas proven live: azapi primaries
+> (vnet, storage) take `parent_id` = the RG ID; the subnet submodule uses `count`, so its import
+> address needs the `[0]` index. See `../brownfield-avm-adopt/reference/reconciliation-catalog.md`.
+
 ### Phase 5: Summary & Handoff
 
 ```

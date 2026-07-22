@@ -82,6 +82,15 @@ live config).
    fidelity-gated) vs "posture uplift" (adopt AVM secure-by-default inputs where they differ, each
    diff logged as a deliberate decision in `reconciliation.json`).
 
+> **Set expectations here, not at the gate.** A brownfield AVM adopt is override-heavy and
+> **never reaches a true zero-diff on either language** — Terraform leaves a phantom unconditional
+> `time_sleep` add, Bicep leaves permanent cosmetic `Modify` noise on every AVM-authored resource.
+> The live-proven list of secure defaults that drift (storage `Standard_ZRS` *silently*,
+> `requireInfrastructureEncryption`, blob/container soft-delete, LAW `forceCmkForQuery`, KV
+> RBAC-shape inversion, subnet outbound/PE-policies, network default-deny) and the irreducible
+> residual per lane are catalogued in **`reference/reconciliation-catalog.md`** — read it before
+> promising fidelity.
+
 Record the intake decisions to `<workdir>/.avm/intake.json` (verbatim language/mode quotes) so the
 downstream validate gate can confirm scope selection (Gate C).
 
@@ -206,6 +215,9 @@ language == "terraform" → invoke terraform-avm-compose with the same inputs.
 
 - `reference/examples.md` — ARG type-inventory queries, `az rest` harvest, resolver hand-off,
   and the shape of `coverage.json` / harvest files.
+- `reference/reconciliation-catalog.md` — **Round-1 live-proven** catalog of AVM secure-default
+  drift (with per-language override inputs) + the irreducible residual thesis (neither lane reaches
+  true zero-diff). Consume from the reconciliation passes and to set validate-gate expectations.
 - Sibling `avm-module-resolver` — the type→module engine; owns `coverage.json`.
 - Sibling `bicep-avm-compose` — gated Bicep AVM composition orchestrator.
 - Sibling `terraform-avm-compose` — gated Terraform AVM composition orchestrator.

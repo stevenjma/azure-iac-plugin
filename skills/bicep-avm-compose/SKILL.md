@@ -88,6 +88,18 @@ Invoke `bicep-avm-validate`. Its hard precondition is **Gates A, B, C, D** (chec
 grep/file cross-checks; mode audit; **reconciliation-ledger completeness**). Gate commands are tool
 calls run in the same turn as the validate result — their output is the evidence.
 
+> **Field-proven residual (Round-1 live evidence).** A brownfield AVM adopt does **not** reach
+> all-`NoChange`. Every AVM-authored resource stays **`Modify`** — AVM writes explicit property
+> values the ARM RP omits on GET (effective `forceCmkForQuery`, empty `customDomain` object,
+> `largeFileSharesState: 'Disabled'`, explicit-false blob retention, read-only container
+> encryption-scope fields the RP deletes), so property-level what-if never collapses to `NoChange`
+> for them. **Only pure-ARM resources** (e.g. vnet/subnet) reach `NoChange` — the *inverse* of the
+> Terraform lane's phantom-`add` asymmetry. The gate asserts **no `Create`/`Delete` of a real
+> resource** and that every `Modify` is either a chosen override or a documented AVM-authoring
+> artifact — not empty what-if. Closing the *real* secure-default drift (LAW `forceCmkForQuery`,
+> storage `requireInfrastructureEncryption`, blob + container soft-delete) took **4 explicit param
+> overrides**. See `../brownfield-avm-adopt/reference/reconciliation-catalog.md`.
+
 ### Phase 5: Summary & Handoff
 
 Read every `<pass>.json` and produce:
