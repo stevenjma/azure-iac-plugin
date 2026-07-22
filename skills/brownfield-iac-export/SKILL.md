@@ -173,15 +173,17 @@ Fix engine artifacts that would block downstream validation. **Do not** do full 
      leaving it makes `terraform plan` fail with "Cannot import non-existent remote object".
    Cross-check `import.tf` against **both** `skippedResources` **and** `errors[]` — not just the
    set of emitted `resource` blocks.
-   **Auto-remediation helper** (`reference/strip-orphan-imports.ps1`, live-proven on the export
-   result): parses `properties.errors[]` (TF address is the token after `" as "` in each
-   `ImportError` message) and the declared `resource "<type>" "<name>"` set from
-   `properties.configuration`, then rebuilds `import.tf` dropping every `import{}` block that is
-   either a **failed-import** (address in `errors[]`) or a **skipped-target** (address with no
-   matching `resource{}` block). Dry-run by default; `-WriteChanges` to apply. On the live 9-block
-   export it stripped exactly the 2 unreadable imports (`azurerm_key_vault_secret`,
-   `azurerm_storage_account_queue_properties`) and kept the 7 good ones, so the first
-   `terraform plan` is clean with no manual triage.
+   **Reconciliation procedure** (do this inline against the real export result — portable agent
+   work, no bundled script): build two sets from the export JSON — **(a) failed imports** = the TF
+   address in each `properties.errors[]` `ImportError`, which is the token after `" as "` in the
+   message (live schema quirk: the nested key is literally `message:`, trailing colon); **(b)
+   declared resources** = every `resource "<type>" "<name>"` block emitted into
+   `properties.configuration`. Then walk each `import{}` block in `import.tf` and classify its `to`
+   address: **drop** it if the address is in set (a) *or* absent from set (b); **keep** it
+   otherwise. Re-run `terraform plan` to confirm zero "non-existent remote object" errors. On the
+   live 9-block export this drops exactly the 2 unreadable imports (`azurerm_key_vault_secret`,
+   `azurerm_storage_account_queue_properties`) and keeps the 7 good ones — a clean first plan with
+   no manual triage.
 2. **Strip credentials from the provider block** — remove `client_id`, `client_secret`,
    `tenant_id`, `use_cli`, `use_oidc`, `use_msi`, default `environment`. Keep `features {}`.
    Extract `subscription_id` → `var.subscription_id` (ask; default to detected). Never hardcode.
@@ -269,7 +271,6 @@ Quality target == "quick export"?
 ## References
 
 - `reference/examples.md` — exact `az rest` invocations, LRO polling, decompile, dispatch probe.
-- `reference/strip-orphan-imports.ps1` — orphan-import auto-remediation (failed-import + skipped-target sweep).
 - Sibling `terraform-cleanup` — gated Terraform post-export refinement.
 - Sibling `bicep-cleanup` — gated Bicep post-decompile refinement.
 - Sibling `azure-to-terraform-translation` — Terraform drift/translation rule library (Rule 1.x–9.x).
