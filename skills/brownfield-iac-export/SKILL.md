@@ -98,7 +98,13 @@ unwired — fall back to REST. See `reference/examples.md` for exact invocations
 
 #### Terraform lane — `exportTerraform` (LRO)
 
-`POST https://management.azure.com/subscriptions/{subId}/providers/Microsoft.AzureTerraform/exportTerraform?api-version=2025-09-01-preview`
+`POST https://management.azure.com/subscriptions/{subId}/providers/Microsoft.AzureTerraform/exportTerraform?api-version=2025-06-01-preview`
+
+> **API version:** `Microsoft.AzureTerraform/exportTerraform` currently advertises exactly two
+> versions — `2025-06-01-preview` (use this) and `2023-07-01-preview`. A previously-referenced
+> `2025-09-01-preview` does **not** exist and returns `404 InvalidApiVersionParameter`. Confirm the
+> live set at any time with:
+> `az provider show -n Microsoft.AzureTerraform --query "resourceTypes[?resourceType=='exportTerraform'].apiVersions | [0]"`
 
 Body by scope (`type` discriminator; add `"targetProvider":"azurerm"|"azapi"` from Phase 0.4):
 
@@ -125,6 +131,11 @@ header URL until `status == "Succeeded"`. On success `properties` contains:
 Body: `{ "resources":["*"], "options":"IncludeParameterDefaultValue,SkipResourceNameParameterization" }`
 (`resources` may be specific resource IDs). Response `.template` is the ARM JSON.
 
+> **Can be an LRO.** For a large / workspace-heavy RG, `exportTemplate` may return `202` with a
+> `Location` header instead of an inline body — poll that URL until `200`, then read `.template`
+> from the final response. (A RG containing a Log Analytics workspace routinely trips this — see the
+> LAW export-explosion note in Phase 2.)
+
 1. Write the returned template to `<workdir>/template.json`.
 2. Decompile: `az bicep decompile --file <workdir>/template.json` → `<workdir>/main.bicep`.
 3. Capture decompile warnings (decompilation is best-effort; some ARM constructs don't round-trip
@@ -150,8 +161,18 @@ When the user already has Terraform and only wants to adopt state:
 Fix engine artifacts that would block downstream validation. **Do not** do full cleanup here.
 
 **Terraform** (see `azure-to-terraform-translation` Rule 1.x for the full patterns):
-1. **Orphaned import blocks** — delete any `import { to = <type>.<name> }` whose `<type>.<name>`
-   has no matching `resource` declaration (a resource that appeared only in `skippedResources`).
+1. **Orphaned import blocks** — an `import { to = <type>.<name> }` with no usable target. **Two
+   distinct live-proven causes**, both must be swept:
+   - **Skipped-resource orphan** — `<type>.<name>` has no matching `resource` block (the resource
+     appeared only in `skippedResources`). Delete the import.
+   - **Failed-import orphan** — the resource IS declared, but the export left a per-resource entry
+     in `properties.errors[]` (an `ImportError`), so its `id` is missing/unusable. Root cause seen
+     live: the server-side `Microsoft.AzureTerraform` **service identity** got `401/403` reading
+     certain resources — it is a **distinct principal** from your `az` login, so RBAC it separately
+     or re-export those IDs under user context. Delete or repair the affected import before plan;
+     leaving it makes `terraform plan` fail with "Cannot import non-existent remote object".
+   Cross-check `import.tf` against **both** `skippedResources` **and** `errors[]` — not just the
+   set of emitted `resource` blocks.
 2. **Strip credentials from the provider block** — remove `client_id`, `client_secret`,
    `tenant_id`, `use_cli`, `use_oidc`, `use_msi`, default `environment`. Keep `features {}`.
    Extract `subscription_id` → `var.subscription_id` (ask; default to detected). Never hardcode.
@@ -165,6 +186,17 @@ Fix engine artifacts that would block downstream validation. **Do not** do full 
    here means decompile produced invalid Bicep and must be triaged before cleanup handoff.
 3. **Note hardcoded values** — literal subscription IDs / secrets / resource names that
    `bicep-cleanup` will parameterize (`@secure()` params, `param location`, etc.).
+4. **LAW export-explosion filter (no exclude-param equivalent!)** — a Log Analytics workspace
+   auto-materializes hundreds of `workspaces/tables` + `workspaces/savedSearches` into the template
+   (live: **715 of 726 resources = 98.5% noise** from a single workspace). **Asymmetry with the TF
+   lane:** `exportTerraform` suppresses these at source via `excludeTerraformResource`, but
+   `exportTemplate` has **no exclusion parameter** — you MUST post-export filter
+   `Microsoft.OperationalInsights/workspaces/tables` and `.../savedSearches` out of `template.json`
+   **before** decompile, or the tree is unusable.
+5. **vnet inline-subnet strip (BCP080 cycle)** — decompiled virtual networks model subnets **both**
+   inline (`properties.subnets`) **and** as separate child resources, which `az bicep build` rejects
+   with a **BCP080 self-reference cycle**. Strip the inline `subnets:[…]` from the vnet body (keep
+   the child `Microsoft.Network/virtualNetworks/subnets` resources) before handoff.
 
 ### Phase 3: Hand off to the matching cleanup orchestrator
 

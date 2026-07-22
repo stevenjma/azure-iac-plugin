@@ -28,7 +28,7 @@ Write the body to a temp file (avoids PowerShell quote-escaping pain), then POST
 
 ```powershell
 $subId   = az account show --query id -o tsv
-$apiVer  = "2025-09-01-preview"
+$apiVer  = "2025-06-01-preview"   # valid: 2025-06-01-preview | 2023-07-01-preview  (2025-09-01-preview => 404)
 $bodyPath = Join-Path $env:TEMP "export-tf-body.json"
 
 # Resource group scope (azurerm). Swap the object for other scopes — see table below.

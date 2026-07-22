@@ -78,7 +78,7 @@ Same brownfield fixture shape as PR #2 (raw `azurerm`, deployed then exported): 
 
 ### 5.1 Plugin bug — wrong `exportTerraform` api-version ⛔→✅
 
-The skill (`brownfield-iac-export/SKILL.md`) instructs `api-version=2025-09-01-preview`, which **404s**. The working version is **`2025-06-01-preview`**. This is a hard blocker for the documented tier-3 REST path and should be corrected in the skill.
+The skill originally instructed `api-version=2025-09-01-preview`, which **404s** (`InvalidApiVersionParameter`). The working version is **`2025-06-01-preview`**. **✅ Fixed in Round 1** — the skill now pins `2025-06-01-preview`, calls out the two live-advertised versions (`2025-06-01-preview`, `2023-07-01-preview`), and ships an `az provider show` self-check to confirm the set at any time.
 
 ### 5.2 Export explosion — export-platform-wide (both lanes)
 
@@ -129,10 +129,10 @@ The skill defines a tiered dispatch (MCP → CLI → raw REST). The available AR
 
 ## 7. Recommendations for the plugin
 
-1. **Fix the `exportTerraform` api-version** in `brownfield-iac-export/SKILL.md`: `2025-09-01-preview` → `2025-06-01-preview` (current 404s).
-2. **Ship LAW explosion exclusions as defaults** and document the behaviour for both lanes; a raw full-RG export of anything containing a Log Analytics workspace is otherwise unusable (700+ resources).
+1. ✅ **DONE (Round 1) — `exportTerraform` api-version fixed** in `brownfield-iac-export/SKILL.md`: `2025-09-01-preview` → `2025-06-01-preview`, with a live-version callout + `az provider show` self-check command.
+2. ✅ **DONE (Round 1) — LAW export-explosion documented for both lanes.** TF ships `excludeTerraformResource` defaults; the Bicep lane now carries an explicit post-export `workspaces/tables`+`savedSearches` filter with the **no-exclude-param asymmetry** called out (a raw full-RG export of anything containing a Log Analytics workspace is otherwise 700+ resources / unusable).
 3. **Document the export-SP data-plane gap**: KV secret values and storage queue/keys need a user-context path or explicit manual fill-in; the export can't reach them.
-4. **Add the Bicep vnet/subnet inline-subnet strip** to the decompile guidance (BCP080 cycle otherwise).
+4. ✅ **DONE (Round 1) — Bicep vnet inline-subnet strip** added to Phase 2 decompile guidance (BCP080 self-reference cycle otherwise).
 5. **Have `cleanup-validate` whitelist benign export-default Modifies** (container `immutableStorageWithVersioning`, default sub-service `logging`) so the Bicep gate doesn't flag them as fidelity misses.
 
 ---
