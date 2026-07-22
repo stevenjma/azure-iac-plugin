@@ -15,34 +15,46 @@ Consume this from the reconciliation passes (`terraform-avm-inputs` /
 
 Every row is an AVM default that differs from typical brownfield reality and therefore
 shows up in the fidelity gate unless the harvested oracle value is wired in explicitly.
-"Override input" names are the ones proven on that lane in Round 1; where a lane's exact
-input was not independently verified in this round it is marked *(verify against module
-schema)* rather than guessed — do not fabricate an input name, read the pinned module's
-`variables.tf` / `main.json` `parameters`.
+**All input names below were read directly from the pinned module source** (Round-2
+verification), not guessed — TF from the cached `variables*.tf` of `avm-res-storage-
+storageaccount/azurerm` **0.7.3**, `avm-res-keyvault-vault/azurerm` **0.10.2**,
+`avm-res-operationalinsights-workspace/azurerm` **0.5.1**,
+`avm-res-network-virtualnetwork/azurerm` **0.19.0**; Bicep params proven live in Round 1.
+Where a TF module default already matches brownfield, the row is marked **Bicep-only** — a
+real finding, not an omission.
 
-| Live (brownfield) posture | AVM secure default | Terraform override input | Bicep override param |
-|---|---|---|---|
-| storage `Standard_LRS` | **`Standard_ZRS` — silent!** | `account_replication_type` / `account_sku_name` (PROVEN: defaults ZRS if omitted) | `skuName` |
-| storage infra-encryption off | `requireInfrastructureEncryption = true` | *(verify against module schema)* | `requireInfrastructureEncryption: false` (PROVEN) |
-| storage blob soft-delete off | blob `deleteRetentionPolicy` enabled / 6–7 d | *(verify against module schema)* | `blobServices.deleteRetentionPolicyEnabled: false` (PROVEN) |
-| storage container soft-delete off | `containerDeleteRetentionPolicy` enabled / 7 d | *(verify against module schema)* | `blobServices.containerDeleteRetentionPolicyEnabled: false` (PROVEN) |
-| LAW query-CMK off | `forceCmkForQuery = true` | *(verify against module schema)* | `forceCmkForQuery: false` (PROVEN) |
-| KV access-policy model | AVM **RBAC-authorization** shape, name inverted | `enable_rbac_authorization` = **NOT** `legacy_access_policies_enabled` (PROVEN inversion) | `enableRbacAuthorization` |
-| KV purge-protection off | AVM tends to enable | `enable_purge_protection` *(verify)* | `enablePurgeProtection: false` |
-| subnet outbound on | `defaultOutboundAccess` off | `default_outbound_access_enabled = true` (PROVEN) | `subnets[].defaultOutboundAccess: true` (PROVEN) |
-| subnet PE network policies | `Disabled` vs live `Enabled` | `private_endpoint_network_policies = "Disabled"` (PROVEN) | `subnets[].privateEndpointNetworkPolicies: 'Disabled'` (PROVEN) |
-| network default `Allow` | `networkAcls` default-action `Deny` | `network_rules` / `network_acls` *(verify)* | `networkAcls.defaultAction: 'Allow'` (PROVEN) |
-| public network access | AVM may disable | `public_network_access_enabled` *(verify)* | `publicNetworkAccess: 'Enabled'` |
+| Live (brownfield) posture | AVM secure default | Drifts on | Terraform input (verified name / default) | Bicep param |
+|---|---|---|---|---|
+| storage `Standard_LRS` | **`Standard_ZRS` — silent!** | **both** | `account_sku_name` (preferred; `account_replication_type` **[DEPRECATED]**, default `ZRS`) | `skuName` |
+| storage infra-encryption off | `requireInfrastructureEncryption = true` | **Bicep-only** | `infrastructure_encryption_enabled` — TF default **`false`** (already matches) | `requireInfrastructureEncryption` |
+| storage blob soft-delete off | blob `deleteRetentionPolicy` enabled | **Bicep-only** | `blob_properties.delete_retention_policy` — TF `blob_properties` default **`null`** ⇒ no blob-service managed unless opted in | `blobServices.deleteRetentionPolicyEnabled` |
+| storage container soft-delete off | `containerDeleteRetentionPolicy` enabled | **Bicep-only** | `blob_properties.container_delete_retention_policy` — same (null ⇒ unmanaged) | `blobServices.containerDeleteRetentionPolicyEnabled` |
+| LAW query-CMK off | `forceCmkForQuery = true` | **Bicep-only** | `log_analytics_workspace_cmk_for_query_forced` — TF default **`null`** (not forced) | `forceCmkForQuery` |
+| storage public access on | disabled | **both** | `public_network_access_enabled` — TF default **`false`** (set `true` to match live) | `publicNetworkAccess` |
+| storage/KV net default `Allow` | default-action `Deny` | **both** | `network_rules.default_action` (storage, default **`Deny`**) / `network_acls.default_action` (KV) | `networkAcls.defaultAction` |
+| KV purge-protection off | AVM enables | **both** | `purge_protection_enabled` — TF default **`true`**; **irreversible once on**, must set `false` up front | `enablePurgeProtection` |
+| KV access model | **RBAC-authorization**, name inverted | **both** | `legacy_access_policies_enabled` (no `enable_rbac_authorization` var **exists**; set `true` to reproduce legacy KV) | `enableRbacAuthorization` |
+| subnet outbound on | `defaultOutboundAccess` off | **both** | `default_outbound_access_enabled = true` (PROVEN) | `subnets[].defaultOutboundAccess` |
+| subnet PE network policies | `Disabled` vs live `Enabled` | **both** | `private_endpoint_network_policies = "Disabled"` (PROVEN) | `subnets[].privateEndpointNetworkPolicies` |
+
+**The TF and Bicep AVM modules are not equally opinionated — verified from source.** Three
+"secure defaults" the Bicep AVM modules bake in (infra-encryption, blob/container
+soft-delete, forced query-CMK) are **not** applied by the pinned TF modules — their
+variables default to `false` / `null` / unmanaged. So the secure-default drift *set is
+language-dependent*: on the TF lane those four rows are non-events, on the Bicep lane they
+are proven drifts needing explicit overrides. This is a second cross-lane asymmetry on top
+of the irreducible-residual one in §2.
 
 **Rule:** treat this catalog as a checklist during reconciliation. For "faithful" quality
-target every drift above must be closed with the harvested oracle value; for "posture
-uplift" each *unclosed* drift must be logged as a deliberate `adopt` decision in
-`reconciliation.json` (never left as unexplained plan/what-if churn).
+target every drift marked for the current lane must be closed with the harvested oracle
+value; for "posture uplift" each *unclosed* drift must be logged as a deliberate `adopt`
+decision in `reconciliation.json` (never left as unexplained plan/what-if churn).
 
 **The `Standard_ZRS` trap is the dangerous one:** the Terraform storage module silently
-defaults to zone-redundant replication. Omitting the input does not reproduce a `LRS`
-brownfield account — it plans a resiliency/cost change. Always wire storage SKU verbatim
-from the oracle; never rely on the module default.
+defaults `account_replication_type` to zone-redundant (`ZRS`), honoured whenever
+`account_sku_name` is null. Omitting the SKU does not reproduce a `LRS` brownfield account —
+it plans a resiliency/cost change. Always wire `account_sku_name` verbatim from the oracle
+(e.g. `Standard_LRS`); never rely on the module default.
 
 ## 2. Irreducible residual — neither lane reaches true zero-diff
 
