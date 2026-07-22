@@ -90,6 +90,14 @@ Invoke `bicep-validate`. Its hard precondition is **Gates A, B, C** (a checklist
 sequence of grep/file-existence checks against the working tree). The gate commands are tool
 calls run in the same turn as the validate result — their output is the evidence.
 
+> **The what-if floor never reaches literal zero — and that's expected.** `exportTemplate`→
+> decompile baselines retain an **irreducible cosmetic floor** of `Modify`s (live example: a
+> container `immutableStorageWithVersioning` default; an empty `queueServices` `logging` body)
+> plus `[NoEffect]` deltas that are ARM what-if artifacts, not real changes. Declare
+> "no changes" once only this documented floor remains. Record it verbatim: when this baseline
+> is reused as a **drift oracle**, subtract the floor and ignore `[NoEffect]` before calling any
+> later delta real drift — otherwise cosmetic residue reads as a false positive.
+
 ### Phase 5: Summary & Handoff
 
 Read every `<pass>.json` and produce:

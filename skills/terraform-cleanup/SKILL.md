@@ -103,6 +103,13 @@ The gate commands are tool calls run in the same turn as the validate result —
 their output is the evidence. An agent cannot claim the gate passed without the
 output in the transcript.
 
+> **Baseline doubles as a drift oracle.** When Plan status reaches **zero-diff**
+> ("No changes"), that state is a *true* zero-diff baseline: re-run `terraform plan`
+> against the live estate later and **every** reported change is real out-of-band
+> drift — nothing to subtract. This is TF's fidelity advantage over the Bicep lane
+> (which retains an irreducible cosmetic what-if floor). Record the zero-diff result
+> as the reference floor for future drift reviews.
+
 ### Phase 5: Summary & Handoff
 
 Read every `<pass>.json` and produce:

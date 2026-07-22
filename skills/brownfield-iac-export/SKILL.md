@@ -242,6 +242,33 @@ Quality target == "quick export"?
 - [OR: Quick export complete — raw files delivered]
 ```
 
+### Phase 5: Baseline → drift oracle (post-cleanup capstone)
+
+Once the language-matched cleanup orchestrator converges, the clean baseline is not just a
+one-time exit gate — it is a **reusable drift oracle**. Re-running the *read-only* fidelity
+check (`terraform plan` / `az deployment group what-if`) against the live estate later
+surfaces real out-of-band configuration drift. Live-proven: three injected control-plane
+drifts (storage `minimumTlsVersion`, LAW `retentionInDays`, an added tag) were caught at
+**100% by BOTH lanes**.
+
+**Signal-quality rule — the two lanes are NOT equal:**
+
+- **Terraform** — a fully sanitized export reaches a **true zero-diff** baseline
+  (`plan` = "No changes"). Every line in a later plan is therefore **real drift**; nothing to
+  subtract. Highest-fidelity oracle, but you pay a one-time sanitization tax
+  (`azure-to-terraform-translation` Rule 1.x–9.x) to get there.
+- **Bicep** — `exportTemplate`→decompile leaves an **irreducible cosmetic what-if floor** that
+  never reaches literal zero. Live example: 2 residual `Modify`s (a container
+  `immutableStorageWithVersioning` default; an empty `queueServices` `logging` body) plus
+  `[NoEffect]` deltas that are ARM what-if artifacts, not changes. Before declaring drift,
+  **subtract the documented floor and ignore `[NoEffect]`** — else cosmetic residue reads as a
+  false positive.
+
+**Procedure:** record the converged plan/what-if result verbatim as the **floor**. On each
+later drift review, diff the new result against the floor; the delta (minus `[NoEffect]`) is the
+real drift. Keep the floor small — a large floor means cleanup under-converged and should be
+pushed further, not tolerated.
+
 ## Guardrails
 
 | Rule | Enforcement |
