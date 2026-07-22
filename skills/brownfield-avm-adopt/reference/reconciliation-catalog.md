@@ -105,3 +105,38 @@ Final gate: **2 NoChange / 5 Modify**, zero real drift after 4 secure-default ov
 > not a clean import: AVM's secure defaults systematically drift from brownfield reality,
 > and **neither language lane can reach a true zero-diff** — Terraform leaves a phantom
 > `time_sleep` add, Bicep leaves permanent cosmetic `Modify` noise on every AVM resource.
+
+## 4. Reusing the catalog as a drift filter (Round-3 live evidence)
+
+The residual floor above (§1–2) is not just a validate-gate reference — it is the **subtraction
+key** for recurring drift review. Because an AVM adopt never reaches true zero-diff, real
+out-of-band drift **co-locates with the floor at the same resources**, so you cannot detect it by
+watching counts. Round-3 proof: 3 control-plane drifts (storage `minimumTlsVersion`, LAW
+`retentionInDays`, an added `costcenter` tag) were injected live; **both lanes caught 100%**, but:
+
+- **Bicep — the `Modify` count did NOT move (5 → 5).** All 3 drifts landed inside resources that
+  were *already* permanent `Modify`s (law, storage). Counting is useless here. You must diff the
+  **delta-path set** (`delta[].path` per resource) against this catalog's documented floor paths;
+  the 3 new paths (`minimumTlsVersion`, `retentionInDays`, `tags.costcenter`) are the real drift.
+- **Terraform — mixed surfacing.** LAW `retention` surfaced cleanly as a **newly-changing
+  resource** (`azurerm_log_analytics_workspace.this` was import-only at baseline, now carries a
+  real change), but storage `min_tls` + `costcenter` **folded into** `module.<storage>.azapi_
+  resource.this` — a resource *already* changing for body normalization. So "is this resource
+  newly changing?" catches some drift and **misses folded drift**; you must also diff the
+  attribute/body paths *inside* resources that the floor already lists as changing.
+
+**Inverse asymmetry vs PR#1 (the headline):** PR#1's sanitized TF baseline is *true* zero-diff, so
+its drift review needs **no subtraction**. PR#2 pays a **recurring floor-subtraction tax at every
+drift review** — this catalog is what makes that subtraction possible.
+
+**Drift-review procedure:**
+1. Treat the frozen baseline plan/what-if as the floor (this catalog IS that floor).
+2. Re-run the read-only check (`terraform plan` / `az deployment group what-if`). **Do not compare
+   counts.**
+3. Compute the delta-path set: Bicep = `delta[].path` per resource (drop `[NoEffect]`); TF =
+   changing attributes/body paths per resource, **including inside already-changing `azapi_
+   resource`s**.
+4. Subtract the catalog's documented floor paths. Whatever remains is **real drift** — map it or
+   fix it.
+5. Confirm the floor paths themselves are unchanged (a moved floor path means the module default
+   or api-version pin shifted, not estate drift).

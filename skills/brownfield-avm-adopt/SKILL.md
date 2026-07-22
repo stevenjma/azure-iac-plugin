@@ -215,9 +215,12 @@ language == "terraform" → invoke terraform-avm-compose with the same inputs.
 
 - `reference/examples.md` — ARG type-inventory queries, `az rest` harvest, resolver hand-off,
   and the shape of `coverage.json` / harvest files.
-- `reference/reconciliation-catalog.md` — **Round-1 live-proven** catalog of AVM secure-default
+- `reference/reconciliation-catalog.md` — **live-proven** catalog of AVM secure-default
   drift (with per-language override inputs) + the irreducible residual thesis (neither lane reaches
   true zero-diff). Consume from the reconciliation passes and to set validate-gate expectations.
+  **§4 (Round-3)** promotes the catalog to a recurring **drift filter**: because real drift
+  co-locates with the floor, subtract the documented floor delta-paths to isolate it — do not watch
+  counts (Bicep's `Modify` count stays flat under real drift).
 - Sibling `avm-module-resolver` — the type→module engine; owns `coverage.json`.
 - Sibling `bicep-avm-compose` — gated Bicep AVM composition orchestrator.
 - Sibling `terraform-avm-compose` — gated Terraform AVM composition orchestrator.
