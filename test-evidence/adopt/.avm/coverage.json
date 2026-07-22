@@ -1,0 +1,60 @@
+{
+  "pass": "resolve",
+  "status": "complete",
+  "language": "terraform",
+  "index_source": "https://aka.ms/avm (TerraformResourceModules.csv, curated module-index.md fast-path) + Terraform Registry version resolution @ 2026-07-21",
+  "resolved": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "module": "avm-res-network-virtualnetwork",
+      "status": "Available",
+      "source": "Azure/avm-res-network-virtualnetwork/azurerm",
+      "version": "0.19.0",
+      "version_source": "registry.terraform.io/v1/modules/Azure/avm-res-network-virtualnetwork/azurerm"
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/subnets",
+      "module": "avm-res-network-virtualnetwork (via subnets input)",
+      "status": "Available",
+      "resolution": "child-of-parent"
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "module": "avm-res-storage-storageaccount",
+      "status": "Available",
+      "source": "Azure/avm-res-storage-storageaccount/azurerm",
+      "version": "0.7.3",
+      "version_source": "registry.terraform.io/v1/modules/Azure/avm-res-storage-storageaccount/azurerm"
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+      "module": "avm-res-storage-storageaccount (via containers input)",
+      "status": "Available",
+      "resolution": "child-of-parent"
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults",
+      "module": "avm-res-keyvault-vault",
+      "status": "Available",
+      "source": "Azure/avm-res-keyvault-vault/azurerm",
+      "version": "0.10.2",
+      "version_source": "registry.terraform.io/v1/modules/Azure/avm-res-keyvault-vault/azurerm"
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "module": "avm-res-keyvault-vault (via secrets input)",
+      "status": "Available",
+      "resolution": "child-of-parent"
+    },
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "module": "avm-res-operationalinsights-workspace",
+      "status": "Available",
+      "source": "Azure/avm-res-operationalinsights-workspace/azurerm",
+      "version": "0.5.1",
+      "version_source": "registry.terraform.io/v1/modules/Azure/avm-res-operationalinsights-workspace/azurerm"
+    }
+  ],
+  "gaps": [],
+  "coverage": { "types_total": 4, "types_modularized": 4, "types_fallback": 0, "percent": 100.0 }
+}

@@ -1,0 +1,23 @@
+{
+  "phase": "0-intake",
+  "status": "complete",
+  "language": "terraform",
+  "provider": "azurerm",
+  "mode": "full",
+  "quality_target": "faithful",
+  "scope": {
+    "kind": "resource_group",
+    "resource_group": "rg-avmtest-stema-20260721",
+    "location": "eastus2"
+  },
+  "target": {
+    "subscription_id": "e4b62b3b-7634-4972-8bbe-5d7197159f26",
+    "tenant_id": "4f00b3b6-2940-4f2c-b037-94637c180d30"
+  },
+  "auth_check": {
+    "az_account_show": "Terraform (e4b62b3b-7634-4972-8bbe-5d7197159f26)",
+    "user": "stema@microsoft.com",
+    "verified": true
+  },
+  "notes": "Live end-to-end test of azure-avm-plugin against a brownfield fixture in the BAMI tenant. Faithful adoption; import-only plan is the fidelity bar."
+}

@@ -1,0 +1,104 @@
+{
+  "pass": "4-validate",
+  "status": "complete",
+  "gates": {
+    "A_checklist_complete": {
+      "status": "pass",
+      "detail": "All Phase 3 passes recorded in checklist.json (map/inputs complete, organize skipped-with-reason, secrets complete)."
+    },
+    "B_static_checks": {
+      "status": "pass",
+      "checks": {
+        "avm_source_pins": { "expected": 4, "found": 4, "status": "pass" },
+        "version_pins_no_floating": { "found": ["0.19.0", "0.7.3", "0.10.2", "0.5.1"], "status": "pass" },
+        "import_blocks_present": { "expected": 8, "found": 8, "status": "pass" },
+        "no_literal_resource_ids_outside_imports": {
+          "status": "pass",
+          "detail": "Only /subscriptions/ literal is locals.resource_group_id, a constructed RG id required as azapi parent_id. No hardcoded full resource addresses in module config."
+        },
+        "sensitive_vars_declared": { "count": 1, "vars": ["kv_secret_demo_value"], "status": "pass" },
+        "fmt_check": { "status": "pass", "exit": 0 },
+        "validate": { "status": "pass", "message": "Success! The configuration is valid." }
+      }
+    },
+    "C_mode_quote": { "status": "n/a", "detail": "mode=full; no mode-quote gate applicable." },
+    "D_reconciliation_complete": {
+      "status": "pass",
+      "detail": "reconciliation.json enumerates all live-vs-default divergences; every entry decision=pin (faithful, chosen==live)."
+    }
+  },
+  "init": "pass",
+  "plan_loop": [
+    {
+      "iteration": 1,
+      "result": "8 to import, 1 to add, 6 to change, 0 to destroy",
+      "action": "Identified 2 genuine composition issues: KV tags omitted (tags -> null), storage isLocalUserEnabled true -> false (secure-default divergence)."
+    },
+    {
+      "iteration": 2,
+      "result": "8 to import, 1 to add, 5 to change, 0 to destroy",
+      "action": "Applied faithful fixes: added tags = local.tags to keyvault module; added local_user_enabled = true to storage module. Both target diffs confirmed gone. Remaining add/change are irreducible import residuals (analyzed below)."
+    }
+  ],
+  "final_plan": {
+    "import": 8,
+    "add": 1,
+    "change": 5,
+    "destroy": 0,
+    "replace": 0,
+    "hard_gates": {
+      "destroy_zero": true,
+      "replace_zero": true,
+      "all_imports_matched": true
+    },
+    "import_only_no_op": false,
+    "verdict": "faithful-adopt-pass-with-documented-residuals"
+  },
+  "residuals": {
+    "add_1": {
+      "resource": "module.law.time_sleep.wait_for_ampls_update",
+      "category": "module-internal-orchestration-helper",
+      "reducible": false,
+      "azure_infrastructure": false,
+      "explanation": "opinsights module 0.5.1 declares this hashicorp/time time_sleep resource unconditionally (main.privatelinkscope.tf:97, no count/for_each). It waits 30s and creates zero Azure infrastructure. A pure adopt of a Log Analytics workspace cannot reach a literal add=0 with this module version without forking the module (out of scope). Not a fidelity failure."
+    },
+    "change_5": [
+      {
+        "resource": "module.keyvault.azurerm_key_vault_access_policy.this[\"guest\"]",
+        "category": "set-typed-variable-reorder",
+        "reducible": false,
+        "azure_semantic_change": false,
+        "explanation": "Module types secret_permissions as set(string) (variables.tf:191), so any input order collapses to Terraform's sorted set [Delete,Get,List,Purge,Recover,Set]. The imported live resource retains creation order [Get,List,Set,Delete,Purge,Recover]. Azure treats KV permissions as a set; apply is a no-op reorder. Irreducible via config."
+      },
+      {
+        "resource": "module.storage.azapi_resource.this",
+        "category": "azapi-import-residual",
+        "reducible": false,
+        "azure_semantic_change": false,
+        "explanation": "api-version metadata drift (@2026-04-01 -> @2025-06-01, module pin), computed output -> (known after apply) refresh, ignore_null_property false -> true convergence, and azapi provider-meta additions (response_export_values, retry, timeouts, locks). No Azure mutation."
+      },
+      {
+        "resource": "module.storage.module.containers[\"data\"].azapi_resource.this",
+        "category": "azapi-import-residual",
+        "reducible": false,
+        "azure_semantic_change": false,
+        "explanation": "api-version drift (@2026-04-01 -> @2025-06-01), computed output refresh, provider-meta. No Azure mutation."
+      },
+      {
+        "resource": "module.vnet.azapi_resource.vnet",
+        "category": "azapi-import-residual",
+        "reducible": false,
+        "azure_semantic_change": false,
+        "explanation": "api-version drift (@2025-07-01 -> @2024-07-01), computed output refresh, unmanaged optional body props -> null (dhcpOptions, and subnets removed from the vnet body because the subnet is a separately-imported resource), provider-meta. Setting absent optional props to null is an Azure no-op."
+      },
+      {
+        "resource": "module.vnet.module.subnet[\"snet-app\"].azapi_resource.subnet[0]",
+        "category": "azapi-import-residual",
+        "reducible": false,
+        "azure_semantic_change": false,
+        "explanation": "api-version drift (@2025-07-01 -> @2024-07-01), computed output refresh, unmanaged optional body props -> null, provider-meta. No Azure mutation."
+      }
+    ]
+  },
+  "fidelity_conclusion": "PASS. All 8 resources import with matching addresses/IDs. Zero destroy, zero replace. The single add is a non-infrastructure module-internal timing helper; the five in-place changes are one cosmetic set-reorder plus four well-understood azapi import residuals (api-version metadata drift + computed output refresh + provider-meta + ignore_null_property convergence). None mutate live Azure state semantically. The two genuine composition issues surfaced by the first plan (KV tags, storage local-user secure default) were fixed via faithful pins and verified resolved."
+}

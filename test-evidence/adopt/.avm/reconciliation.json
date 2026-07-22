@@ -1,0 +1,136 @@
+{
+  "quality_target": "faithful",
+  "rule": "faithful => chosen == live (pin); never accept a module default that diverges from the live resource",
+  "entries": [
+    {
+      "module": "storage",
+      "variable": "local_user_enabled",
+      "live": true,
+      "avm_default": false,
+      "chosen": true,
+      "decision": "pin",
+      "reason": "Module maps this to isLocalUserEnabled and defaults to false (secure default). Live account has SFTP local users enabled. Faithful adoption pins live value. Without this pin the plan showed isLocalUserEnabled: true -> false (in-place).",
+      "rule": "secure-default-divergence"
+    },
+    {
+      "module": "storage",
+      "variable": "shared_access_key_enabled",
+      "live": true,
+      "avm_default": false,
+      "chosen": true,
+      "decision": "pin",
+      "reason": "Module default disables shared keys; live account allows them.",
+      "rule": "secure-default-divergence"
+    },
+    {
+      "module": "storage",
+      "variable": "public_network_access_enabled",
+      "live": true,
+      "avm_default": false,
+      "chosen": true,
+      "decision": "pin",
+      "reason": "Module default is private; live account allows public network access.",
+      "rule": "secure-default-divergence"
+    },
+    {
+      "module": "storage",
+      "variable": "network_rules.default_action",
+      "live": "Allow",
+      "avm_default": "Deny",
+      "chosen": "Allow",
+      "decision": "pin",
+      "reason": "Module default network action is Deny; live firewall default is Allow.",
+      "rule": "secure-default-divergence"
+    },
+    {
+      "module": "keyvault",
+      "variable": "legacy_access_policies_enabled",
+      "live": true,
+      "avm_default": false,
+      "chosen": true,
+      "decision": "pin",
+      "reason": "Live vault uses classic access policies, not RBAC authorization (module default). Faithful adoption preserves the access-policy model.",
+      "rule": "authorization-model"
+    },
+    {
+      "module": "keyvault",
+      "variable": "purge_protection_enabled",
+      "live": false,
+      "avm_default": true,
+      "chosen": false,
+      "decision": "pin",
+      "reason": "Module default enables purge protection (irreversible); live vault has it disabled.",
+      "rule": "secure-default-divergence"
+    },
+    {
+      "module": "keyvault",
+      "variable": "soft_delete_retention_days",
+      "live": 7,
+      "avm_default": 90,
+      "chosen": 7,
+      "decision": "pin",
+      "reason": "Live vault retention is 7 days; module default is 90.",
+      "rule": "value-divergence"
+    },
+    {
+      "module": "keyvault",
+      "variable": "network_acls",
+      "live": null,
+      "avm_default": "{ default_action = Deny }",
+      "chosen": null,
+      "decision": "pin",
+      "reason": "Live vault has no network ACLs (open). Module default applies a Deny ACL. Set to null to match live.",
+      "rule": "secure-default-divergence"
+    },
+    {
+      "module": "keyvault",
+      "variable": "tags",
+      "live": { "environment": "avmtest", "owner": "stema", "purpose": "avm-adopt-livetest" },
+      "avm_default": {},
+      "chosen": { "environment": "avmtest", "owner": "stema", "purpose": "avm-adopt-livetest" },
+      "decision": "pin",
+      "reason": "Initial compose omitted tags on the keyvault module block, producing tags -> null in plan. Fixed by wiring tags = local.tags. All four modules now carry live tags.",
+      "rule": "composition-fix"
+    },
+    {
+      "module": "law",
+      "variable": "log_analytics_workspace_internet_ingestion_enabled",
+      "live": true,
+      "avm_default": true,
+      "chosen": true,
+      "decision": "pin",
+      "reason": "Explicitly pinned to live value for clarity.",
+      "rule": "value-parity"
+    },
+    {
+      "module": "law",
+      "variable": "log_analytics_workspace_internet_query_enabled",
+      "live": true,
+      "avm_default": true,
+      "chosen": true,
+      "decision": "pin",
+      "reason": "Explicitly pinned to live value for clarity.",
+      "rule": "value-parity"
+    },
+    {
+      "module": "vnet",
+      "variable": "subnets.snet-app.default_outbound_access_enabled",
+      "live": true,
+      "avm_default": true,
+      "chosen": true,
+      "decision": "pin",
+      "reason": "Live subnet allows default outbound access; pinned for parity.",
+      "rule": "value-parity"
+    },
+    {
+      "module": "vnet",
+      "variable": "subnets.snet-app.private_endpoint_network_policies",
+      "live": "Disabled",
+      "avm_default": "Enabled",
+      "chosen": "Disabled",
+      "decision": "pin",
+      "reason": "Live subnet has PE network policies Disabled; module default is Enabled.",
+      "rule": "value-divergence"
+    }
+  ]
+}

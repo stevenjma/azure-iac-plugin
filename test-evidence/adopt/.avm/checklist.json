@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "mode": "full",
+  "language": "terraform",
+  "provider": "azurerm",
+  "quality_target": "faithful",
+  "target": {
+    "subscription_id": "e4b62b3b-7634-4972-8bbe-5d7197159f26",
+    "tenant_id": "4f00b3b6-2940-4f2c-b037-94637c180d30",
+    "resource_group": "rg-avmtest-stema-20260721",
+    "location": "eastus2"
+  },
+  "passes": [
+    { "id": "3.1-map",         "status": "complete", "artifact": ".avm/map.json" },
+    { "id": "3.2-inputs",      "status": "complete", "artifact": ".avm/inputs.json" },
+    { "id": "3.3-organize",    "status": "skipped",  "artifact": ".avm/organize.json" },
+    { "id": "3.4-secrets",     "status": "complete", "artifact": ".avm/secrets.json" },
+    { "id": "4-validate",      "status": "complete", "artifact": ".avm/validate.json" }
+  ]
+}
