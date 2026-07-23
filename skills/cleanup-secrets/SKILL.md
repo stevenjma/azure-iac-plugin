@@ -1,10 +1,9 @@
 ---
 name: cleanup-secrets
 description: >
-  Terraform terraform-cleanup Pass 3.5 — handle secrets and write-only fields. Generates a
-  secrets.auto.tfvars.example template, wires ephemeral (TF >= 1.10) or sensitive
-  variables, and surfaces a mandatory user warning. Invoked by terraform-cleanup
-  orchestrator; can run standalone.
+  Use this skill only during terraform-cleanup Pass 3.5, or when the user explicitly asks to secure
+  Terraform inputs. Replace secret and write-only placeholders with ephemeral or sensitive
+  variables, generate a safe example values file, and surface required manual inputs.
 license: MIT
 ---
 
@@ -41,7 +40,7 @@ terraform version >= 1.10 AND azurerm >= 4.x
 6. Wire the variable into every resource where the secret was a placeholder.
 7. For Terraform < 1.10: add `lifecycle { ignore_changes = [<field>] }` to each
    resource that uses a sensitive write-only attribute.
-8. Surface the mandatory warning table (see `reference/secrets-warning.md`).
+8. Load `references/secrets-warning.md` and surface its mandatory warning table.
 
 ## Acceptance Criteria (mandatory)
 

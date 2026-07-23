@@ -1,4 +1,4 @@
-# terraform-cleanup — Constraint Map Schema
+# Terraform cleanup constraint map schema
 
 Phase 2 (doc enrichment) produces a constraint map per resource type. The sub-skills
 read this map; the orchestrator builds it.

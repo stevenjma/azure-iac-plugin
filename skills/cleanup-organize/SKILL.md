@@ -1,10 +1,9 @@
 ---
 name: cleanup-organize
 description: >
-  Terraform terraform-cleanup Pass 3.4 — split a flat main.tf into per-domain files (networking.tf,
-  storage.tf, compute.tf, monitoring.tf, etc.) and rename generic `res-N` addresses to
-  semantic names. Emits moved {} blocks for every rename. Invoked by the
-  terraform-cleanup orchestrator; can run standalone.
+  Use this skill only during terraform-cleanup Pass 3.4, or when the user explicitly asks to
+  organize exported Terraform. Split flat HCL by domain, replace generated resource labels with
+  semantic names, and preserve every renamed state address with a moved block.
 license: MIT
 ---
 

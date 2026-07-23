@@ -1,10 +1,9 @@
 ---
 name: azure-to-bicep-translation
 description: >
-  Fix semantic mismatches between what `az bicep decompile` emits from an exported ARM template and
-  what a clean `what-if` against the live resource group expects. Lean rule library (Rules B1–B5)
-  covering default materialization, readOnly copy-through, ID/case format, enum shorthand, and
-  apiVersion drift. Use when `az bicep build` fails or what-if shows unexpected Modify after export.
+  Use this skill when exported or decompiled Bicep fails to build or produces unexpected ARM what-if
+  changes. Diagnose and correct Azure export/decompile mismatches involving defaults, read-only
+  properties, resource IDs, enum syntax, casing, and API-version drift.
 license: MIT
 metadata:
   version: "1.0"

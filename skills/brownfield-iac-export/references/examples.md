@@ -1,4 +1,4 @@
-# brownfield-iac-export — concrete invocations
+# Brownfield export command examples
 
 Exact, works-today commands for the **direct ARM REST** dispatch tier (tier 3). All use `az rest`,
 which attaches the caller's AAD bearer token automatically. Windows PowerShell syntax.

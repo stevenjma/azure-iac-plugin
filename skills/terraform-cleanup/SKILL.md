@@ -1,12 +1,9 @@
 ---
 name: terraform-cleanup
 description: >
-  Refine raw or exported Terraform code into production-quality HCL. Thin orchestrator
-  that invokes a sequence of sub-skills (cleanup-references, cleanup-variables,
-  cleanup-prune, cleanup-consolidate, cleanup-organize, cleanup-secrets, cleanup-validate)
-  and gates the final validate→plan loop on an on-disk checklist. Use when asked to
-  "clean up Terraform", "refine Terraform code", "fix my terraform", or "validate and
-  fix" Terraform code.
+  Use this skill when the user asks to clean up, refine, fix, or validate raw, imported, or
+  Azure-exported Terraform. Orchestrates references, variables, pruning, consolidation,
+  organization, secret handling, validation, and live plan through an evidence-gated pipeline.
 license: MIT
 compatibility: >
   Requires terraform >= 1.5. A provider-schema doc source (Terraform Registry /
@@ -28,7 +25,7 @@ would silently skip passes once `terraform plan` happened to look clean.
 
 - User has existing Terraform code that "works but is ugly".
 - User ran `terraform import` or aztfexport themselves and wants terraform-cleanup.
-- The `brownfield-terraform-export` skill is handing off raw exported code.
+- The `brownfield-iac-export` skill is handing off raw exported code.
 
 > Validate-only (run `terraform validate`/`plan` against existing code without
 > refinement) is **not** an orchestrator entry point. Route those requests
@@ -70,7 +67,8 @@ would silently skip passes once `terraform plan` happened to look clean.
 
 If a provider-schema doc source is available (Terraform Registry / `terraform providers
 schema -json`, or ARM MCP resource-type schema tools), fetch provider docs for every
-resource type in scope and build the constraint map (see `reference/constraint-map.md`).
+resource type in scope and build the constraint map. Load `references/constraint-map.md` only when
+creating or consuming that artifact.
 Save to `<workdir>/.cleanup/constraint-map.json`.
 
 If no doc source is available, ask the user:
@@ -185,7 +183,7 @@ Do not claim "complete" unless every required entry in `checklist.json` has
 
 ## References
 
-- `reference/patterns.md` — patterns from live brownfield conversions.
-- `reference/constraint-map.md` — schema for the Phase 2 constraint map.
-- `reference/secrets-warning.md` — mandatory user warning template.
+- `references/patterns.md` — load only when a live conversion matches a documented edge case.
+- `references/constraint-map.md` — load only when creating or consuming the Phase 2 constraint map.
+- The `cleanup-secrets` skill owns and loads its mandatory warning template.
 - Sibling skill `azure-to-terraform-translation` — drift fix rules (Rule 1.x – 9.x).

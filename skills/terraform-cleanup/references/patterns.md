@@ -1,4 +1,4 @@
-# terraform-cleanup — Reference Patterns
+# Terraform cleanup reference patterns
 
 Patterns captured from live brownfield conversions. The orchestrator and sub-skills cite
 this file; it is not loaded by default.

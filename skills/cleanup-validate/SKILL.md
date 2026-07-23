@@ -1,9 +1,9 @@
 ---
 name: cleanup-validate
 description: >
-  Terraform terraform-cleanup Phase 4 — run terraform validate and plan in a loop until zero-diff
-  (or only intentional drift) is reached. Hard-gated on the terraform-cleanup checklist; refuses
-  to run if upstream passes did not produce their artifacts. Max 10 plan iterations.
+  Use this skill when the user asks to validate or dry-run imported Terraform against live Azure,
+  or as the final terraform-cleanup gate. Run validate and read-only plan until zero drift or only
+  documented intentional drift remains; require cleanup evidence when invoked by the orchestrator.
 license: MIT
 ---
 

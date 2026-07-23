@@ -102,6 +102,27 @@ The skills and MCP config are portable. To use them elsewhere:
 `.github/copilot-instructions.md` is the Copilot-CLI-flavored system prompt; other clients can use
 it as-is as a reference for identity, routing, and prerequisites.
 
+## Agent Skills conformance
+
+The skill layout follows the official [Agent Skills specification](https://github.com/agentskills/agentskills/blob/main/docs/specification.mdx)
+and [authoring guidance](https://github.com/agentskills/agentskills/blob/main/docs/skill-creation/best-practices.mdx):
+
+- Discovery descriptions start with user intent so clients can route without loading skill bodies.
+- Every `SKILL.md` stays below 500 lines; detailed rule libraries and command examples live under
+  `references/` and are loaded only for a matching diagnostic or execution step.
+- Internal cleanup passes identify their orchestrator phase in the description to avoid accidental
+  activation for broad cleanup requests.
+- Skill names use lowercase hyphenated identifiers and match their directory names.
+
+Use the official [`skills-ref`](https://github.com/agentskills/agentskills/tree/main/skills-ref)
+validator after changing skill metadata:
+
+```powershell
+Get-ChildItem .\skills -Directory | ForEach-Object {
+  skills-ref validate $_.FullName
+}
+```
+
 ## Skill map
 
 | Skill | Role |

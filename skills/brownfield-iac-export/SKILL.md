@@ -1,11 +1,10 @@
 ---
 name: brownfield-iac-export
 description: >
-  Export existing Azure infrastructure into Bicep OR Terraform code using the Azure
-  control-plane export APIs (exportTemplate for Bicep, Microsoft.AzureTerraform/exportTerraform
-  for Terraform), then hand off to the matching gated cleanup pipeline. Use when asked to
-  "export", "brownfield", "adopt", "import from Azure", "reverse-engineer", "generate IaC for",
-  or "exportTemplate"/"exportTerraform" Azure resources.
+  Use this skill when the user asks to export, adopt, import, reverse-engineer, or generate Bicep or
+  Terraform from existing Azure resources. Select scope, language, and Terraform provider; run the
+  Azure control-plane export API; then route platform-ready output through the matching cleanup
+  pipeline.
 license: MIT
 compatibility: >
   Requires az login authenticated. Terraform lane: terraform >= 1.5 for downstream lint/validate.
@@ -94,7 +93,8 @@ Resolve in this **preference order** (first available wins):
    caller's bearer token. This is a faithful stand-in for a remote MCP (a governed ARM-REST proxy).
 
 Probe (1) and (2); if neither is available, use (3). Never fail the run solely because the MCP is
-unwired — fall back to REST. See `reference/examples.md` for exact invocations.
+unwired — fall back to REST. Load `references/examples.md` only when exact REST requests or LRO
+polling commands are needed.
 
 #### Terraform lane — `exportTerraform` (LRO)
 
@@ -297,7 +297,8 @@ pushed further, not tolerated.
 
 ## References
 
-- `reference/examples.md` — exact `az rest` invocations, LRO polling, decompile, dispatch probe.
+- `references/examples.md` — load only for exact `az rest` invocations, LRO polling, decompile,
+  or dispatch probing.
 - Sibling `terraform-cleanup` — gated Terraform post-export refinement.
 - Sibling `bicep-cleanup` — gated Bicep post-decompile refinement.
 - Sibling `azure-to-terraform-translation` — Terraform drift/translation rule library (Rule 1.x–9.x).

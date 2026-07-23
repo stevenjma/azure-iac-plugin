@@ -1,4 +1,4 @@
-# terraform-cleanup — Mandatory Secrets Warning Template
+# Terraform cleanup mandatory secrets warning template
 
 After `cleanup-secrets` runs, surface this table verbatim to the user before any
 `terraform plan` runs. Replace placeholders with detected values.
