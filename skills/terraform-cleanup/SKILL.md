@@ -1,9 +1,10 @@
 ---
 name: terraform-cleanup
 description: >
-  Use this skill when the user asks to clean up, refine, fix, or validate raw, imported, or
+  Use this skill when the user asks to clean up, refine, fix, or validate and fix raw, imported, or
   Azure-exported Terraform. Orchestrates references, variables, pruning, consolidation,
   organization, secret handling, validation, and live plan through an evidence-gated pipeline.
+  Route validate-only requests to cleanup-validate instead.
 license: MIT
 compatibility: >
   Requires terraform >= 1.5. A provider-schema doc source (Terraform Registry /

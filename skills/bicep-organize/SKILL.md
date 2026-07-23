@@ -1,9 +1,9 @@
 ---
 name: bicep-organize
 description: >
-  Use this skill only during bicep-cleanup Phase 3.3, or when the user explicitly asks to modularize
-  Bicep. Reorganize a flat template into coherent modules, conventional declaration order, and
-  correctly wired module inputs and outputs without changing deployment intent.
+  Use this skill during bicep-cleanup Phase 3.3 to reorganize a flat template into coherent modules,
+  conventional declaration order, and correctly wired module inputs and outputs without changing
+  deployment intent. May skip with a reason when a single module is the maintainable design.
 license: MIT
 ---
 

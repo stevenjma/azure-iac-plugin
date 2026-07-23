@@ -1,9 +1,9 @@
 ---
 name: cleanup-variables
 description: >
-  Use this skill only during terraform-cleanup Pass 3.2, or when the user explicitly asks to
-  parameterize exported Terraform. Extract repeated locations, names, tags, SKUs, and scope values
-  into typed, documented variables without hardcoding subscription IDs.
+  Use this skill during terraform-cleanup Pass 3.2, or standalone when the user asks to parameterize
+  exported Terraform. Extract repeated locations, names, tags, SKUs, and scope values into typed,
+  documented variables without hardcoding subscription IDs.
 license: MIT
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: cleanup-references
 description: >
-  Use this skill only during terraform-cleanup Pass 3.1, or when the user explicitly asks to replace
+  Use this skill during terraform-cleanup Pass 3.1, or standalone when the user asks to replace
   literal Azure IDs and names in Terraform. Inject typed cross-resource references wherever the
   referenced resource is managed in the same configuration.
 license: MIT

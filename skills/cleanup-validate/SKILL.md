@@ -2,8 +2,9 @@
 name: cleanup-validate
 description: >
   Use this skill when the user asks to validate or dry-run imported Terraform against live Azure,
-  or as the final terraform-cleanup gate. Run validate and read-only plan until zero drift or only
-  documented intentional drift remains; require cleanup evidence when invoked by the orchestrator.
+  or as the final terraform-cleanup gate. Run validate and read-only plan for at most 10 iterations
+  until zero drift or only documented intentional drift remains. Always require the checklist and
+  upstream evidence artifacts, including for validate-only use.
 license: MIT
 ---
 

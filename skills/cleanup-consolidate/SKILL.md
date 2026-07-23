@@ -1,9 +1,9 @@
 ---
 name: cleanup-consolidate
 description: >
-  Use this skill only during terraform-cleanup Pass 3.3.5, or when the user explicitly asks to
-  consolidate repeated Terraform resources. Replace safe groups of near-identical blocks with
-  for_each or count and preserve state addresses with moved blocks.
+  Use this skill during terraform-cleanup Pass 3.3.5 to consolidate repeated Terraform resources.
+  Replace safe groups of near-identical blocks with for_each or count and preserve state addresses
+  with moved blocks.
 license: MIT
 ---
 

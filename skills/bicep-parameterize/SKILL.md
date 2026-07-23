@@ -1,9 +1,9 @@
 ---
 name: bicep-parameterize
 description: >
-  Use this skill only during bicep-cleanup Phase 3.1, or when the user explicitly asks to
-  parameterize Bicep. Replace reusable hardcoded values, resource names, locations, tags, and scope
-  identifiers with typed parameters and variables while preserving the exported configuration.
+  Use this skill during bicep-cleanup Phase 3.1 to extract hardcoded values into typed, described
+  parameters and variables. Add the mandatory location, resource naming, and tags parameters, and
+  remove literal subscription IDs and resource names while preserving the exported configuration.
 license: MIT
 ---
 

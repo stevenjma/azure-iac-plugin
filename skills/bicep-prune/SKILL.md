@@ -1,9 +1,9 @@
 ---
 name: bicep-prune
 description: >
-  Use this skill only during bicep-cleanup Phase 3.2, or when the user explicitly asks to remove
-  decompile artifacts. Prune read-only properties, redundant dependencies, stale API versions, and
-  unused generated parameters or variables without changing live Azure intent.
+  Use this skill during bicep-cleanup Phase 3.2 to remove decompile artifacts. Prune read-only
+  properties, redundant dependencies, stale API versions, and unused generated parameters or
+  variables without changing live Azure intent.
 license: MIT
 ---
 

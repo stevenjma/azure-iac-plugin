@@ -1,7 +1,7 @@
 ---
 name: cleanup-secrets
 description: >
-  Use this skill only during terraform-cleanup Pass 3.5, or when the user explicitly asks to secure
+  Use this skill during terraform-cleanup Pass 3.5, or standalone when the user asks to secure
   Terraform inputs. Replace secret and write-only placeholders with ephemeral or sensitive
   variables, generate a safe example values file, and surface required manual inputs.
 license: MIT

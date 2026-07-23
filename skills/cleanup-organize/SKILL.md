@@ -1,9 +1,9 @@
 ---
 name: cleanup-organize
 description: >
-  Use this skill only during terraform-cleanup Pass 3.4, or when the user explicitly asks to
-  organize exported Terraform. Split flat HCL by domain, replace generated resource labels with
-  semantic names, and preserve every renamed state address with a moved block.
+  Use this skill during terraform-cleanup Pass 3.4, or standalone when the user asks to organize
+  Terraform. Split flat HCL by domain, replace generated resource labels with semantic names, and
+  preserve every renamed state address with a moved block.
 license: MIT
 ---
 

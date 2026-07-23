@@ -2,8 +2,9 @@
 name: bicep-validate
 description: >
   Use this skill when the user asks to validate or dry-run Bicep against live Azure, or as the final
-  bicep-cleanup gate. Build and lint the template, then run ARM what-if until only documented,
-  intentional differences remain; require cleanup evidence when invoked by the orchestrator.
+  bicep-cleanup gate. Build and lint the template, then run ARM what-if for at most 10 iterations
+  until only documented, intentional differences remain. Always require the checklist and upstream
+  evidence artifacts, including for validate-only use.
 license: MIT
 ---
 

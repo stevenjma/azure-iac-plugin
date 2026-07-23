@@ -1,9 +1,10 @@
 ---
 name: bicep-cleanup
 description: >
-  Use this skill when the user asks to clean up, refine, fix, or validate raw, exported, or
+  Use this skill when the user asks to clean up, refine, fix, or validate and fix raw, exported, or
   decompiled Bicep. Orchestrates parameterization, pruning, organization, secret handling,
-  build/lint, and live what-if through an evidence-gated pipeline.
+  build/lint, and live what-if through an evidence-gated pipeline. Route validate-only requests to
+  bicep-validate instead.
 license: MIT
 compatibility: >
   Requires the bicep CLI (`az bicep`). A resource-type schema source (ARM MCP resource-type

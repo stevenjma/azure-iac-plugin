@@ -1,9 +1,9 @@
 ---
 name: bicep-secrets
 description: >
-  Use this skill only during bicep-cleanup Phase 3.4, or when the user explicitly asks to secure
-  Bicep inputs. Remove literal secrets, mark secret parameters secure, and wire Key Vault references
-  or deploy-time inputs without writing secret values to disk.
+  Use this skill during bicep-cleanup Phase 3.4 to secure Bicep inputs. Remove literal secrets, mark
+  secret parameters @secure(), and wire Key Vault references or deploy-time inputs. Never write a
+  real secret to disk.
 license: MIT
 ---
 
