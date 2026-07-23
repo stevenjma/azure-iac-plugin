@@ -1,9 +1,9 @@
 ---
 name: cleanup-consolidate
 description: >
-  Use this skill during terraform-cleanup Pass 3.3.5 to consolidate repeated Terraform resources.
-  Replace safe groups of near-identical blocks with for_each or count and preserve state addresses
-  with moved blocks.
+  Terraform terraform-cleanup Pass 3.3.5 — collapse repeated resource blocks into a single resource
+  with for_each / count. The biggest LOC reduction on aztfexport output (e.g. 39 saved
+  searches → 1 keyed resource). Emits moved {} blocks for safe state migration.
 license: MIT
 ---
 

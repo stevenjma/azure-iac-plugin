@@ -1,10 +1,10 @@
 ---
 name: bicep-validate
 description: >
-  Use this skill when the user asks to validate or dry-run Bicep against live Azure, or as the final
-  bicep-cleanup gate. Build and lint the template, then run ARM what-if for at most 10 iterations
-  until only documented, intentional differences remain. Always require the checklist and upstream
-  evidence artifacts, including for validate-only use.
+  Bicep-cleanup Phase 4 — run `az bicep build`/lint (syntax gate) then ARM MCP whatif_deployment
+  (or `az deployment group what-if` fallback) in a loop until "no changes" (or only intentional
+  drift) is reached. Hard-gated on the bicep-cleanup checklist; refuses to run if upstream passes
+  did not produce their artifacts. Max 10 what-if iterations.
 license: MIT
 ---
 

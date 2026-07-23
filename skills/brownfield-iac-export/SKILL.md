@@ -1,10 +1,11 @@
 ---
 name: brownfield-iac-export
 description: >
-  Use this skill when the user asks to export, adopt, import, reverse-engineer, or generate Bicep or
-  Terraform from existing Azure resources. Select scope, language, and Terraform provider; run the
-  Azure control-plane exportTemplate or Microsoft.AzureTerraform/exportTerraform API; then route
-  platform-ready output through the matching cleanup pipeline.
+  Export existing Azure infrastructure into Bicep OR Terraform code using the Azure
+  control-plane export APIs (exportTemplate for Bicep, Microsoft.AzureTerraform/exportTerraform
+  for Terraform), then hand off to the matching gated cleanup pipeline. Use when asked to
+  "export", "brownfield", "adopt", "import from Azure", "reverse-engineer", "generate IaC for",
+  or "exportTemplate"/"exportTerraform" Azure resources.
 license: MIT
 compatibility: >
   Requires az login authenticated. Terraform lane: terraform >= 1.5 for downstream lint/validate.

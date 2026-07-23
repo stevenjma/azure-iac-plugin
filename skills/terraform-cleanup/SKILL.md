@@ -1,10 +1,12 @@
 ---
 name: terraform-cleanup
 description: >
-  Use this skill when the user asks to clean up, refine, fix, or validate and fix raw, imported, or
-  Azure-exported Terraform. Orchestrates references, variables, pruning, consolidation,
-  organization, secret handling, validation, and live plan through an evidence-gated pipeline.
-  Route validate-only requests to cleanup-validate instead.
+  Refine raw or exported Terraform code into production-quality HCL. Thin orchestrator
+  that invokes a sequence of sub-skills (cleanup-references, cleanup-variables,
+  cleanup-prune, cleanup-consolidate, cleanup-organize, cleanup-secrets, cleanup-validate)
+  and gates the final validate→plan loop on an on-disk checklist. Use when asked to
+  "clean up Terraform", "refine Terraform code", "fix my terraform", or "validate and
+  fix" Terraform code.
 license: MIT
 compatibility: >
   Requires terraform >= 1.5. A provider-schema doc source (Terraform Registry /

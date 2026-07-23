@@ -1,10 +1,11 @@
 ---
 name: bicep-cleanup
 description: >
-  Use this skill when the user asks to clean up, refine, fix, or validate and fix raw, exported, or
-  decompiled Bicep. Orchestrates parameterization, pruning, organization, secret handling,
-  build/lint, and live what-if through an evidence-gated pipeline. Route validate-only requests to
-  bicep-validate instead.
+  Refine raw or decompiled Bicep into production-quality code. Thin orchestrator that invokes
+  a sequence of sub-skills (bicep-parameterize, bicep-prune, bicep-organize, bicep-secrets,
+  bicep-validate) and gates the final build→what-if loop on an on-disk checklist. Use when asked
+  to "clean up Bicep", "refine Bicep", "fix my bicep", "fix decompiled bicep", or "validate and
+  fix" Bicep code.
 license: MIT
 compatibility: >
   Requires the bicep CLI (`az bicep`). A resource-type schema source (ARM MCP resource-type

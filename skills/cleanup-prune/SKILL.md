@@ -1,9 +1,9 @@
 ---
 name: cleanup-prune
 description: >
-  Use this skill during terraform-cleanup Pass 3.3, or standalone when the user asks to prune
-  exported Terraform. Remove computed-only attributes, redundant provider defaults, empty blocks,
-  and invalid empty-string enums while preserving configured Azure behavior.
+  Terraform terraform-cleanup Pass 3.3 — remove noise from exported HCL: computed-only attributes,
+  optional attributes set to provider defaults, empty blocks, and empty-string enums.
+  Invoked by the terraform-cleanup orchestrator; can run standalone.
 license: MIT
 ---
 

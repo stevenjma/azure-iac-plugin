@@ -1,9 +1,10 @@
 ---
 name: cleanup-secrets
 description: >
-  Use this skill during terraform-cleanup Pass 3.5, or standalone when the user asks to secure
-  Terraform inputs. Replace secret and write-only placeholders with ephemeral or sensitive
-  variables, generate a safe example values file, and surface required manual inputs.
+  Terraform terraform-cleanup Pass 3.5 — handle secrets and write-only fields. Generates a
+  secrets.auto.tfvars.example template, wires ephemeral (TF >= 1.10) or sensitive
+  variables, and surfaces a mandatory user warning. Invoked by terraform-cleanup
+  orchestrator; can run standalone.
 license: MIT
 ---
 

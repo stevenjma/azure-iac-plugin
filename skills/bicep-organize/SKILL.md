@@ -1,9 +1,10 @@
 ---
 name: bicep-organize
 description: >
-  Use this skill during bicep-cleanup Phase 3.3 to reorganize a flat template into coherent modules,
-  conventional declaration order, and correctly wired module inputs and outputs without changing
-  deployment intent. May skip with a reason when a single module is the maintainable design.
+  Bicep-cleanup Phase 3.3 — reorganize a flat decompiled main.bicep into a maintainable structure:
+  extract logical resource groupings into Bicep modules, order declarations conventionally, and
+  wire module inputs/outputs. May report skipped when a single module is appropriate. Writes
+  organize.json.
 license: MIT
 ---
 

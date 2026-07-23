@@ -1,9 +1,9 @@
 ---
 name: azure-to-terraform-translation
 description: >
-  Use this skill when imported or Azure-exported Terraform fails validate or plan, shows perpetual
-  drift, rejects enum or sentinel values, mishandles resource IDs, or exposes provider/export bugs.
-  Diagnose Azure API-to-azurerm/azapi translation mismatches without changing unrelated resources.
+  Fix semantic mismatches between Azure API return values and what azurerm/azapi Terraform providers
+  accept. 30+ translation rules covering enum normalization, sentinel values, write-only secrets,
+  path mismatches, and provider bugs. Use when "terraform plan" shows drift or validate fails after import.
 license: MIT
 metadata:
   version: "1.2"

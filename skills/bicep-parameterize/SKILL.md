@@ -1,9 +1,9 @@
 ---
 name: bicep-parameterize
 description: >
-  Use this skill during bicep-cleanup Phase 3.1 to extract hardcoded values into typed, described
-  parameters and variables. Add the mandatory location, resource naming, and tags parameters, and
-  remove literal subscription IDs and resource names while preserving the exported configuration.
+  Bicep-cleanup Phase 3.1 — extract hardcoded values from decompiled Bicep into typed, described
+  parameters and variables. Adds the mandatory parameters (location, resource naming, tags) and
+  removes literal subscription IDs / resource names from the resource body. Writes parameterize.json.
 license: MIT
 ---
 
