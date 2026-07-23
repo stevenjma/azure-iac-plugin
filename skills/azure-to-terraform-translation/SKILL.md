@@ -31,7 +31,7 @@ standalone against existing imported HCL.
 1. Capture the exact validation error or smallest relevant plan hunk.
 2. Identify the attribute and Terraform resource type.
 3. Match the symptom in the index below.
-4. Load `references/rules.md` and read only the matching category or rule.
+4. Load only the matching reference file from the index below.
 5. Confirm current behavior with the matching provider schema or documentation when the rule
    depends on an enum, default, computed field, write-only field, or provider version.
 6. Apply the narrowest fix. Prefer resource references and omission of invalid optional values over
@@ -41,21 +41,21 @@ standalone against existing imported HCL.
 
 ## Rule index
 
-| Symptom | Load from `references/rules.md` |
+| Symptom | Load |
 |---|---|
-| Invalid enum, case-only ID drift, empty-string enum | Category 1 |
-| Zero sentinel or provider-materialized default | Category 2 |
-| Invalid Azure sentinel value | Category 3 |
-| Missing secret or write-only property | Category 4 |
-| Cross-resource or composite ID mismatch | Categories 5 and 12 |
-| ExactlyOneOf, block/attribute, or child-resource shape mismatch | Category 6 |
-| Provider-normalized formatting with no semantic change | Category 7 |
-| Import/export crash or provider bug requiring exclusion/workaround | Category 8 |
-| Service-injected tags, IPAM allocation, or system-column drift | Categories 9-11 |
-| Orphan import blocks or credentials in generated provider config | Category 13 |
+| Invalid enum, case-only ID drift, empty-string enum | `references/value-normalization.md` |
+| Zero sentinel or provider-materialized default | `references/value-normalization.md` |
+| Invalid Azure sentinel value | `references/value-normalization.md` |
+| Missing secret or write-only property | `references/value-normalization.md` |
+| Cross-resource or composite ID mismatch | `references/ids-and-structure.md` |
+| ExactlyOneOf, block/attribute, or child-resource shape mismatch | `references/ids-and-structure.md` |
+| Provider-normalized formatting with no semantic change | `references/ids-and-structure.md` |
+| Import/export crash or provider bug requiring exclusion/workaround | `references/provider-bugs-and-drift.md` |
+| Service-injected tags, IPAM allocation, or system-column drift | `references/provider-bugs-and-drift.md` |
+| Orphan import blocks or credentials in generated provider config | `references/export-hygiene.md` |
 
-Use the reference's **Pattern Detection Algorithm** when the symptom is ambiguous and its **Quick
-Reference** when the resource type is already known.
+Load `references/diagnostics.md` when the symptom is ambiguous or the resource type is known but the
+matching rule is not.
 
 ## Guardrails
 
@@ -68,5 +68,8 @@ Reference** when the resource type is already known.
 
 ## References
 
-- `references/rules.md` — detailed rule library, detection algorithm, resource quick reference,
-  provenance, and version history. Load only the matching section after diagnosis.
+- `references/value-normalization.md` — Rules 1-4: enums, sentinels, defaults, and write-only fields.
+- `references/ids-and-structure.md` — Rules 5-7 and 12: IDs, schema shape, and normalization.
+- `references/provider-bugs-and-drift.md` — Rules 8-11: provider bugs and service-generated drift.
+- `references/export-hygiene.md` — Rule 13: orphan imports and generated provider credentials.
+- `references/diagnostics.md` — pattern detection, resource quick reference, and rule maintenance.
