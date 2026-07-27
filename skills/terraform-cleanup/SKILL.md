@@ -28,7 +28,7 @@ would silently skip passes once `terraform plan` happened to look clean.
 
 - User has existing Terraform code that "works but is ugly".
 - User ran `terraform import` or aztfexport themselves and wants terraform-cleanup.
-- The `brownfield-terraform-export` skill is handing off raw exported code.
+- The `brownfield-iac-export` skill is handing off raw exported code.
 
 > Validate-only (run `terraform validate`/`plan` against existing code without
 > refinement) is **not** an orchestrator entry point. Route those requests
@@ -70,7 +70,8 @@ would silently skip passes once `terraform plan` happened to look clean.
 
 If a provider-schema doc source is available (Terraform Registry / `terraform providers
 schema -json`, or ARM MCP resource-type schema tools), fetch provider docs for every
-resource type in scope and build the constraint map (see `reference/constraint-map.md`).
+resource type in scope and build the constraint map. Load `references/constraint-map.md` only when
+creating or consuming that artifact.
 Save to `<workdir>/.cleanup/constraint-map.json`.
 
 If no doc source is available, ask the user:
@@ -185,7 +186,7 @@ Do not claim "complete" unless every required entry in `checklist.json` has
 
 ## References
 
-- `reference/patterns.md` — patterns from live brownfield conversions.
-- `reference/constraint-map.md` — schema for the Phase 2 constraint map.
-- `reference/secrets-warning.md` — mandatory user warning template.
+- `references/patterns.md` — load only when a live conversion matches a documented edge case.
+- `references/constraint-map.md` — load only when creating or consuming the Phase 2 constraint map.
+- The `cleanup-secrets` skill owns and loads its mandatory warning template.
 - Sibling skill `azure-to-terraform-translation` — drift fix rules (Rule 1.x – 9.x).

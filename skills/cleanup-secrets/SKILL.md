@@ -41,7 +41,7 @@ terraform version >= 1.10 AND azurerm >= 4.x
 6. Wire the variable into every resource where the secret was a placeholder.
 7. For Terraform < 1.10: add `lifecycle { ignore_changes = [<field>] }` to each
    resource that uses a sensitive write-only attribute.
-8. Surface the mandatory warning table (see `reference/secrets-warning.md`).
+8. Load `references/secrets-warning.md` and surface its mandatory warning table.
 
 ## Acceptance Criteria (mandatory)
 

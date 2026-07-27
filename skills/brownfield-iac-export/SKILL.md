@@ -94,7 +94,8 @@ Resolve in this **preference order** (first available wins):
    caller's bearer token. This is a faithful stand-in for a remote MCP (a governed ARM-REST proxy).
 
 Probe (1) and (2); if neither is available, use (3). Never fail the run solely because the MCP is
-unwired — fall back to REST. See `reference/examples.md` for exact invocations.
+unwired — fall back to REST. Load `references/examples.md` only when exact REST requests or LRO
+polling commands are needed.
 
 #### Terraform lane — `exportTerraform` (LRO)
 
@@ -297,7 +298,8 @@ pushed further, not tolerated.
 
 ## References
 
-- `reference/examples.md` — exact `az rest` invocations, LRO polling, decompile, dispatch probe.
+- `references/examples.md` — load only for exact `az rest` invocations, LRO polling, decompile,
+  or dispatch probing.
 - Sibling `terraform-cleanup` — gated Terraform post-export refinement.
 - Sibling `bicep-cleanup` — gated Bicep post-decompile refinement.
 - Sibling `azure-to-terraform-translation` — Terraform drift/translation rule library (Rule 1.x–9.x).
