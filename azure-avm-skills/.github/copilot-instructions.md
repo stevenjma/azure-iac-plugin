@@ -93,7 +93,7 @@ Registry for `azurerm` module versions. Always pin an explicit version — never
 
 ## Tools (MCP + CLI)
 
-This plugin ships an `.mcp.json` at the root registering a **remote ARM MCP server** (`arm-mcp`),
+This plugin ships an `.mcp.json` at its plugin root registering a **remote ARM MCP server** (`arm-mcp`),
 used for read/query (Azure Resource Graph discovery) and — for Bicep — the `whatif_deployment`
 fidelity gate.
 
@@ -131,7 +131,7 @@ Skill components are **cached at install time** in Copilot CLI. After editing an
 effect:
 
 ```bash
-copilot plugin install ./azure-avm-plugin   # from the repo's parent directory
+copilot plugin install ./azure-avm-skills   # from the monorepo root
 ```
 
 Verify with `/skills` after reinstall. Other clients pick up edits per their own reload mechanism.

@@ -120,8 +120,8 @@ Configure `arm-mcp` for the governed control-plane path, but the pipeline never 
 ### GitHub Copilot CLI (reference client)
 
 ```bash
-# from the repo's parent directory
-copilot plugin install ./azure-avm-plugin
+# from the monorepo root
+copilot plugin install ./azure-avm-skills
 ```
 
 Verify with `/skills`. Skill components are cached at install time — reinstall after editing

@@ -79,7 +79,7 @@ Skills call a single `export-dispatch` step that resolves in this preference ord
 
 ## Tools (MCP + CLI)
 
-This plugin ships an `.mcp.json` at the root registering a **remote ARM MCP server** (`arm-mcp`),
+This plugin ships an `.mcp.json` at its plugin root registering a **remote ARM MCP server** (`arm-mcp`),
 used for read/query (Azure Resource Graph) and — for Bicep — the `whatif_deployment` fidelity gate.
 
 | Concept | Value |
@@ -113,7 +113,7 @@ Skill components are **cached at install time** in Copilot CLI. After editing an
 effect:
 
 ```bash
-copilot plugin install ./azure-iac-plugin   # from the repo's parent directory
+copilot plugin install ./azure-iac-skills   # from the monorepo root
 ```
 
 Verify with `/skills` after reinstall. Other clients pick up edits per their own reload mechanism.
