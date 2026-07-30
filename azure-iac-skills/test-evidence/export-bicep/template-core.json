@@ -1,0 +1,229 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {},
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2026-03-01-preview",
+      "name": "kv-iacx-p1x7q",
+      "location": "eastus2",
+      "tags": {
+        "environment": "iacexporttest",
+        "owner": "stema",
+        "purpose": "iac-export-livetest"
+      },
+      "properties": {
+        "sku": {
+          "family": "A",
+          "name": "standard"
+        },
+        "tenantId": "4f00b3b6-2940-4f2c-b037-94637c180d30",
+        "accessPolicies": [
+          {
+            "tenantId": "4f00b3b6-2940-4f2c-b037-94637c180d30",
+            "objectId": "4b645026-a054-4404-8f64-62929c02052c",
+            "permissions": {
+              "certificates": [],
+              "keys": [],
+              "secrets": [
+                "Get",
+                "List",
+                "Set",
+                "Delete",
+                "Purge",
+                "Recover"
+              ],
+              "storage": []
+            }
+          }
+        ],
+        "enabledForDeployment": false,
+        "enabledForDiskEncryption": false,
+        "enabledForTemplateDeployment": false,
+        "enableSoftDelete": true,
+        "softDeleteRetentionInDays": 7,
+        "enableRbacAuthorization": false,
+        "vaultUri": "https://kv-iacx-p1x7q.vault.azure.net/",
+        "provisioningState": "Succeeded",
+        "publicNetworkAccess": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2025-07-01",
+      "name": "vnet-iacx-p1x7q",
+      "location": "eastus2",
+      "tags": {
+        "environment": "iacexporttest",
+        "owner": "stema",
+        "purpose": "iac-export-livetest"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.43.0.0/16"
+          ]
+        },
+        "privateEndpointVNetPolicies": "Disabled",
+        "dhcpOptions": {
+          "dnsServers": []
+        },
+        "virtualNetworkPeerings": [],
+        "enableDdosProtection": false
+      }
+    },
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2025-07-01",
+      "name": "law-iacx-p1x7q",
+      "location": "eastus2",
+      "tags": {
+        "environment": "iacexporttest",
+        "owner": "stema",
+        "purpose": "iac-export-livetest"
+      },
+      "properties": {
+        "sku": {
+          "name": "PerGB2018"
+        },
+        "retentionInDays": 30,
+        "features": {
+          "legacy": 0,
+          "searchVersion": 1,
+          "enableLogAccessUsingOnlyResourcePermissions": true,
+          "disableLocalAuth": false
+        },
+        "workspaceCapping": {
+          "dailyQuotaGb": -1.0
+        },
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2026-04-01",
+      "name": "stiacxp1x7q",
+      "location": "eastus2",
+      "tags": {
+        "environment": "iacexporttest",
+        "owner": "stema",
+        "purpose": "iac-export-livetest"
+      },
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "StorageV2",
+      "identity": {
+        "type": "None"
+      },
+      "properties": {
+        "dnsEndpointType": "Standard",
+        "defaultToOAuthAuthentication": false,
+        "publicNetworkAccess": "Enabled",
+        "allowCrossTenantReplication": false,
+        "isNfsV3Enabled": false,
+        "isLocalUserEnabled": true,
+        "isSftpEnabled": false,
+        "minimumTlsVersion": "TLS1_2",
+        "allowBlobPublicAccess": false,
+        "allowSharedKeyAccess": true,
+        "isHnsEnabled": false,
+        "networkAcls": {
+          "ipv6Rules": [],
+          "resourceAccessRules": [],
+          "bypass": "AzureServices",
+          "virtualNetworkRules": [],
+          "ipRules": [],
+          "defaultAction": "Allow"
+        },
+        "supportsHttpsTrafficOnly": true,
+        "encryption": {
+          "services": {
+            "file": {
+              "keyType": "Account",
+              "enabled": true
+            },
+            "blob": {
+              "keyType": "Account",
+              "enabled": true
+            }
+          },
+          "keySource": "Microsoft.Storage"
+        },
+        "accessTier": "Hot"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2026-03-01-preview",
+      "name": "kv-iacx-p1x7q/demo-secret",
+      "location": "eastus2",
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', 'kv-iacx-p1x7q')]"
+      ],
+      "properties": {
+        "attributes": {
+          "enabled": true
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks/subnets",
+      "apiVersion": "2025-07-01",
+      "name": "vnet-iacx-p1x7q/snet-app",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', 'vnet-iacx-p1x7q')]"
+      ],
+      "properties": {
+        "addressPrefix": "10.43.1.0/24",
+        "serviceEndpoints": [],
+        "delegations": [],
+        "privateEndpointNetworkPolicies": "Disabled",
+        "privateLinkServiceNetworkPolicies": "Enabled",
+        "defaultOutboundAccess": true
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/blobServices",
+      "apiVersion": "2026-04-01",
+      "name": "stiacxp1x7q/default",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', 'stiacxp1x7q')]"
+      ],
+      "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "properties": {
+        "staticWebsite": {
+          "enabled": false
+        },
+        "cors": {
+          "corsRules": []
+        },
+        "deleteRetentionPolicy": {
+          "allowPermanentDelete": false,
+          "enabled": false
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+      "apiVersion": "2026-04-01",
+      "name": "stiacxp1x7q/default/data",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', 'stiacxp1x7q', 'default')]",
+        "[resourceId('Microsoft.Storage/storageAccounts', 'stiacxp1x7q')]"
+      ],
+      "properties": {
+        "defaultEncryptionScope": "$account-encryption-key",
+        "denyEncryptionScopeOverride": false,
+        "publicAccess": "None"
+      }
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_key_vault.kv will be created
+  + resource "azurerm_key_vault" "kv" {
+      + access_policy                 = [
+          + {
+              + object_id          = "4b645026-a054-4404-8f64-62929c02052c"
+              + secret_permissions = [
+                  + "Get",
+                  + "List",
+                  + "Set",
+                  + "Delete",
+                  + "Purge",
+                  + "Recover",
+                ]
+              + tenant_id          = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+            },
+        ]
+      + enable_rbac_authorization     = (known after apply)
+      + id                            = (known after apply)
+      + location                      = "eastus2"
+      + name                          = "kv-iacx-p1x7q"
+      + public_network_access_enabled = true
+      + purge_protection_enabled      = false
+      + rbac_authorization_enabled    = false
+      + resource_group_name           = "rg-iacexport-stema-20260722"
+      + sku_name                      = "standard"
+      + soft_delete_retention_days    = 7
+      + tags                          = {
+          + "environment" = "iacexporttest"
+          + "owner"       = "stema"
+          + "purpose"     = "iac-export-livetest"
+        }
+      + tenant_id                     = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+      + vault_uri                     = (known after apply)
+
+      + contact (known after apply)
+
+      + network_acls (known after apply)
+    }
+
+  # azurerm_key_vault_secret.demo will be created
+  + resource "azurerm_key_vault_secret" "demo" {
+      + id                      = (known after apply)
+      + key_vault_id            = (known after apply)
+      + name                    = "demo-secret"
+      + resource_id             = (known after apply)
+      + resource_versionless_id = (known after apply)
+      + value                   = (sensitive value)
+      + value_wo                = (write-only attribute)
+      + version                 = (known after apply)
+      + versionless_id          = (known after apply)
+    }
+
+  # azurerm_log_analytics_workspace.law will be created
+  + resource "azurerm_log_analytics_workspace" "law" {
+      + allow_resource_only_permissions = true
+      + daily_quota_gb                  = -1
+      + id                              = (known after apply)
+      + internet_ingestion_enabled      = true
+      + internet_query_enabled          = true
+      + local_authentication_disabled   = (known after apply)
+      + local_authentication_enabled    = true
+      + location                        = "eastus2"
+      + name                            = "law-iacx-p1x7q"
+      + primary_shared_key              = (sensitive value)
+      + resource_group_name             = "rg-iacexport-stema-20260722"
+      + retention_in_days               = 30
+      + secondary_shared_key            = (sensitive value)
+      + sku                             = "PerGB2018"
+      + tags                            = {
+          + "environment" = "iacexporttest"
+          + "owner"       = "stema"
+          + "purpose"     = "iac-export-livetest"
+        }
+      + workspace_id                    = (known after apply)
+    }
+
+  # azurerm_resource_group.rg will be created
+  + resource "azurerm_resource_group" "rg" {
+      + id       = (known after apply)
+      + location = "eastus2"
+      + name     = "rg-iacexport-stema-20260722"
+      + tags     = {
+          + "environment" = "iacexporttest"
+          + "owner"       = "stema"
+          + "purpose"     = "iac-export-livetest"
+        }
+    }
+
+  # azurerm_storage_account.sa will be created
+  + resource "azurerm_storage_account" "sa" {
+      + access_tier                        = (known after apply)
+      + account_kind                       = "StorageV2"
+      + account_replication_type           = "LRS"
+      + account_tier                       = "Standard"
+      + allow_nested_items_to_be_public    = false
+      + cross_tenant_replication_enabled   = false
+      + default_to_oauth_authentication    = false
+      + dns_endpoint_type                  = "Standard"
+      + https_traffic_only_enabled         = true
+      + id                                 = (known after apply)
+      + infrastructure_encryption_enabled  = false
+      + is_hns_enabled                     = false
+      + large_file_share_enabled           = (known after apply)
+      + local_user_enabled                 = true
+      + location                           = "eastus2"
+      + min_tls_version                    = "TLS1_2"
+      + name                               = "stiacxp1x7q"
+      + nfsv3_enabled                      = false
+      + primary_access_key                 = (sensitive value)
+      + primary_blob_connection_string     = (sensitive value)
+      + primary_blob_endpoint              = (known after apply)
+      + primary_blob_host                  = (known after apply)
+      + primary_blob_internet_endpoint     = (known after apply)
+      + primary_blob_internet_host         = (known after apply)
+      + primary_blob_microsoft_endpoint    = (known after apply)
+      + primary_blob_microsoft_host        = (known after apply)
+      + primary_connection_string          = (sensitive value)
+      + primary_dfs_endpoint               = (known after apply)
+      + primary_dfs_host                   = (known after apply)
+      + primary_dfs_internet_endpoint      = (known after apply)
+      + primary_dfs_internet_host          = (known after apply)
+      + primary_dfs_microsoft_endpoint     = (known after apply)
+      + primary_dfs_microsoft_host         = (known after apply)
+      + primary_file_endpoint              = (known after apply)
+      + primary_file_host                  = (known after apply)
+      + primary_file_internet_endpoint     = (known after apply)
+      + primary_file_internet_host         = (known after apply)
+      + primary_file_microsoft_endpoint    = (known after apply)
+      + primary_file_microsoft_host        = (known after apply)
+      + primary_location                   = (known after apply)
+      + primary_queue_endpoint             = (known after apply)
+      + primary_queue_host                 = (known after apply)
+      + primary_queue_microsoft_endpoint   = (known after apply)
+      + primary_queue_microsoft_host       = (known after apply)
+      + primary_table_endpoint             = (known after apply)
+      + primary_table_host                 = (known after apply)
+      + primary_table_microsoft_endpoint   = (known after apply)
+      + primary_table_microsoft_host       = (known after apply)
+      + primary_web_endpoint               = (known after apply)
+      + primary_web_host                   = (known after apply)
+      + primary_web_internet_endpoint      = (known after apply)
+      + primary_web_internet_host          = (known after apply)
+      + primary_web_microsoft_endpoint     = (known after apply)
+      + primary_web_microsoft_host         = (known after apply)
+      + public_network_access_enabled      = true
+      + queue_encryption_key_type          = "Service"
+      + resource_group_name                = "rg-iacexport-stema-20260722"
+      + secondary_access_key               = (sensitive value)
+      + secondary_blob_connection_string   = (sensitive value)
+      + secondary_blob_endpoint            = (known after apply)
+      + secondary_blob_host                = (known after apply)
+      + secondary_blob_internet_endpoint   = (known after apply)
+      + secondary_blob_internet_host       = (known after apply)
+      + secondary_blob_microsoft_endpoint  = (known after apply)
+      + secondary_blob_microsoft_host      = (known after apply)
+      + secondary_connection_string        = (sensitive value)
+      + secondary_dfs_endpoint             = (known after apply)
+      + secondary_dfs_host                 = (known after apply)
+      + secondary_dfs_internet_endpoint    = (known after apply)
+      + secondary_dfs_internet_host        = (known after apply)
+      + secondary_dfs_microsoft_endpoint   = (known after apply)
+      + secondary_dfs_microsoft_host       = (known after apply)
+      + secondary_file_endpoint            = (known after apply)
+      + secondary_file_host                = (known after apply)
+      + secondary_file_internet_endpoint   = (known after apply)
+      + secondary_file_internet_host       = (known after apply)
+      + secondary_file_microsoft_endpoint  = (known after apply)
+      + secondary_file_microsoft_host      = (known after apply)
+      + secondary_location                 = (known after apply)
+      + secondary_queue_endpoint           = (known after apply)
+      + secondary_queue_host               = (known after apply)
+      + secondary_queue_microsoft_endpoint = (known after apply)
+      + secondary_queue_microsoft_host     = (known after apply)
+      + secondary_table_endpoint           = (known after apply)
+      + secondary_table_host               = (known after apply)
+      + secondary_table_microsoft_endpoint = (known after apply)
+      + secondary_table_microsoft_host     = (known after apply)
+      + secondary_web_endpoint             = (known after apply)
+      + secondary_web_host                 = (known after apply)
+      + secondary_web_internet_endpoint    = (known after apply)
+      + secondary_web_internet_host        = (known after apply)
+      + secondary_web_microsoft_endpoint   = (known after apply)
+      + secondary_web_microsoft_host       = (known after apply)
+      + sftp_enabled                       = false
+      + shared_access_key_enabled          = true
+      + table_encryption_key_type          = "Service"
+      + tags                               = {
+          + "environment" = "iacexporttest"
+          + "owner"       = "stema"
+          + "purpose"     = "iac-export-livetest"
+        }
+
+      + blob_properties (known after apply)
+
+      + network_rules (known after apply)
+
+      + queue_properties (known after apply)
+
+      + routing (known after apply)
+
+      + share_properties (known after apply)
+
+      + static_website (known after apply)
+    }
+
+  # azurerm_storage_container.data will be created
+  + resource "azurerm_storage_container" "data" {
+      + container_access_type             = "private"
+      + default_encryption_scope          = (known after apply)
+      + encryption_scope_override_enabled = true
+      + has_immutability_policy           = (known after apply)
+      + has_legal_hold                    = (known after apply)
+      + id                                = (known after apply)
+      + metadata                          = (known after apply)
+      + name                              = "data"
+      + resource_manager_id               = (known after apply)
+      + storage_account_id                = (known after apply)
+      + url                               = (known after apply)
+    }
+
+  # azurerm_subnet.app will be created
+  + resource "azurerm_subnet" "app" {
+      + address_prefixes                              = [
+          + "10.43.1.0/24",
+        ]
+      + default_outbound_access_enabled               = true
+      + id                                            = (known after apply)
+      + name                                          = "snet-app"
+      + private_endpoint_network_policies             = "Disabled"
+      + private_link_service_network_policies_enabled = true
+      + resource_group_name                           = "rg-iacexport-stema-20260722"
+      + virtual_network_name                          = "vnet-iacx-p1x7q"
+    }
+
+  # azurerm_virtual_network.vnet will be created
+  + resource "azurerm_virtual_network" "vnet" {
+      + address_space                  = [
+          + "10.43.0.0/16",
+        ]
+      + dns_servers                    = (known after apply)
+      + guid                           = (known after apply)
+      + id                             = (known after apply)
+      + location                       = "eastus2"
+      + name                           = "vnet-iacx-p1x7q"
+      + private_endpoint_vnet_policies = "Disabled"
+      + resource_group_name            = "rg-iacexport-stema-20260722"
+      + subnet                         = (known after apply)
+      + tags                           = {
+          + "environment" = "iacexporttest"
+          + "owner"       = "stema"
+          + "purpose"     = "iac-export-livetest"
+        }
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+azurerm_resource_group.rg: Creating...
+azurerm_resource_group.rg: Still creating... [00m10s elapsed]
+azurerm_resource_group.rg: Still creating... [00m20s elapsed]
+azurerm_resource_group.rg: Creation complete after 27s [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacexport-stema-20260722]
+azurerm_key_vault.kv: Creating...
+azurerm_virtual_network.vnet: Creating...
+azurerm_log_analytics_workspace.law: Creating...
+azurerm_storage_account.sa: Creating...
+azurerm_virtual_network.vnet: Creation complete after 6s [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacexport-stema-20260722/providers/Microsoft.Network/virtualNetworks/vnet-iacx-p1x7q]
+azurerm_subnet.app: Creating...
+azurerm_key_vault.kv: Still creating... [00m10s elapsed]
+azurerm_log_analytics_workspace.law: Still creating... [00m10s elapsed]
+azurerm_storage_account.sa: Still creating... [00m10s elapsed]
+azurerm_subnet.app: Creation complete after 5s [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacexport-stema-20260722/providers/Microsoft.Network/virtualNetworks/vnet-iacx-p1x7q/subnets/snet-app]
+azurerm_key_vault.kv: Still creating... [00m20s elapsed]
+azurerm_log_analytics_workspace.law: Still creating... [00m20s elapsed]
+azurerm_storage_account.sa: Still creating... [00m20s elapsed]
+azurerm_key_vault.kv: Still creating... [00m30s elapsed]
+azurerm_log_analytics_workspace.law: Still creating... [00m30s elapsed]
+azurerm_storage_account.sa: Still creating... [00m30s elapsed]
+azurerm_key_vault.kv: Still creating... [00m40s elapsed]
+azurerm_log_analytics_workspace.law: Still creating... [00m40s elapsed]
+azurerm_storage_account.sa: Still creating... [00m40s elapsed]
+azurerm_log_analytics_workspace.law: Creation complete after 45s [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacexport-stema-20260722/providers/Microsoft.OperationalInsights/workspaces/law-iacx-p1x7q]
+azurerm_key_vault.kv: Still creating... [00m50s elapsed]
+azurerm_storage_account.sa: Still creating... [00m50s elapsed]
+azurerm_key_vault.kv: Still creating... [01m00s elapsed]
+azurerm_storage_account.sa: Still creating... [01m00s elapsed]
+azurerm_key_vault.kv: Still creating... [01m10s elapsed]
+azurerm_storage_account.sa: Still creating... [01m10s elapsed]
+azurerm_storage_account.sa: Creation complete after 1m17s [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacexport-stema-20260722/providers/Microsoft.Storage/storageAccounts/stiacxp1x7q]
+azurerm_storage_container.data: Creating...
+azurerm_key_vault.kv: Still creating... [01m20s elapsed]
+azurerm_storage_container.data: Still creating... [00m10s elapsed]
+azurerm_storage_container.data: Creation complete after 12s [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacexport-stema-20260722/providers/Microsoft.Storage/storageAccounts/stiacxp1x7q/blobServices/default/containers/data]
+azurerm_key_vault.kv: Still creating... [01m30s elapsed]
+azurerm_key_vault.kv: Still creating... [01m40s elapsed]
+azurerm_key_vault.kv: Still creating... [01m50s elapsed]
+azurerm_key_vault.kv: Still creating... [02m00s elapsed]
+azurerm_key_vault.kv: Still creating... [02m10s elapsed]
+azurerm_key_vault.kv: Still creating... [02m20s elapsed]
+azurerm_key_vault.kv: Still creating... [02m30s elapsed]
+azurerm_key_vault.kv: Creation complete after 2m34s [id=/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacexport-stema-20260722/providers/Microsoft.KeyVault/vaults/kv-iacx-p1x7q]
+azurerm_key_vault_secret.demo: Creating...
+azurerm_key_vault_secret.demo: Creation complete after 1s [id=https://kv-iacx-p1x7q.vault.azure.net/secrets/demo-secret/610a627e918f46b7ab3830e9e604d8c4]
+
+Apply complete! Resources: 8 added, 0 changed, 0 destroyed.

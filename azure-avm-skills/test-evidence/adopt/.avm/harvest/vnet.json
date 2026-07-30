@@ -1,0 +1,44 @@
+{
+  "etag": "W/\"deb773a9-f6c9-4281-aff3-8ebdb12fbb06\"",
+  "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Network/virtualNetworks/vnet-avmtest-9d6lh",
+  "location": "eastus2",
+  "name": "vnet-avmtest-9d6lh",
+  "properties": {
+    "addressSpace": {
+      "addressPrefixes": [
+        "10.42.0.0/16"
+      ]
+    },
+    "dhcpOptions": {
+      "dnsServers": []
+    },
+    "enableDdosProtection": false,
+    "privateEndpointVNetPolicies": "Disabled",
+    "provisioningState": "Succeeded",
+    "resourceGuid": "0f9c67d9-47e8-47d0-9159-0040ec92921a",
+    "subnets": [
+      {
+        "etag": "W/\"deb773a9-f6c9-4281-aff3-8ebdb12fbb06\"",
+        "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Network/virtualNetworks/vnet-avmtest-9d6lh/subnets/snet-app",
+        "name": "snet-app",
+        "properties": {
+          "addressPrefix": "10.42.1.0/24",
+          "defaultOutboundAccess": true,
+          "delegations": [],
+          "privateEndpointNetworkPolicies": "Disabled",
+          "privateLinkServiceNetworkPolicies": "Enabled",
+          "provisioningState": "Succeeded",
+          "serviceEndpoints": []
+        },
+        "type": "Microsoft.Network/virtualNetworks/subnets"
+      }
+    ],
+    "virtualNetworkPeerings": []
+  },
+  "tags": {
+    "environment": "avmtest",
+    "owner": "stema",
+    "purpose": "avm-adopt-livetest"
+  },
+  "type": "Microsoft.Network/virtualNetworks"
+}

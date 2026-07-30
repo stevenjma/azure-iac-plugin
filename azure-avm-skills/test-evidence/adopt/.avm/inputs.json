@@ -1,0 +1,33 @@
+{
+  "pass": "3.2-inputs",
+  "status": "complete",
+  "modules_wired": [
+    {
+      "label": "vnet",
+      "variables_set": ["name", "location", "parent_id", "address_space", "tags", "enable_telemetry", "subnets"],
+      "children_folded": ["subnets(snet-app)"],
+      "unresolved_refs": []
+    },
+    {
+      "label": "storage",
+      "variables_set": ["name", "location", "parent_id", "tags", "enable_telemetry", "account_sku_name", "shared_access_key_enabled", "public_network_access_enabled", "local_user_enabled", "network_rules", "containers"],
+      "children_folded": ["containers(data)"],
+      "unresolved_refs": []
+    },
+    {
+      "label": "keyvault",
+      "variables_set": ["name", "location", "resource_group_name", "tenant_id", "sku_name", "tags", "enable_telemetry", "legacy_access_policies_enabled", "legacy_access_policies", "soft_delete_retention_days", "purge_protection_enabled", "network_acls", "secrets", "secrets_value"],
+      "children_folded": ["legacy_access_policies(guest)", "secrets(demo)"],
+      "unresolved_refs": []
+    },
+    {
+      "label": "law",
+      "variables_set": ["name", "location", "resource_group_name", "tags", "enable_telemetry", "log_analytics_workspace_internet_ingestion_enabled", "log_analytics_workspace_internet_query_enabled"],
+      "children_folded": [],
+      "unresolved_refs": []
+    }
+  ],
+  "secrets_deferred": [
+    { "label": "keyvault", "variable": "kv_secret_demo_value" }
+  ]
+}

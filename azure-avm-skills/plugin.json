@@ -1,0 +1,13 @@
+{
+  "name": "azure-avm-skills",
+  "description": "Adopt existing Azure infrastructure into production-quality Bicep or Terraform composed of Azure Verified Modules (AVM) — brownfield-to-AVM via ARM control-plane discovery + config harvest, a resource-type-to-module resolver (br/public:avm/res + Azure/avm-res-*/azurerm), evidence-gated module composition, AVM-default reconciliation, and symmetric syntax + fidelity validation (terraform plan / what-if) with AVM coverage reporting.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Stephen Ma",
+    "email": "stema@microsoft.com"
+  },
+  "keywords": ["azure", "avm", "azure-verified-modules", "bicep", "terraform", "arm", "brownfield", "modules", "infrastructure-as-code", "arm-mcp"],
+  "skills": "skills/",
+  "mcpServers": ".mcp.json"
+}

@@ -1,0 +1,25 @@
+{
+  "value": [
+    {
+      "etag": "\"0x8DEE77D17207CDC\"",
+      "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh/blobServices/default/containers/data",
+      "name": "data",
+      "properties": {
+        "defaultEncryptionScope": "$account-encryption-key",
+        "deleted": false,
+        "denyEncryptionScopeOverride": false,
+        "hasImmutabilityPolicy": false,
+        "hasLegalHold": false,
+        "immutableStorageWithVersioning": {
+          "enabled": false
+        },
+        "lastModifiedTime": "2026-07-21T23:09:17.0000000Z",
+        "leaseState": "Available",
+        "leaseStatus": "Unlocked",
+        "publicAccess": "None",
+        "remainingRetentionDays": 0
+      },
+      "type": "Microsoft.Storage/storageAccounts/blobServices/containers"
+    }
+  ]
+}

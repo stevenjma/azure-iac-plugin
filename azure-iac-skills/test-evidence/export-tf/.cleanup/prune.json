@@ -1,0 +1,17 @@
+{
+  "pass": "3.3-prune",
+  "status": "complete",
+  "strategy": "Removed empty-string, zero-value, and computed/default attributes that the export tool emits but that add drift risk or noise. Kept one attribute that diverges from the provider default (azurerm_storage_account.allow_nested_items_to_be_public=false vs provider default true). Prune verified against terraform plan (see validate.json).",
+  "removed_by_resource": {
+    "azurerm_resource_group.rg": ["managed_by=\"\""],
+    "azurerm_key_vault.kv": ["enable_rbac_authorization (deprecated dual of rbac_authorization_enabled)", "application_id=\"\"", "certificate_permissions=[]", "key_permissions=[]", "storage_permissions=[]", "enabled_for_deployment=false (default)", "enabled_for_disk_encryption=false (default)", "enabled_for_template_deployment=false (default)", "public_network_access_enabled=true (default)", "network_acls.ip_rules=[]", "network_acls.virtual_network_subnet_ids=[]", "rewrote access_policy=[{...}] list syntax to access_policy {} block"],
+    "azurerm_virtual_network.vnet": ["bgp_community=\"\"", "dns_servers=[]", "edge_zone=\"\"", "flow_timeout_in_minutes=0", "private_endpoint_vnet_policies=\"Disabled\" (default)", "inline subnet=[{...}] block (conflicts with standalone azurerm_subnet.snet_app)"],
+    "azurerm_subnet.snet_app": ["default_outbound_access_enabled=true (default)", "private_endpoint_network_policies=\"Disabled\" (default)", "private_link_service_network_policies_enabled=true (default)", "service_endpoint_policy_ids=[]", "service_endpoints=[]", "sharing_scope=\"\""],
+    "azurerm_log_analytics_workspace.law": ["allow_resource_only_permissions=true (default)", "cmk_for_query_forced=false (default)", "daily_quota_gb=-1 (default)", "data_collection_rule_id=\"\"", "immediate_data_purge_on_30_days_enabled=false", "internet_ingestion_enabled=true (default)", "internet_query_enabled=true (default)", "local_authentication_disabled=false", "local_authentication_enabled=true (dual/default)"],
+    "azurerm_storage_account.sa": ["allowed_copy_scope=\"\"", "provisioned_billing_model_version=\"\"", "edge_zone=\"\"", "cross_tenant_replication_enabled=false (default)", "default_to_oauth_authentication=false (default)", "dns_endpoint_type=\"Standard\" (default)", "https_traffic_only_enabled=true (default)", "infrastructure_encryption_enabled=false (default)", "is_hns_enabled=false (default)", "large_file_share_enabled=false (default)", "local_user_enabled=true (default)", "nfsv3_enabled=false (default)", "public_network_access_enabled=true (default)", "queue_encryption_key_type=\"Service\" (default)", "sftp_enabled=false (default)", "shared_access_key_enabled=true (default)", "table_encryption_key_type=\"Service\" (default)", "blob_properties {} block (all defaults)", "share_properties.retention_policy.days=7 (default)"],
+    "azurerm_storage_container.data": ["default_encryption_scope=\"$account-encryption-key\" (default)", "encryption_scope_override_enabled=true (default)", "metadata={}", "storage_account_name=\"\" (deprecated dual of storage_account_id)"]
+  },
+  "kept_non_default": [
+    {"resource": "azurerm_storage_account.sa", "attribute": "allow_nested_items_to_be_public", "value": false, "reason": "provider default is true; live value is false"}
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh",
+  "identity": {
+    "type": "None"
+  },
+  "kind": "StorageV2",
+  "location": "eastus2",
+  "name": "stavmt9d6lh",
+  "properties": {
+    "accessTier": "Hot",
+    "allowBlobPublicAccess": false,
+    "allowCrossTenantDelegationSas": false,
+    "allowCrossTenantReplication": false,
+    "allowSharedKeyAccess": true,
+    "creationTime": "2026-07-21T23:08:01.3901595Z",
+    "defaultToOAuthAuthentication": false,
+    "dnsEndpointType": "Standard",
+    "encryption": {
+      "keySource": "Microsoft.Storage",
+      "services": {
+        "blob": {
+          "enabled": true,
+          "keyType": "Account",
+          "lastEnabledTime": "2026-07-21T23:08:01.8623238Z"
+        },
+        "file": {
+          "enabled": true,
+          "keyType": "Account",
+          "lastEnabledTime": "2026-07-21T23:08:01.8623238Z"
+        }
+      }
+    },
+    "isHnsEnabled": false,
+    "isLocalUserEnabled": true,
+    "isNfsV3Enabled": false,
+    "isSftpEnabled": false,
+    "keyCreationTime": {
+      "key1": "2026-07-21T23:08:01.8511312Z",
+      "key2": "2026-07-21T23:08:01.8511312Z"
+    },
+    "minimumTlsVersion": "TLS1_2",
+    "networkAcls": {
+      "bypass": "AzureServices",
+      "defaultAction": "Allow",
+      "ipRules": [],
+      "ipv6Rules": [],
+      "resourceAccessRules": [],
+      "virtualNetworkRules": []
+    },
+    "primaryEndpoints": {
+      "blob": "https://stavmt9d6lh.blob.core.windows.net/",
+      "dfs": "https://stavmt9d6lh.dfs.core.windows.net/",
+      "file": "https://stavmt9d6lh.file.core.windows.net/",
+      "queue": "https://stavmt9d6lh.queue.core.windows.net/",
+      "table": "https://stavmt9d6lh.table.core.windows.net/",
+      "web": "https://stavmt9d6lh.z20.web.core.windows.net/"
+    },
+    "primaryLocation": "eastus2",
+    "privateEndpointConnections": [],
+    "provisioningState": "Succeeded",
+    "publicNetworkAccess": "Enabled",
+    "statusOfPrimary": "available",
+    "supportsHttpsTrafficOnly": true
+  },
+  "sku": {
+    "name": "Standard_LRS",
+    "tier": "Standard"
+  },
+  "tags": {
+    "environment": "avmtest",
+    "owner": "stema",
+    "purpose": "avm-adopt-livetest"
+  },
+  "type": "Microsoft.Storage/storageAccounts"
+}

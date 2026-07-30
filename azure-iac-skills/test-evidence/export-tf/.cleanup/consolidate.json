@@ -1,0 +1,6 @@
+{
+  "pass": "3.3.5-consolidate",
+  "status": "skipped",
+  "reason": "Estate contains 7 single-instance resources of distinct types (1 resource group, 1 key vault, 1 vnet, 1 subnet, 1 log analytics workspace, 1 storage account, 1 storage container). No repeated resource shapes to fold into count/for_each loops or shared local modules, so consolidation would add abstraction without removing duplication.",
+  "moved_blocks_emitted": 0
+}

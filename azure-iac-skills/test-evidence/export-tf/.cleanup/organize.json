@@ -1,0 +1,20 @@
+{
+  "pass": "3.4-organize",
+  "status": "complete",
+  "layout": {
+    "providers.tf": "terraform{} required_providers + provider \"azurerm\" (features, subscription_id=var.subscription_id)",
+    "variables.tf": "6 variable blocks (subscription_id, location, resource_group_name, tags, tenant_id, kv_admin_object_id)",
+    "main.tf": "7 resources (rg, kv, vnet, snet_app, law, sa, data)",
+    "imports.tf": "7 import blocks, parameterized ids"
+  },
+  "resource_renames": [
+    {"from": "res-0", "to": "rg", "type": "azurerm_resource_group"},
+    {"from": "res-1", "to": "kv", "type": "azurerm_key_vault"},
+    {"from": "res-3", "to": "vnet", "type": "azurerm_virtual_network"},
+    {"from": "res-4", "to": "snet_app", "type": "azurerm_subnet"},
+    {"from": "res-5", "to": "law", "type": "azurerm_log_analytics_workspace"},
+    {"from": "res-721", "to": "sa", "type": "azurerm_storage_account"},
+    {"from": "res-723", "to": "data", "type": "azurerm_storage_container"}
+  ],
+  "res_n_names_remaining": 0
+}

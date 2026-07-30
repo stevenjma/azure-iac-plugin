@@ -1,0 +1,5 @@
+{
+  "pass": "3.3-organize",
+  "status": "skipped",
+  "reason": "Only 4 modules emitted (<= ~6 threshold). Single flat main.tf is clearer than splitting into per-module files. No organization restructuring applied."
+}

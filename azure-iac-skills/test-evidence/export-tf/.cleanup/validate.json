@@ -1,0 +1,46 @@
+{
+  "schema": "cleanup-validate/v1",
+  "workdir": "live-test-pr1/export-tf",
+  "mode": "full",
+  "gate_a": {
+    "status": "pass",
+    "required_upstream_all_complete_or_skipped": true,
+    "skipped_with_reason": ["3.3.5-consolidate"]
+  },
+  "gate_b": {
+    "status": "pass",
+    "gate_b_output_in_turn": true,
+    "checks": {
+      "literal_subscription_ids_in_active_workdir": 0,
+      "variables_tf_present": true,
+      "mandatory_variables_present": ["subscription_id", "location", "resource_group_name", "tags"],
+      "res_n_resource_names": 0,
+      "secrets_auto_tfvars_example_present": false,
+      "secrets_identified_nonempty": false,
+      "moved_blocks": 0,
+      "consolidate_claims": 0
+    }
+  },
+  "gate_c": {"status": "n/a", "reason": "mode=full"},
+  "terraform_validate": "pass",
+  "terraform_init": "pass (azurerm v4.81.0)",
+  "final_plan": {
+    "import": 7,
+    "add": 0,
+    "change": 0,
+    "destroy": 0,
+    "replace": 0,
+    "raw": "Plan: 7 to import, 0 to add, 0 to change, 0 to destroy."
+  },
+  "intentional_changes": [],
+  "iterations": 1,
+  "coverage": {
+    "live_resource_types_in_fixture": 8,
+    "managed_in_config": 7,
+    "dropped": [
+      {"type": "azurerm_key_vault_secret", "name": "demo-secret", "reason": "export 401 data-plane Unauthorized under first-party export SP; never generated"}
+    ],
+    "note": "storage queue properties (res-725) was also an orphaned import (403 listKeys) but is a property resource, not a distinct fixture resource; removed."
+  },
+  "verdict": "PASS - clean import-only plan, 0 destroy / 0 replace / 0 change"
+}
