@@ -1,12 +1,12 @@
 locals {
-  subscription_id     = "e4b62b3b-7634-4972-8bbe-5d7197159f26"
-  tenant_id           = "4f00b3b6-2940-4f2c-b037-94637c180d30"
-  resource_group_name = "rg-avmtest-stema-20260721"
+  subscription_id     = "00000000-0000-0000-0000-000000000000"
+  tenant_id           = "11111111-1111-1111-1111-111111111111"
+  resource_group_name = "rg-avmtest-demo-20260721"
   resource_group_id   = "/subscriptions/${local.subscription_id}/resourceGroups/${local.resource_group_name}"
 
   tags = {
     environment = "avmtest"
-    owner       = "stema"
+    owner       = "demo"
     purpose     = "avm-adopt-livetest"
   }
 }
@@ -74,7 +74,7 @@ module "keyvault" {
   legacy_access_policies_enabled = true
   legacy_access_policies = {
     guest = {
-      object_id          = "4b645026-a054-4404-8f64-62929c02052c"
+      object_id          = "00000000-0000-0000-0000-000000000104"
       secret_permissions = ["Get", "List", "Set", "Delete", "Purge", "Recover"]
     }
   }

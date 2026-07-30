@@ -12,7 +12,7 @@ variable "location" {
 variable "resource_group_name" {
   description = "Name of the resource group that contains the estate."
   type        = string
-  default     = "rg-iacexport-stema-20260722"
+  default     = "rg-iacexport-demo-20260722"
 }
 
 variable "tags" {
@@ -20,7 +20,7 @@ variable "tags" {
   type        = map(string)
   default = {
     environment = "iacexporttest"
-    owner       = "stema"
+    owner       = "demo"
     purpose     = "iac-export-livetest"
   }
 }
@@ -28,11 +28,11 @@ variable "tags" {
 variable "tenant_id" {
   description = "Entra ID tenant used by the Key Vault and its access policy."
   type        = string
-  default     = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+  default     = "11111111-1111-1111-1111-111111111111"
 }
 
 variable "kv_admin_object_id" {
   description = "Object ID granted secret permissions on the Key Vault access policy."
   type        = string
-  default     = "4b645026-a054-4404-8f64-62929c02052c"
+  default     = "00000000-0000-0000-0000-000000000104"
 }

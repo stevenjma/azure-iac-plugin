@@ -1,11 +1,11 @@
 {
-  "etag": "\"b300aaeb-0000-0200-0000-6a5ffbe80000\"",
-  "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.OperationalInsights/workspaces/law-avmtest-9d6lh",
+  "etag": "\"00000000-0000-0000-0000-000000000106\"",
+  "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.OperationalInsights/workspaces/law-avmtest-9d6lh",
   "location": "eastus2",
   "name": "law-avmtest-9d6lh",
   "properties": {
     "createdDate": "2026-07-21T23:08:01.8515721Z",
-    "customerId": "2aba4772-f6b9-4f7f-9ee8-ad9151087602",
+    "customerId": "00000000-0000-0000-0000-000000000102",
     "features": {
       "disableLocalAuth": false,
       "enableLogAccessUsingOnlyResourcePermissions": true,
@@ -29,7 +29,7 @@
   },
   "tags": {
     "environment": "avmtest",
-    "owner": "stema",
+    "owner": "demo",
     "purpose": "avm-adopt-livetest"
   },
   "type": "Microsoft.OperationalInsights/workspaces"

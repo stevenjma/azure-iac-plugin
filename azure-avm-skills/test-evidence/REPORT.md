@@ -2,7 +2,7 @@
 
 **Artifact under test:** `azure-avm-plugin` skill bundle, PR #2 (`stevenjma-azure-avm-skills-pr2`)
 **Lane:** Terraform · **Quality target:** faithful · **Mode:** full brownfield adopt
-**Tenant:** BAMI (`4f00b3b6-2940-4f2c-b037-94637c180d30`) · **Sub:** Terraform (`e4b62b3b-…`) · **RG:** `rg-avmtest-stema-20260721` (eastus2)
+**Tenant:** TEST (`11111111-1111-1111-1111-111111111111`) · **Sub:** Terraform (`00000000`) · **RG:** `rg-avmtest-demo-20260721` (eastus2)
 **Date:** live run this session · **Run by:** adopt→compose→validate pipeline executed by hand per the skill instructions
 
 ---
@@ -119,7 +119,7 @@ These are the two diffs a faithful adopt *should* catch and reconcile — the re
 
 ---
 
-## 8. Artifacts produced (session scratch, nothing committed)
+## 8. Artifacts produced (captured in this `test-evidence/` folder)
 
 ```
 live-test/adopt/
@@ -135,6 +135,6 @@ live-test/adopt/
 
 ---
 
-## 9. Teardown — PENDING
+## 9. Teardown — COMPLETE
 
-Deployed fixture (8 resources) remains live in `rg-avmtest-stema-20260721`. Teardown (`terraform destroy` on the fixture + purge soft-deleted KV `kv-avmt-9d6lh`) is the final step, **awaiting user confirmation**.
+The deployed fixture (8 resources) was torn down after the run (`terraform destroy` on the fixture + purge of the soft-deleted Key Vault); the test resource group no longer exists.

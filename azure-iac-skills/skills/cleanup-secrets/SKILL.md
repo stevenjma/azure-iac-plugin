@@ -71,7 +71,7 @@ The pass is **not complete** unless:
 
 | Secret | Required when | Not required when |
 |--------|---------------|-------------------|
-| `account_key` | `service_data_auth_identity = "None"` | `WorkspaceSystemAssignedIdentity` |
+| `account_key` | `service_data_auth_identity = "None"` | `WorkspaceSydemossignedIdentity` |
 | `admin_password` | `disable_password_authentication = false` | SSH key auth only |
 | `client_secret` | Service principal auth | Managed identity auth |
 

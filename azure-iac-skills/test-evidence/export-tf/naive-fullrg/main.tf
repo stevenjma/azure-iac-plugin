@@ -12,10 +12,10 @@ provider "azurerm" {
 resource "azurerm_resource_group" "res-0" {
   location   = "eastus2"
   managed_by = ""
-  name       = "rg-iacexport-stema-20260722"
+  name       = "rg-iacexport-demo-20260722"
   tags = {
     environment = "iacexporttest"
-    owner       = "stema"
+    owner       = "demo"
     purpose     = "iac-export-livetest"
   }
 }
@@ -24,10 +24,10 @@ resource "azurerm_key_vault" "res-1" {
     application_id          = ""
     certificate_permissions = []
     key_permissions         = []
-    object_id               = "4b645026-a054-4404-8f64-62929c02052c"
+    object_id               = "00000000-0000-0000-0000-000000000104"
     secret_permissions      = ["Get", "List", "Set", "Delete", "Purge", "Recover"]
     storage_permissions     = []
-    tenant_id               = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+    tenant_id               = "11111111-1111-1111-1111-111111111111"
   }]
   enable_rbac_authorization       = false
   enabled_for_deployment          = false
@@ -43,10 +43,10 @@ resource "azurerm_key_vault" "res-1" {
   soft_delete_retention_days      = 7
   tags = {
     environment = "iacexporttest"
-    owner       = "stema"
+    owner       = "demo"
     purpose     = "iac-export-livetest"
   }
-  tenant_id = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+  tenant_id = "11111111-1111-1111-1111-111111111111"
   network_acls {
     bypass                     = "AzureServices"
     default_action             = "Allow"
@@ -68,7 +68,7 @@ resource "azurerm_virtual_network" "res-3" {
     address_prefixes                              = ["10.43.1.0/24"]
     default_outbound_access_enabled               = true
     delegation                                    = []
-    id                                            = "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-iacexport-stema-20260722/providers/Microsoft.Network/virtualNetworks/vnet-iacx-p1x7q/subnets/snet-app"
+    id                                            = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-iacexport-demo-20260722/providers/Microsoft.Network/virtualNetworks/vnet-iacx-p1x7q/subnets/snet-app"
     name                                          = "snet-app"
     private_endpoint_network_policies             = "Disabled"
     private_link_service_network_policies_enabled = true
@@ -79,7 +79,7 @@ resource "azurerm_virtual_network" "res-3" {
   }]
   tags = {
     environment = "iacexporttest"
-    owner       = "stema"
+    owner       = "demo"
     purpose     = "iac-export-livetest"
   }
 }
@@ -117,7 +117,7 @@ resource "azurerm_log_analytics_workspace" "res-5" {
   sku                                     = "PerGB2018"
   tags = {
     environment = "iacexporttest"
-    owner       = "stema"
+    owner       = "demo"
     purpose     = "iac-export-livetest"
   }
 }
@@ -6630,7 +6630,7 @@ resource "azurerm_storage_account" "res-721" {
   table_encryption_key_type         = "Service"
   tags = {
     environment = "iacexporttest"
-    owner       = "stema"
+    owner       = "demo"
     purpose     = "iac-export-livetest"
   }
   blob_properties {

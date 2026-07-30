@@ -1,32 +1,29 @@
-# Learnings — BAMI live AVM adopt test (carry forward)
+# Findings & known limitations — live AVM adopt test
 
-Durable notes from the live end-to-end test of `azure-avm-plugin` PR #2 in the BAMI tenant.
-Kept in session `files/` so they survive checkpoints.
+Durable notes from a live end-to-end test of the AVM-adopt lane against a disposable
+Azure test subscription. Environment-specific identifiers have been redacted.
 
-## A. Operational / environment (Windows + BAMI)
+## A. Operational / environment
 
-1. **`ARM_*` env-var trap (most important).** This Windows box has persistent leftover
-   `ARM_*` env vars pointing at an unrelated service principal / wrong tenant+sub. They
-   silently hijack the `azurerm`/`azapi` providers. **Every `terraform` invocation must
-   strip them in the same process first:**
+1. **`ARM_*` env-var trap (most important).** A host with leftover `ARM_*` env vars
+   (pointing at an unrelated service principal or the wrong tenant/sub) will silently
+   hijack the `azurerm`/`azapi` providers. **Strip them in the same process before every
+   `terraform` invocation:**
    ```powershell
    Get-ChildItem Env: | ? { $_.Name -like 'ARM_*' } | % { Remove-Item "Env:$($_.Name)" }
    ```
    `az` CLI ignores `ARM_*`, so `az` and `terraform` can disagree about identity — always
    verify with a stripped-env `terraform plan`, not `az account show`.
 
-2. **Never `az login --use-device-code`.** Conditional Access blocks device-code in this
-   tenant ("sign-in successful but you don't have permission"). Use normal interactive
-   `az login --tenant 4f00b3b6-2940-4f2c-b037-94637c180d30`. If `az` breaks, ask the user
-   to re-login rather than retrying device-code.
+2. **Prefer interactive `az login` over `--use-device-code`.** When Conditional Access is
+   enforced, device-code sign-in can succeed yet still lack authorization; interactive
+   `az login --tenant <tenant-id>` is the reliable path.
 
-3. **BAMI coordinates.** Tenant `4f00b3b6-2940-4f2c-b037-94637c180d30`, sub **"Terraform"**
-   `e4b62b3b-7634-4972-8bbe-5d7197159f26`; `stema@microsoft.com` is a B2B **guest Owner**
-   (guest object id `4b645026-a054-4404-8f64-62929c02052c`). Access to the tenant/sub took
-   several tries and a "new BAMI tenant" hand-off before it worked.
+3. **Scope to a single test resource group.** All identifiers in this evidence are
+   redacted placeholders. The run targeted a disposable test subscription only.
 
-4. **Shared subscription.** Other people's RGs live here. Scope every action to the single
-   test RG; never enumerate-and-act across the sub.
+4. **Shared subscription hygiene.** If other resource groups share the subscription, scope
+   every action to the single test RG; never enumerate-and-act across the sub.
 
 5. **Guardrail that held.** adopt/compose/validate is **read-only**; the fidelity gate is
    `terraform plan`, never `apply`/`az deployment create`. The only state-mutating ops the
@@ -113,9 +110,11 @@ and enumerated. Full write-up: `live-test/REPORT.md`.
     Pruning them (+ implicit file/queue/table sub-services) → clean **8 NoChange**. Also:
     `2>&1` merges az/bicep WARNING lines into the JSON → slice from first `{` before `ConvertFrom-Json`.
 
-20. **Dispatch fell to tier-3 REST.** ARM MCP servers aren't wired for export
-    (`azure-mcp-azureterraform` = docs/`aztfexport`-command gen; `azure-mcp-arm` = ARG+deployments),
-    so both lanes used raw `Invoke-WebRequest`+bearer, exactly as the skill's fallback specifies.
+20. **Export dispatch is a direct ARM control-plane REST call.** The export/harvest action
+    calls the authenticated `management.azure.com` control-plane endpoints directly (here via
+    `az rest` / raw `Invoke-WebRequest` + bearer token); any HTTP client holding an ARM token
+    behaves identically. A remote ARM MCP server, when wired, serves only the read/query (ARG)
+    and Bicep what-if operations it exposes — not export.
 
 21. **PR #1 result snapshot.** TF: **`7 import · 0 add · 0 change · 0 destroy`** (cleaner than
     PR #2 — classic `azurerm`, no azapi residuals). Bicep: **`8 NoChange`** what-if. Verdict:
