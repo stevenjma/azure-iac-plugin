@@ -66,7 +66,7 @@ in the same turn.
      resource-type schema (ARM MCP `get_resource_type_schema` / `az provider show`) and fix.
    - Symbol/reference error → return to `bicep-parameterize` or `bicep-organize`.
 3. **Fidelity gate** — run what-if against the live RG:
-   - **Preferred:** ARM MCP `whatif_deployment` (governed, caller RBAC) — pass the compiled
+   - **Preferred:** ARM MCP `whatif_deployment` (runs under the caller's RBAC) — pass the compiled
      template + parameters + target resource group.
    - **Fallback (works today):** `az deployment group what-if --resource-group <rg> --template-file
      main.bicep --parameters @secrets.parameters.example.json` (with placeholder secure values).

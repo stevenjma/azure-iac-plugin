@@ -11,9 +11,9 @@ license: MIT
 compatibility: >
   Requires az login authenticated. Bicep lane: bicep CLI (az bicep) for build/what-if; needs
   mcr.microsoft.com egress to restore modules. Terraform lane: terraform >= 1.5 and
-  registry.terraform.io egress to init modules. ARM MCP server optional (governed control-plane
-  upgrade); a direct authenticated ARM REST fallback (via `az rest`) works today with no MCP wired.
-  Reads the live AVM module index (CSV) from raw.githubusercontent.com.
+  registry.terraform.io egress to init modules. The harvest oracle calls the ARM control-plane REST
+  API directly (via `az rest`); an optional remote ARM MCP server can serve the read/query and Bicep
+  what-if operations it exposes. Reads the live AVM module index (CSV) from raw.githubusercontent.com.
 ---
 
 ## Purpose
@@ -125,14 +125,16 @@ do not silently proceed to a mostly-fallback composition.
 
 Harvest the concrete live values for the in-scope resources through the **export-dispatch seam**
 (same abstraction as the raw plugin; here the output is consumed as **input values**, not final
-code). Resolve in this **preference order** (first available wins):
+code). Harvest calls the **ARM control-plane REST API directly** — the same authenticated
+`management.azure.com` endpoints that back the export services:
 
-1. **ARM MCP RP tool** — a first-class ARM MCP tool for the export/read action, if registered.
-2. **ARM MCP generic POST-action** — `list_available_actions → generate_resource_action_body →
-   submit_resource_action`, once that write path ships.
-3. **Direct ARM REST via `az rest`** — the **works-today path**. `exportTemplate` (ARM JSON) or a
-   per-resource `GET .../<id>?api-version=<v>` yields the live property bag. `az rest` auto-attaches
-   the bearer token.
+- **Direct ARM REST via `az rest`** — `exportTemplate` (ARM JSON) or a per-resource
+  `GET .../<id>?api-version=<v>` yields the live property bag. `az rest` auto-attaches the caller's
+  Entra bearer token; any HTTP client holding an ARM token behaves identically.
+
+Azure Resource Graph discovery (Phase 1.1) and the Bicep `whatif_deployment` fidelity gate use the
+remote ARM MCP server's first-class tools when it is wired; the harvest oracle itself is always the
+direct control-plane REST call above.
 
 The harvested property bag per resource → `<workdir>/.avm/harvest/<name>.json`. This is the oracle
 the compose lane reads to fill module inputs. Never hand-fabricate a value the oracle can supply.
@@ -174,7 +176,7 @@ language == "terraform" → invoke terraform-avm-compose with the same inputs.
 - Scope:     [resource / resource group / ARG query]
 - Target:    [id / rg-name / query]
 - Language:  Bicep | Terraform
-- Dispatch:  ARM MCP RP tool | ARM MCP POST-action | direct ARM REST (az rest)
+- Dispatch:  direct ARM control-plane REST (az rest)
 
 ## Coverage
 - N of M in-scope types resolved to AVM modules (X% coverage)
@@ -198,7 +200,7 @@ language == "terraform" → invoke terraform-avm-compose with the same inputs.
 | Never fabricate config values | Only values from the oracle or provider/ARM docs |
 | Never write a harvested secret into a params/tfvars literal | Flag for the `-secrets` pass |
 | Never invent an AVM module for a coverage gap | Gaps take a confirmed fallback |
-| Prefer MCP dispatch, fall back to ARM REST — never hard-fail on unwired MCP | seam order (1)→(2)→(3) |
+| Harvest live config via direct ARM control-plane REST | export-dispatch seam → `az rest` (oracle only) |
 
 ## Tools & endpoints used
 
@@ -206,9 +208,7 @@ language == "terraform" → invoke terraform-avm-compose with the same inputs.
 |---|---|---|
 | Azure Resource Graph (`az graph query` / ARM REST) | 1.1 | Enumerate in-scope types |
 | `avm-module-resolver` (reads AVM index CSVs) | 1.2 | Type → module/version/status; coverage.json |
-| ARM MCP RP export/read tool (if present) | 1.3 | Preferred governed harvest dispatch |
-| ARM MCP generic POST-action (if shipped) | 1.3 | Governed harvest dispatch |
-| `az rest` → `exportTemplate` / per-resource GET | 1.3 | Live config harvest (POC fallback) |
+| `az rest` → `exportTemplate` / per-resource GET | 1.3 | Live config harvest (direct ARM control-plane REST) |
 | `az account show` | 0 | Auth / subscription check |
 
 ## References

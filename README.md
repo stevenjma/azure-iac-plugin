@@ -50,6 +50,6 @@ Bicep↔Terraform fidelity gates.
 Each subfolder is a self-contained plugin: its `plugin.json` references `skills/` and `.mcp.json`
 relative to that subfolder, so the two plugins install and run independently.
 
-> **POC status.** Both plugins are proofs of concept. The export/harvest path defaults to direct
-> authenticated ARM REST (via `az rest`) behind a single swappable `export-dispatch` seam that
-> upgrades to first-class ARM MCP tools as they ship.
+> **POC status.** Both plugins are proofs of concept. The export/harvest action calls the ARM
+> control-plane REST API directly (via `az rest`) behind a single `export-dispatch` seam. A remote
+> ARM MCP server, when wired, serves the read/query (ARG) and Bicep what-if operations it exposes.

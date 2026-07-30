@@ -1,13 +1,13 @@
 # brownfield-avm-adopt — concrete invocations
 
-Works-today commands for AVM adoption. Discovery + harvest use the **direct ARM REST** dispatch
-tier (tier 3) via `az rest`, which attaches the caller's AAD bearer token automatically. Windows
-PowerShell syntax.
+Commands for AVM adoption. Discovery + harvest call the **ARM control-plane REST API directly** via
+`az rest`, which attaches the caller's Entra bearer token automatically; any HTTP client holding an
+ARM token behaves identically. Windows PowerShell syntax.
 
-> Dispatch order reminder: try (1) an ARM MCP RP tool, then (2) the ARM MCP generic POST-action
-> path, and only then (3) these `az rest` calls. Tiers (1)/(2) upgrade the *mechanism* without
-> changing anything downstream. Here the harvested output is consumed as **input values for AVM
-> module calls**, not as final code.
+> The harvest step calls the ARM control-plane REST API directly (these `az rest` calls) and its
+> output is consumed as **input values for AVM module calls**, not as final code. A remote ARM MCP
+> server, if wired, serves the Azure Resource Graph discovery and Bicep what-if operations it
+> exposes — it does not change how harvest is issued.
 
 ---
 
@@ -133,18 +133,15 @@ Terraform `resolved[]` entries carry `"source": "Azure/avm-res-storage-storageac
 
 ---
 
-## 4. Dispatch probe (tiers 1 → 2 → 3)
+## 4. Harvest mechanism
 
-```
-if session exposes an ARM MCP tool for export/read of the scope:
-        → call it; consume the property bag as oracle input.   # tier 1
-elif ARM MCP exposes list_available_actions / submit_resource_action:
-        → drive the generic POST-action path.                  # tier 2
-else:
-        → use the az rest calls above.                         # tier 3 (works-today)
-```
+Discovery and harvest are **direct ARM control-plane REST calls** — the `az rest` requests above
+(ARG for discovery, `exportTemplate` / per-resource GET for harvest). `az rest` attaches the
+caller's Entra bearer token, so the only prerequisite is `az login`.
 
-Never hard-fail solely because the ARM MCP is unwired — tier 3 always works with `az login`.
+If a remote ARM MCP server is wired, use its first-class tools for the operations it exposes —
+Azure Resource Graph discovery and the Bicep `whatif_deployment` fidelity gate — but the harvest
+call itself remains the direct control-plane REST request above, consumed as oracle input.
 
 ---
 

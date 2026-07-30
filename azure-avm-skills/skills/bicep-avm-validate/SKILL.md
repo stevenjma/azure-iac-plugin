@@ -77,7 +77,7 @@ in the same turn.
    - Module restore failure → confirm the pinned version exists (re-run `avm-module-resolver`
      version resolution); never downgrade to floating.
 3. **Fidelity/reconcile gate** — run what-if against the live RG:
-   - **Preferred:** ARM MCP `whatif_deployment` (governed, caller RBAC) — compiled template +
+   - **Preferred:** ARM MCP `whatif_deployment` (runs under the caller's RBAC) — compiled template +
      parameters + target resource group.
    - **Fallback:** `az deployment group what-if --resource-group <rg> --template-file main.bicep
      --parameters @secrets.parameters.example.json` (placeholder secure values). Record which was used.

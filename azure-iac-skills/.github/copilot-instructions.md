@@ -68,31 +68,32 @@ Export is **service-side** through the ARM control-plane export APIs — no loca
 `exportTerraform` runs the same aztfexport engine **server-side**, so the Terraform translation
 rules apply to its output unchanged.
 
-### Export dispatch (one swappable seam)
+### Export dispatch
 
-Skills call a single `export-dispatch` step that resolves in this preference order:
-
-1. A first-class **ARM MCP RP tool** for AzureTerraform/export, if registered.
-2. The generic ARM MCP **POST-action** path (`list_available_actions → generate_resource_action_body
-   → submit_resource_action`), once shipped.
-3. **Direct authenticated ARM REST** via `az rest` (the works-today POC default).
+The export action calls the **ARM control-plane REST API directly** — the same authenticated
+`management.azure.com` control-plane endpoints that back the export services. In this POC the calls
+are issued with `az rest`, which attaches the caller's Entra bearer token; any HTTP client holding
+an ARM token behaves identically. All export calls go through one `export-dispatch` step so the
+transport can change without touching the cleanup pipeline.
 
 ## Tools (MCP + CLI)
 
-This plugin ships an `.mcp.json` at its plugin root registering a **remote ARM MCP server** (`arm-mcp`),
-used for read/query (Azure Resource Graph) and — for Bicep — the `whatif_deployment` fidelity gate.
+This plugin ships an `.mcp.json` at its plugin root registering a **remote ARM MCP server**
+(`arm-mcp`). When wired, the pipeline uses its first-class tools for the operations it exposes —
+Azure Resource Graph read/query and the Bicep `whatif_deployment` fidelity gate. The export action
+itself is a direct ARM control-plane REST call (see *Export dispatch*).
 
 | Concept | Value |
 |---|---|
 | MCP server id | `arm-mcp` (remote) |
 | Config env vars | `ARM_MCP_URL`, `ARM_MCP_TOKEN` (set before use; see README) |
-| Deployment tools | `whatif_deployment`, `get_whatif_deployment_status`, `create_deployment`, … |
+| Deployment tools | `whatif_deployment`, `create_deployment`, `get_deployment_status`, `get_async_operation_status` |
 | Read tools | `generate_query → validate_query → execute_query` (ARG) |
 
-**No hard dependency on the remote ARM MCP:** if `arm-mcp` is not wired, the Bicep fidelity gate
-falls back to `az deployment group what-if`, and export falls back to direct ARM REST via `az rest`.
-Terraform's fidelity gate (`terraform plan`) is pure local CLI. Prompt the user to configure
-`arm-mcp` for the governed path, but never block on it.
+**No hard dependency on the remote ARM MCP:** if `arm-mcp` is not wired, ARG read falls back to the
+`az` CLI, the Bicep fidelity gate falls back to `az deployment group what-if`, and export is issued
+with `az rest` directly. Terraform's fidelity gate (`terraform plan`) is pure local CLI. Configuring
+`arm-mcp` is recommended but never required.
 
 ## Prerequisites
 

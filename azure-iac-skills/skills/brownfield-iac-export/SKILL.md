@@ -9,9 +9,9 @@ description: >
 license: MIT
 compatibility: >
   Requires az login authenticated. Terraform lane: terraform >= 1.5 for downstream lint/validate.
-  Bicep lane: bicep CLI (az bicep) for decompile/build. ARM MCP server optional (governed
-  control-plane upgrade); a direct authenticated ARM REST fallback (via `az rest`) works today
-  with no MCP wired. No local aztfexport install required — Terraform export runs service-side.
+  Bicep lane: bicep CLI (az bicep) for decompile/build. Export calls the ARM control-plane REST API
+  directly (via `az rest`); an optional remote ARM MCP server can serve the read/query and Bicep
+  what-if operations it exposes. No local aztfexport required — Terraform export runs service-side.
 ---
 
 ## Purpose
@@ -20,7 +20,7 @@ This skill handles the **export side** of brownfield conversion for **both langu
 
 - **What** to export (scope: resource / resource group / ARG query)
 - **Which language** to target (Bicep or Terraform) — never defaulted silently
-- **How** to export (which control-plane API, dispatched through the export-dispatch seam)
+- **How** to export (which control-plane API, called directly via the export-dispatch seam)
 - **Post-export hygiene** (artifacts each export engine leaves behind)
 
 After export completes it **invokes the matching cleanup orchestrator** on the raw output
@@ -47,7 +47,7 @@ all downstream Terraform drift/translation rules in `azure-to-terraform-translat
 | Scoping (resource / RG / ARG query) | ✓ | |
 | Language selection (bicep / terraform) | ✓ | |
 | Provider selection (azurerm / azapi — TF only) | ✓ | |
-| Export-dispatch (MCP tool / POST-action / ARM REST) | ✓ | |
+| Export-dispatch (direct ARM control-plane REST) | ✓ | |
 | Bicep decompile of exported ARM JSON | ✓ | |
 | Post-export hygiene (orphans, creds, decompile cruft) | ✓ | |
 | References, params/variables, prune, organize, secrets, validate | | ✓ |
@@ -83,19 +83,16 @@ so the downstream validate gate can confirm scope selection (Gate C).
 
 ### Phase 1: Export execution — the export-dispatch seam
 
-All export calls go through **one abstraction** so the pipeline never rewrites as ARM MCP matures.
-Resolve in this **preference order** (first available wins):
+All export calls go through **one abstraction** (`export-dispatch`) so the pipeline never rewrites
+if the export transport changes. Export calls the **ARM control-plane REST API directly** — the
+same authenticated `management.azure.com` control-plane endpoints that back the export services:
 
-1. **ARM MCP RP tool** — a first-class ARM MCP tool for the export action, if registered in the
-   session (e.g. an `AzureTerraform`/export tool surfaced by the remote ARM MCP). Preferred when present.
-2. **ARM MCP generic POST-action** — `list_available_actions → generate_resource_action_body →
-   submit_resource_action` against the export endpoint, once that write path ships.
-3. **Direct ARM REST via `az rest`** — the **works-today POC path**. `az rest` auto-attaches the
-   caller's bearer token. This is a faithful stand-in for a remote MCP (a governed ARM-REST proxy).
+- **Direct ARM REST via `az rest`** — `az rest` auto-attaches the caller's Entra bearer token. Any
+  HTTP client holding an ARM token behaves identically; this is the mechanism in this POC.
 
-Probe (1) and (2); if neither is available, use (3). Never fail the run solely because the MCP is
-unwired — fall back to REST. Load `references/examples.md` only when exact REST requests or LRO
-polling commands are needed.
+A remote ARM MCP server, if wired, serves the **read/query (ARG)** and Bicep **`whatif_deployment`**
+operations it exposes — but the export action itself is always the direct control-plane REST call
+above. Load `references/examples.md` only when exact REST requests or LRO polling commands are needed.
 
 #### Terraform lane — `exportTerraform` (LRO)
 
@@ -231,7 +228,7 @@ Quality target == "quick export"?
 - Target:   [id / rg-name / query]
 - Language: Bicep | Terraform
 - Provider: azurerm | azapi | n/a (bicep)
-- Dispatch: ARM MCP RP tool | ARM MCP POST-action | direct ARM REST (az rest)
+- Dispatch: direct ARM control-plane REST (az rest)
 
 ## Results
 - ✓ Exported to [main.bicep | main.tf (+ import.tf)]
@@ -281,7 +278,7 @@ pushed further, not tolerated.
 | Export failure on one resource never blocks others | Continue; surface in `skippedResources`/summary |
 | Never fabricate resource configurations | Only values from the export API or provider/ARM docs |
 | Never hardcode `subscription_id` / secrets in provider or params | Extract to variables/secure params |
-| Prefer MCP dispatch, fall back to ARM REST — never hard-fail on unwired MCP | export-dispatch seam order (1)→(2)→(3) |
+| Call the ARM control-plane API directly for export | export-dispatch seam → `az rest` to the export endpoint |
 | Clear conflicting auth env vars before export | Detect and warn |
 | Always hand off to cleanup unless quick export | Automatic handoff to the language-matched orchestrator |
 
@@ -289,10 +286,8 @@ pushed further, not tolerated.
 
 | Mechanism | Phase | Purpose |
 |---|---|---|
-| ARM MCP RP export tool (if present) | 1 | Preferred governed export dispatch |
-| ARM MCP generic POST-action (if shipped) | 1 | Governed export dispatch |
-| `az rest` → `Microsoft.AzureTerraform/exportTerraform` | 1 | Terraform export (POC fallback, LRO) |
-| `az rest` → `resourceGroups/{rg}/exportTemplate` | 1 | Bicep ARM-JSON export (POC fallback) |
+| `az rest` → `Microsoft.AzureTerraform/exportTerraform` | 1 | Terraform export (direct ARM control-plane REST, LRO) |
+| `az rest` → `resourceGroups/{rg}/exportTemplate` | 1 | Bicep ARM-JSON export (direct ARM control-plane REST) |
 | `az bicep decompile` / `az bicep build` | 1, 2 | ARM JSON → Bicep; build sanity check |
 | `az account show` | 0 | Auth / subscription check |
 

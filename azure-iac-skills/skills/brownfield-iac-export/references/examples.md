@@ -1,11 +1,12 @@
 # Brownfield export command examples
 
-Exact, works-today commands for the **direct ARM REST** dispatch tier (tier 3). All use `az rest`,
-which attaches the caller's AAD bearer token automatically. Windows PowerShell syntax.
+Exact commands for the **direct ARM control-plane REST** export mechanism. All use `az rest`, which
+attaches the caller's Entra bearer token automatically; any HTTP client holding an ARM token behaves
+identically. Windows PowerShell syntax.
 
-> Dispatch order reminder: try (1) an ARM MCP RP export tool, then (2) the ARM MCP generic
-> POST-action path, and only then (3) these `az rest` calls. Tiers (1)/(2) upgrade the *mechanism*
-> without changing anything downstream.
+> The export action always calls the ARM control-plane REST API directly (these `az rest` calls). A
+> remote ARM MCP server, if wired, serves the read/query (ARG) and Bicep what-if operations it
+> exposes — it does not change how export is issued.
 
 ---
 
@@ -128,23 +129,21 @@ Collect decompile **warnings** — they mark constructs that didn't round-trip a
 
 ---
 
-## 3. Dispatch probe (tiers 1 → 2 → 3)
+## 3. Export mechanism
 
-Pseudocode the skill follows before falling back to `az rest`:
+The export action is a **direct ARM control-plane REST call** — the `az rest` requests above. `az
+rest` attaches the caller's Entra bearer token, so the only prerequisite is `az login`.
 
 ```
-if session exposes an ARM MCP tool whose name/description matches
-   AzureTerraform export / exportTerraform / exportTemplate:
-        → call it with the scope body; done.        # tier 1 (RP tool)
-elif ARM MCP exposes list_available_actions / submit_resource_action:
-        list_available_actions(scope)
-        generate_resource_action_body(action = exportTerraform|exportTemplate)
-        submit_resource_action(...)                  # tier 2 (generic POST-action)
-else:
-        use the az rest calls above.                 # tier 3 (works-today POC)
+# Terraform lane
+az rest --method post --url ".../Microsoft.AzureTerraform/exportTerraform?api-version=..." --body <scope-body>
+# Bicep lane
+az rest --method post --url ".../resourceGroups/{rg}/exportTemplate?api-version=..." --body <scope-body>
 ```
 
-Never hard-fail solely because the ARM MCP is unwired — tier 3 always works with `az login`.
+If a remote ARM MCP server is wired, use its first-class tools for the operations it exposes —
+Azure Resource Graph read/query and the Bicep `whatif_deployment` fidelity gate — but the export
+call itself remains the direct control-plane REST request above.
 
 ---
 

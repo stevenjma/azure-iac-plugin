@@ -21,9 +21,9 @@ Because both pieces are standard formats, **any MCP-capable agent client can hos
 Copilot CLI is the primary/reference client, but it is deliberately *not* the only one. See
 [Clients](#clients).
 
-> **POC status.** This is a proof of concept. The export path defaults to direct authenticated ARM
-> REST (via `az rest`) behind a single swappable `export-dispatch` seam that upgrades to first-class
-> ARM MCP tools as they ship.
+> **POC status.** This is a proof of concept. The export action calls the ARM control-plane REST API
+> directly (via `az rest`) behind a single `export-dispatch` seam. A remote ARM MCP server, when
+> wired, serves the read/query (ARG) and Bicep what-if operations it exposes.
 
 ## How it works
 
@@ -67,13 +67,14 @@ committed):
 | `ARM_MCP_URL` | Remote ARM MCP endpoint (used in `.mcp.json`) |
 | `ARM_MCP_TOKEN` | Bearer token for the `Authorization` header |
 
-**No hard dependency on the remote ARM MCP.** If `arm-mcp` is not wired up:
+**No hard dependency on the remote ARM MCP.** The export action always calls the ARM control-plane
+REST API directly via `az rest` — it does not use the MCP. If `arm-mcp` is not wired up:
 
-- Export falls back to direct ARM REST via `az rest`.
 - The Bicep fidelity gate falls back to `az deployment group what-if`.
 - Terraform's fidelity gate (`terraform plan`) is pure local CLI and never needs the MCP.
 
-Configure `arm-mcp` for the governed control-plane path, but the pipeline never blocks on it.
+Configuring `arm-mcp` is recommended for its read/query and what-if tools, but the pipeline never
+blocks on it.
 
 ## Clients
 
