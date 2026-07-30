@@ -1,0 +1,13 @@
+{
+  "name": "azure-iac-skills",
+  "description": "Export existing Azure infrastructure into production-quality Bicep or Terraform — brownfield adoption via the ARM control-plane export APIs (exportTemplate / exportTerraform) with evidence-gated cleanup, symmetric syntax + fidelity validation (terraform plan / what-if), and 30+ Terraform translation rules.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Stephen Ma",
+    "email": "stema@microsoft.com"
+  },
+  "keywords": ["azure", "bicep", "terraform", "arm", "brownfield", "export", "infrastructure-as-code", "arm-mcp"],
+  "skills": "skills/",
+  "mcpServers": ".mcp.json"
+}

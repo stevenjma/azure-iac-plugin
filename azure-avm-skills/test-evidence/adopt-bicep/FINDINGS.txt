@@ -1,0 +1,29 @@
+PR2-BICEP — FINAL FIDELITY RESULT (what-if #2, after oracle feed + secure-default overrides)
+status: Succeeded | 2 NoChange, 5 Modify(cosmetic) | ZERO genuine behavioral drift
+
+PERFECT NoChange (2): vnet-iacx-s4r1k, subnet snet-app
+  -> pure-ARM resources; AVM authors no opinionated extra props; subnet posture inputs
+     (defaultOutboundAccess=true, privateEndpointNetworkPolicies=Disabled) closed them clean.
+
+CLOSED real AVM secure-default drifts (override burden = 4 explicit inputs):
+  LAW.forceCmkForQuery         True  -> false
+  STO.requireInfrastructureEncryption True -> false   (delta now GONE)
+  STO.blob deleteRetentionPolicyEnabled      True -> false  (7d soft-delete off)
+  STO.blob containerDeleteRetentionPolicyEnabled True -> false
+
+IRREDUCIBLE cosmetic what-if noise (5 Modify — AVM module authors explicit props the RP omits on GET):
+  KV      createMode '' -> 'default'                    (AVM always writes createMode)
+  LAW     forceCmkForQuery '' -> 'False'                (writes effective default; live omits)
+  STO     isNfsV3Enabled 'False' -> ''                  (AVM empty-string quirk when NFS off)
+  STO     customDomain '' -> '@{useSubDomainName=False}'(AVM always emits empty customDomain obj)
+  STO     largeFileSharesState '' -> 'Disabled'         (param default; live never set it)
+  STO.blob days=7 / isVersioning=False / autoSnapshot=False / containerDelete=@{enabled=False}
+  container defaultEncryptionScope / denyEncryptionScopeOverride  DELETED (read-only server defaults)
+
+HEADLINE (symmetric with PR2-TF): a brownfield AVM adopt CANNOT reach true zero-diff on either lane.
+  TF (azapi): always >=1 phantom "to add" (time_sleep) + cosmetic null/api-version churn.
+  Bicep (AVM): every AVM-authored resource stays "Modify" — AVM writes explicit property values
+    the ARM RP omits on GET, so property-level what-if never converges to NoChange. Only pure-ARM
+    resources (vnet/subnet) reach NoChange.
+  Burden to get here: 4 secure-default overrides (forceCmk, infraEncrypt, blob+container soft-delete),
+    each requiring the adopter to KNOW the AVM default and harvest the live truth to override it.

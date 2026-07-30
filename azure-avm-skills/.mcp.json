@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "arm-mcp": {
+      "type": "http",
+      "url": "${ARM_MCP_URL}",
+      "headers": {
+        "Authorization": "******"
+      },
+      "tools": ["*"]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "lane": "bicep",
+  "export": {
+    "api": "POST /resourceGroups/{rg}/exportTemplate?api-version=2021-04-01",
+    "body": {
+      "options": "SkipResourceNameParameterization",
+      "resources": [
+        "*"
+      ]
+    },
+    "lro": "202 + Location header (String[]; index [0]); poll GET until 200; body.template",
+    "raw_resource_count": 726,
+    "explosion": "676 workspaces/tables + 39 workspaces/savedSearches auto-created by 1 LAW",
+    "parameters": 0,
+    "kv_secret_captured": "shell only (properties.attributes.enabled); NO value (ARM never round-trips secret values)"
+  },
+  "filter": {
+    "method": "post-export filter of workspaces/tables + workspaces/savedSearches; then dropped default file/queue/table sub-services + container default immutableStorageWithVersioning",
+    "core_resource_count": 8,
+    "kept": [
+      "Microsoft.KeyVault/vaults",
+      "Microsoft.KeyVault/vaults/secrets",
+      "Microsoft.Network/virtualNetworks",
+      "Microsoft.Network/virtualNetworks/subnets",
+      "Microsoft.OperationalInsights/workspaces",
+      "Microsoft.Storage/storageAccounts",
+      "Microsoft.Storage/storageAccounts/blobServices",
+      "Microsoft.Storage/storageAccounts/blobServices/containers"
+    ]
+  },
+  "decompile": {
+    "tool": "az bicep decompile",
+    "cycle_gotcha": "BCP080 vnet<->subnet: ARM export declares subnet BOTH inline (vnet.properties.subnets) AND as standalone child -> cyclic Bicep. Fix: remove inline properties.subnets from vnet before decompile (keep standalone child).",
+    "result": "clean after fix"
+  },
+  "build": {
+    "tool": "az bicep build",
+    "errors": 0,
+    "warnings": "BCP081 preview-type only (non-blocking)"
+  },
+  "whatif": {
+    "api": "az deployment group what-if (Incremental)",
+    "first_pass": "9 NoChange, 2 Modify (container immutableStorageWithVersioning default-Create; queueService empty logging default-Delete) - both benign export round-trip artifacts on the known data-plane auth-gap resources",
+    "final_pass": "8 NoChange, 0 Modify, 0 Create, 0 Delete",
+    "parse_gotcha": "az/bicep WARNING lines merged by 2>&1 break ConvertFrom-Json; slice from first '{' before parsing"
+  },
+  "coverage": "8/8 fixture resource TYPES represented; KV secret shell captured (value never exported). Default storage sub-services (file/queue/table) intentionally dropped as implicit/non-provisioned - symmetric with TF import set.",
+  "verdict": "PASS - perfect what-if (all NoChange) after benign-default pruning"
+}

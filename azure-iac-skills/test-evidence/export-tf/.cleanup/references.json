@@ -1,0 +1,30 @@
+{
+  "pass": "3.1-references",
+  "status": "complete",
+  "actions": [
+    {
+      "resource": "azurerm_subnet.snet_app",
+      "attribute": "virtual_network_name",
+      "from": "\"vnet-iacx-p1x7q\" (string literal)",
+      "to": "azurerm_virtual_network.vnet.name (resource reference)"
+    },
+    {
+      "resource": "azurerm_storage_container.data",
+      "attribute": "storage_account_id",
+      "note": "already a reference in raw export (azurerm_storage_account.<x>.id); retargeted to azurerm_storage_account.sa.id"
+    },
+    {
+      "resource": "all children",
+      "attribute": "resource_group_name",
+      "from": "azurerm_resource_group.res-0.name",
+      "to": "azurerm_resource_group.rg.name (renamed target)"
+    },
+    {
+      "resource": "azurerm_subnet.snet_app",
+      "attribute": "depends_on",
+      "action": "removed explicit depends_on=[vnet]; now implicit via virtual_network_name reference"
+    }
+  ],
+  "explicit_depends_on_removed": 1,
+  "literal_ids_replaced_with_references": 1
+}

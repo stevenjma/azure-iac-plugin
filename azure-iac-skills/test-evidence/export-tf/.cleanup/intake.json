@@ -1,0 +1,15 @@
+{
+  "pass": "0-intake",
+  "scope": "resourceGroup",
+  "resource_group_name": "rg-iacexport-stema-20260722",
+  "subscription_id": "e4b62b3b-7634-4972-8bbe-5d7197159f26",
+  "language": "terraform",
+  "provider": "azurerm",
+  "mode": "full",
+  "source": "brownfield-iac-export/exportTerraform",
+  "source_notes": "api-version=2025-06-01-preview (skill-documented 2025-09-01-preview 404s); excludeTerraformResource=[azurerm_log_analytics_workspace_table_custom_log, azurerm_log_analytics_saved_search] to suppress 715 auto-generated LAW child resources from the naive ExportResourceGroup.",
+  "export_errors": [
+    "azurerm_key_vault_secret.res-2 (demo-secret): 401 data-plane Unauthorized under service export SP",
+    "azurerm_storage_account_queue_properties.res-725: 403 listKeys AuthorizationFailed under service export SP"
+  ]
+}

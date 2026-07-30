@@ -1,0 +1,51 @@
+{
+  "pass": "3.2-variables",
+  "status": "complete",
+  "variables_created": [
+    {
+      "name": "subscription_id",
+      "type": "string",
+      "mandatory": true,
+      "has_default": false,
+      "used_by": ["provider azurerm", "all import block ids"]
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "mandatory": true,
+      "default": "eastus2",
+      "occurrences_replaced": 5
+    },
+    {
+      "name": "resource_group_name",
+      "type": "string",
+      "mandatory": true,
+      "default": "rg-iacexport-stema-20260722",
+      "occurrences_replaced": 1,
+      "note": "also referenced by all import block ids"
+    },
+    {
+      "name": "tags",
+      "type": "map(string)",
+      "mandatory": true,
+      "default": {"environment": "iacexporttest", "owner": "stema", "purpose": "iac-export-livetest"},
+      "occurrences_replaced": 5
+    },
+    {
+      "name": "tenant_id",
+      "type": "string",
+      "mandatory": false,
+      "default": "4f00b3b6-2940-4f2c-b037-94637c180d30",
+      "occurrences_replaced": 2,
+      "note": "Key Vault tenant_id + access_policy.tenant_id"
+    },
+    {
+      "name": "kv_admin_object_id",
+      "type": "string",
+      "mandatory": false,
+      "default": "4b645026-a054-4404-8f64-62929c02052c",
+      "occurrences_replaced": 1
+    }
+  ],
+  "mandatory_four_present": ["subscription_id", "location", "resource_group_name", "tags"]
+}
