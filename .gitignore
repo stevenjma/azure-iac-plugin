@@ -1,0 +1,49 @@
+# Terraform
+**/.terraform/*
+!**/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+!example.tfvars
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+*.tfplan
+
+# Bicep / ARM build output
+*.bicepparam.json
+
+# Azure CLI / auth artifacts
+.azure/
+*.pem
+*.pfx
+*.publishsettings
+
+# Python (skills tooling)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Node (if any tooling is added)
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Logs / scratch
+*.log
+tmp/
+scratch/
