@@ -39,6 +39,35 @@ Bicep↔Terraform fidelity gates.
   resource-type-to-module resolver, AVM-default reconciliation, and coverage reporting. See its
   [README](./azure-avm-skills/README.md).
 
+## Install as agent skills
+
+The repository follows the open Agent Skills format and exposes all skills through the
+[`skills`](https://skills.sh/) CLI. Node.js and npm are required.
+
+List the available skills:
+
+```shell
+npx skills add stevenjma/azure-iac-plugin --list
+```
+
+Install all skills interactively:
+
+```shell
+npx skills add stevenjma/azure-iac-plugin
+```
+
+Install a specific skill for GitHub Copilot:
+
+```shell
+npx skills add stevenjma/azure-iac-plugin \
+  --skill brownfield-iac-export \
+  --agent github-copilot
+```
+
+While this repository is private, users must have GitHub access and authenticated Git credentials.
+Once the repository is public, the same commands support unauthenticated installation and
+skills.sh discovery without repackaging or publishing to npm.
+
 ## Repository layout
 
 ```
