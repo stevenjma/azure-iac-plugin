@@ -6,8 +6,22 @@ not raw `resource` blocks. The ARM control-plane export APIs are used only as a 
 oracle** (to harvest live property values); the code you emit is a composition of published AVM
 modules (`br/public:avm/res/...` for Bicep, `Azure/avm-res-*/azurerm` for Terraform).
 
-Source of truth for module names, statuses, and versions: **https://aka.ms/avm** (the machine-readable
-index CSVs are the join tables — see `avm-module-resolver`).
+Source of truth for module names and statuses: the machine-readable AVM index CSVs linked from
+**https://aka.ms/avm** (see `avm-module-resolver`). Use **https://aka.ms/avm/llms** as the compact
+documentation table of contents when additional AVM guidance is needed.
+
+## Token-efficient AVM retrieval
+
+- Fetch `https://aka.ms/avm/llms` at most once per run, then follow only the source-document links
+  needed for the current decision. Do not crawl the rendered AVM site or the documentation tree.
+- Prefer structured, narrow sources over prose: query only the chosen language's resource-module CSV,
+  then use MCR or the Terraform Registry for the resolved module's version.
+- Resolve each distinct ARM type once. Cache the selected CSV, documentation index, and per-module
+  schema under the run work directory; reuse them across composition passes.
+- For module inputs, read only the resolved module's interface file (`main.bicep` or `variables.tf`)
+  from its `RepoURL`. Do not fetch both language lanes, unrelated modules, or an entire repository.
+- The LLM index is navigation, not module metadata. Never infer a module name, status, version, or
+  input from it when a structured source exists.
 
 ## Identity & Values
 

@@ -4,6 +4,11 @@ The resolver's authority is the **Azure Verified Modules module index** at **htt
 That page renders a catalog, but the load-bearing artifacts are two machine-readable CSVs — the
 join tables between an ARM resource type and its AVM module.
 
+For supporting AVM documentation, fetch **https://aka.ms/avm/llms** once. It is a compact table of
+contents containing direct source-Markdown links. Follow only the links needed for the current
+decision; do not crawl the rendered site or documentation repository. The LLM index is navigation
+only—the CSVs below remain authoritative for module names and statuses.
+
 ## Source CSVs
 
 | Language | URL |
@@ -11,14 +16,14 @@ join tables between an ARM resource type and its AVM module.
 | Bicep | `https://raw.githubusercontent.com/Azure/Azure-Verified-Modules/main/docs/static/module-indexes/BicepResourceModules.csv` |
 | Terraform | `https://raw.githubusercontent.com/Azure/Azure-Verified-Modules/main/docs/static/module-indexes/TerraformResourceModules.csv` |
 
-Fetch with an HTTP client that follows redirects and **parse as real CSV** (fields are quoted and
-`AlternativeNames` contains commas — a naive `split(',')` corrupts the columns):
+Fetch only the CSV for the chosen language, cache it for the run, and **parse as real CSV** (fields
+are quoted and `AlternativeNames` contains commas — a naive `split(',')` corrupts the columns):
 
 ```powershell
 $ProgressPreference = 'SilentlyContinue'
 $base = 'https://raw.githubusercontent.com/Azure/Azure-Verified-Modules/main/docs/static/module-indexes'
-$bicep = (Invoke-WebRequest -UseBasicParsing "$base/BicepResourceModules.csv").Content | ConvertFrom-Csv
-$tf    = (Invoke-WebRequest -UseBasicParsing "$base/TerraformResourceModules.csv").Content | ConvertFrom-Csv
+$file = if ($language -eq 'bicep') { 'BicepResourceModules.csv' } else { 'TerraformResourceModules.csv' }
+$index = (Invoke-WebRequest -UseBasicParsing "$base/$file").Content | ConvertFrom-Csv
 ```
 
 Columns used by the resolver: `ProviderNamespace`, `ResourceType`, `ModuleName`, `ModuleStatus`,

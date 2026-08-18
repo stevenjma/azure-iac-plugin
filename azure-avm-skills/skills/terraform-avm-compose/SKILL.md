@@ -66,6 +66,10 @@ input wiring and import blocks are deterministic:
   the module `RepoURL`.
 - Save to `<workdir>/.avm/schema/<module>.json`. This makes `terraform-avm-inputs` precise and lets
   `terraform-avm-map` emit correct `import` blocks. If unavailable, proceed degraded.
+- Resolve and fetch each distinct module once. Prefer the single `variables.tf` interface file over
+  a repository scan, and reuse the cached schema in every downstream pass. If supporting AVM
+  guidance is required, use `https://aka.ms/avm/llms` as the table of contents and open only the
+  relevant source document.
 
 ### Phase 3: Composition (invoke sub-skills in order)
 
