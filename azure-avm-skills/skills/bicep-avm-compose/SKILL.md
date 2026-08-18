@@ -67,6 +67,10 @@ guess-and-check:
 - Build a per-module input map (required params, allowed enums, secure params, defaults) →
   `<workdir>/.avm/schema/<module>.json`. This makes `bicep-avm-inputs` and the reconciliation
   ledger precise. If unavailable, proceed degraded (expect more what-if iterations).
+- Resolve and fetch each distinct module once. Prefer the single `main.bicep` interface file over a
+  repository scan, and reuse the cached schema in every downstream pass. If supporting AVM guidance
+  is required, use `https://aka.ms/avm/llms` as the table of contents and open only the relevant
+  source document.
 
 ### Phase 3: Composition (invoke sub-skills in order)
 

@@ -11,7 +11,8 @@ compatibility: >
   Reads the public AVM module indexes (https://aka.ms/avm) — the machine-readable CSVs are the
   join tables. Version resolution needs egress to mcr.microsoft.com (Bicep) and the Terraform
   Registry. Works offline against the bundled reference/module-index.md for the common types, but
-  authoritative resolution should refresh from the live index.
+  authoritative resolution should refresh from the live index. Uses https://aka.ms/avm/llms as a
+  compact documentation table of contents when supporting AVM guidance is needed.
 ---
 
 ## Goal
@@ -44,6 +45,18 @@ naming notes below); always look it up.
   strings, and a type can be Available in one language and only Proposed in the other).
 - Access to the AVM index: prefer refreshing the live CSVs (see `reference/version-resolution.md`);
   fall back to the bundled `reference/module-index.md`.
+
+## Retrieval budget
+
+1. Fetch only the selected language's resource-module CSV and cache it for the run.
+2. Resolve each distinct ARM type once; reuse the result for every resource of that type.
+3. If the resolution needs AVM guidance beyond the structured feeds, fetch
+   `https://aka.ms/avm/llms` once and follow only the relevant source Markdown link.
+4. Fetch version metadata only for modules that resolved as `Available` or `Orphaned`.
+5. Fetch a module interface only after resolution, directly from its `RepoURL`; never scan the full
+   AVM documentation site or module repository.
+
+The LLM index is a token-efficient navigation aid, not evidence for module metadata.
 
 ## Procedure
 
@@ -168,4 +181,5 @@ The pass is **not complete** unless:
 
 - `reference/module-index.md` — the join table: common ARM types → Bicep & Terraform module names + status.
 - `reference/version-resolution.md` — how to pin versions from MCR (Bicep) and the Terraform Registry.
+- AVM documentation index for LLMs: **https://aka.ms/avm/llms**.
 - Authoritative live index: **https://aka.ms/avm** (Bicep/Terraform Resource Module CSVs).

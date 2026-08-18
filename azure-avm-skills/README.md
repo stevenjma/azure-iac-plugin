@@ -11,7 +11,9 @@ harvest live property values; those values are then wired into module inputs. Co
 refined through an **evidence-gated pipeline** and checked with **symmetric syntax + fidelity
 validation** (`terraform plan` / ARM what-if), so Bicep and Terraform reach the same bar.
 
-Module names, statuses, and versions are grounded in the AVM index — **https://aka.ms/avm**.
+Module names and statuses are grounded in the structured AVM index — **https://aka.ms/avm**.
+Agents use **https://aka.ms/avm/llms** as a compact documentation table of contents, then fetch only
+the source documents and module interfaces needed for the current composition.
 
 ## Why AVM instead of raw resources?
 
