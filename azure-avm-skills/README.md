@@ -1,4 +1,4 @@
-# azure-avm-plugin
+# azure-avm-skills
 
 Adopt existing Azure infrastructure into production-quality **Bicep or Terraform composed of
 Azure Verified Modules (AVM)**.

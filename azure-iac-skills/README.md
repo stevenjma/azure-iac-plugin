@@ -1,4 +1,4 @@
-# azure-iac-plugin
+# azure-iac-skills
 
 Export existing Azure infrastructure into production-quality **Bicep or Terraform**.
 
