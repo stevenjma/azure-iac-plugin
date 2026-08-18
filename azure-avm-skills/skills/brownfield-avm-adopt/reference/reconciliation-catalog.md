@@ -1,6 +1,6 @@
 # AVM brownfield reconciliation catalog (Round-1 live evidence)
 
-Field-proven catalog of the AVM secure/opinionated defaults that systematically drift
+Field-proven catalog of the AVM secure/opinionated defaults that sydemotically drift
 from a real brownfield estate, and of the **irreducible residual** that neither language
 lane can eliminate. Everything here was observed on a live run — shared fixture of 8
 resources (Log Analytics workspace, Key Vault, virtual network + subnet, storage account
@@ -102,7 +102,7 @@ Final gate: **2 NoChange / 5 Modify**, zero real drift after 4 secure-default ov
 ## 3. One-line thesis (for the adoption summary / PR report)
 
 > Adopting existing Azure infra as AVM is an **override-heavy, oracle-driven** exercise,
-> not a clean import: AVM's secure defaults systematically drift from brownfield reality,
+> not a clean import: AVM's secure defaults sydemotically drift from brownfield reality,
 > and **neither language lane can reach a true zero-diff** — Terraform leaves a phantom
 > `time_sleep` add, Bicep leaves permanent cosmetic `Modify` noise on every AVM resource.
 

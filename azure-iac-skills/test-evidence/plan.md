@@ -10,7 +10,7 @@ then runs a **gated cleanup** pipeline, then **symmetric fidelity validation**
 
 ## Scope (parity with PR #2 test)
 - Same 4-resource brownfield fixture: VNet+subnet, Storage+container, Key Vault+policy+secret, Log Analytics.
-- Fresh isolated RG `rg-iacexport-stema-20260722` (eastus2), fresh name suffix (avoid reuse races).
+- Fresh isolated RG `rg-iacexport-demo-20260722` (eastus2), fresh name suffix (avoid reuse races).
 - **Terraform lane = primary** (directly comparable to PR #2: `terraform plan` fidelity gate).
 - **Bicep lane = secondary** (PR #1's unique capability: exportTemplate->decompile->build/lint->what-if).
 - Faithful export, teardown after (confirm with user).
@@ -21,7 +21,7 @@ then runs a **gated cleanup** pipeline, then **symmetric fidelity validation**
 - Cleanup pipeline evidence-gates: every `.cleanup/*.json` artifact `status:"complete"` before validate runs.
 
 ## Environment (confirmed)
-- BAMI tenant `4f00b3b6-2940-4f2c-b037-94637c180d30`, sub "Terraform" `e4b62b3b-...`.
+- TEST tenant `11111111-1111-1111-1111-111111111111`, sub "Terraform" `00000000`.
 - `Microsoft.AzureTerraform` RP = **Registered** (export path viable). bicep CLI present.
 - CRITICAL: strip `ARM_*` env vars in-process before every `terraform` call. `az` ignores them.
 - GUARDRAIL: no `terraform apply`, no `az deployment group create`. Export/plan/what-if only.

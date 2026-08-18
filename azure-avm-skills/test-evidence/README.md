@@ -1,11 +1,11 @@
 # PR#2 (AVM adopt) — live test-evidence index
 
 Two lanes were run against the SAME shared brownfield fixture (8 resources,
-suffix `s4r1k`, RG `rg-iacshared-stema-s4r1k`, eastus2 — since destroyed).
+suffix `s4r1k`, RG `rg-iacshared-demo-s4r1k`, eastus2 — since destroyed).
 Both are real live-Azure runs; nothing hand-authored.
 
 ## Terraform lane — `adopt/`
-Full BAMI adopt output (`.avm/` harvest+reconciliation, imports.tf, main.tf,
+Full TEST adopt output (`.avm/` harvest+reconciliation, imports.tf, main.tf,
 plan.out.txt/plan2.out.txt). See `REPORT.md` + `LEARNINGS.md`.
 Final: 6 import / 1 add / 4 change → **zero real drift** after oracle feed.
 

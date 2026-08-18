@@ -7,7 +7,7 @@
       "type": "Microsoft.Network/virtualNetworks",
       "source": "Azure/avm-res-network-virtualnetwork/azurerm",
       "version": "0.19.0",
-      "liveId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Network/virtualNetworks/vnet-avmtest-9d6lh",
+      "liveId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.Network/virtualNetworks/vnet-avmtest-9d6lh",
       "provider_backing": "azapi_resource"
     },
     {
@@ -15,7 +15,7 @@
       "type": "Microsoft.Storage/storageAccounts",
       "source": "Azure/avm-res-storage-storageaccount/azurerm",
       "version": "0.7.3",
-      "liveId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh",
+      "liveId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh",
       "provider_backing": "azapi_resource"
     },
     {
@@ -23,7 +23,7 @@
       "type": "Microsoft.KeyVault/vaults",
       "source": "Azure/avm-res-keyvault-vault/azurerm",
       "version": "0.10.2",
-      "liveId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.KeyVault/vaults/kv-avmt-9d6lh",
+      "liveId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.KeyVault/vaults/kv-avmt-9d6lh",
       "provider_backing": "azurerm_key_vault"
     },
     {
@@ -31,19 +31,19 @@
       "type": "Microsoft.OperationalInsights/workspaces",
       "source": "Azure/avm-res-operationalinsights-workspace/azurerm",
       "version": "0.5.1",
-      "liveId": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.OperationalInsights/workspaces/law-avmtest-9d6lh",
+      "liveId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.OperationalInsights/workspaces/law-avmtest-9d6lh",
       "provider_backing": "azurerm_log_analytics_workspace"
     }
   ],
   "import_blocks": [
-    { "to": "module.vnet.azapi_resource.vnet", "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Network/virtualNetworks/vnet-avmtest-9d6lh" },
-    { "to": "module.vnet.module.subnet[\"snet-app\"].azapi_resource.subnet[0]", "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Network/virtualNetworks/vnet-avmtest-9d6lh/subnets/snet-app" },
-    { "to": "module.storage.azapi_resource.this", "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh" },
-    { "to": "module.storage.module.containers[\"data\"].azapi_resource.this", "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh/blobServices/default/containers/data" },
-    { "to": "module.keyvault.azurerm_key_vault.this", "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.KeyVault/vaults/kv-avmt-9d6lh" },
-    { "to": "module.keyvault.azurerm_key_vault_access_policy.this[\"guest\"]", "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.KeyVault/vaults/kv-avmt-9d6lh/objectId/4b645026-a054-4404-8f64-62929c02052c" },
+    { "to": "module.vnet.azapi_resource.vnet", "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.Network/virtualNetworks/vnet-avmtest-9d6lh" },
+    { "to": "module.vnet.module.subnet[\"snet-app\"].azapi_resource.subnet[0]", "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.Network/virtualNetworks/vnet-avmtest-9d6lh/subnets/snet-app" },
+    { "to": "module.storage.azapi_resource.this", "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh" },
+    { "to": "module.storage.module.containers[\"data\"].azapi_resource.this", "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh/blobServices/default/containers/data" },
+    { "to": "module.keyvault.azurerm_key_vault.this", "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.KeyVault/vaults/kv-avmt-9d6lh" },
+    { "to": "module.keyvault.azurerm_key_vault_access_policy.this[\"guest\"]", "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.KeyVault/vaults/kv-avmt-9d6lh/objectId/00000000-0000-0000-0000-000000000104" },
     { "to": "module.keyvault.module.secrets[\"demo\"].azurerm_key_vault_secret.this", "id": "https://kv-avmt-9d6lh.vault.azure.net/secrets/demo-secret/b334bb82dfa04a61bb17ddd17d6accf3" },
-    { "to": "module.law.azurerm_log_analytics_workspace.this", "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.OperationalInsights/workspaces/law-avmtest-9d6lh" }
+    { "to": "module.law.azurerm_log_analytics_workspace.this", "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.OperationalInsights/workspaces/law-avmtest-9d6lh" }
   ],
   "import_uncertain": [],
   "fallbacks": [],

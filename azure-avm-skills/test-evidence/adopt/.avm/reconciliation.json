@@ -85,9 +85,9 @@
     {
       "module": "keyvault",
       "variable": "tags",
-      "live": { "environment": "avmtest", "owner": "stema", "purpose": "avm-adopt-livetest" },
+      "live": { "environment": "avmtest", "owner": "demo", "purpose": "avm-adopt-livetest" },
       "avm_default": {},
-      "chosen": { "environment": "avmtest", "owner": "stema", "purpose": "avm-adopt-livetest" },
+      "chosen": { "environment": "avmtest", "owner": "demo", "purpose": "avm-adopt-livetest" },
       "decision": "pin",
       "reason": "Initial compose omitted tags on the keyvault module block, producing tags -> null in plan. Fixed by wiring tags = local.tags. All four modules now carry live tags.",
       "rule": "composition-fix"

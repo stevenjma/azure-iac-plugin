@@ -3,7 +3,7 @@ resource kv_iacx_p1x7q 'Microsoft.KeyVault/vaults@2026-03-01-preview' = {
   location: 'eastus2'
   tags: {
     environment: 'iacexporttest'
-    owner: 'stema'
+    owner: 'iac-demo'
     purpose: 'iac-export-livetest'
   }
   properties: {
@@ -11,11 +11,11 @@ resource kv_iacx_p1x7q 'Microsoft.KeyVault/vaults@2026-03-01-preview' = {
       family: 'A'
       name: 'standard'
     }
-    tenantId: '4f00b3b6-2940-4f2c-b037-94637c180d30'
+    tenantId: '11111111-1111-1111-1111-111111111111'
     accessPolicies: [
       {
-        tenantId: '4f00b3b6-2940-4f2c-b037-94637c180d30'
-        objectId: '4b645026-a054-4404-8f64-62929c02052c'
+        tenantId: '11111111-1111-1111-1111-111111111111'
+        objectId: '00000000-0000-0000-0000-000000000200'
         permissions: {
           certificates: []
           keys: []
@@ -48,7 +48,7 @@ resource vnet_iacx_p1x7q 'Microsoft.Network/virtualNetworks@2025-07-01' = {
   location: 'eastus2'
   tags: {
     environment: 'iacexporttest'
-    owner: 'stema'
+    owner: 'iac-demo'
     purpose: 'iac-export-livetest'
   }
   properties: {
@@ -71,7 +71,7 @@ resource law_iacx_p1x7q 'Microsoft.OperationalInsights/workspaces@2025-07-01' = 
   location: 'eastus2'
   tags: {
     environment: 'iacexporttest'
-    owner: 'stema'
+    owner: 'iac-demo'
     purpose: 'iac-export-livetest'
   }
   properties: {
@@ -98,7 +98,7 @@ resource stiacxp1x7q 'Microsoft.Storage/storageAccounts@2026-04-01' = {
   location: 'eastus2'
   tags: {
     environment: 'iacexporttest'
-    owner: 'stema'
+    owner: 'iac-demo'
     purpose: 'iac-export-livetest'
   }
   sku: {

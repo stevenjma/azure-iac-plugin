@@ -20,7 +20,7 @@
       "name": "resource_group_name",
       "type": "string",
       "mandatory": true,
-      "default": "rg-iacexport-stema-20260722",
+      "default": "rg-iacexport-demo-20260722",
       "occurrences_replaced": 1,
       "note": "also referenced by all import block ids"
     },
@@ -28,14 +28,14 @@
       "name": "tags",
       "type": "map(string)",
       "mandatory": true,
-      "default": {"environment": "iacexporttest", "owner": "stema", "purpose": "iac-export-livetest"},
+      "default": {"environment": "iacexporttest", "owner": "demo", "purpose": "iac-export-livetest"},
       "occurrences_replaced": 5
     },
     {
       "name": "tenant_id",
       "type": "string",
       "mandatory": false,
-      "default": "4f00b3b6-2940-4f2c-b037-94637c180d30",
+      "default": "11111111-1111-1111-1111-111111111111",
       "occurrences_replaced": 2,
       "note": "Key Vault tenant_id + access_policy.tenant_id"
     },
@@ -43,7 +43,7 @@
       "name": "kv_admin_object_id",
       "type": "string",
       "mandatory": false,
-      "default": "4b645026-a054-4404-8f64-62929c02052c",
+      "default": "00000000-0000-0000-0000-000000000104",
       "occurrences_replaced": 1
     }
   ],

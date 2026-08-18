@@ -1,5 +1,5 @@
 {
-  "id": "/subscriptions/e4b62b3b-7634-4972-8bbe-5d7197159f26/resourceGroups/rg-avmtest-stema-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh",
+  "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-avmtest-demo-20260721/providers/Microsoft.Storage/storageAccounts/stavmt9d6lh",
   "identity": {
     "type": "None"
   },
@@ -68,7 +68,7 @@
   },
   "tags": {
     "environment": "avmtest",
-    "owner": "stema",
+    "owner": "demo",
     "purpose": "avm-adopt-livetest"
   },
   "type": "Microsoft.Storage/storageAccounts"

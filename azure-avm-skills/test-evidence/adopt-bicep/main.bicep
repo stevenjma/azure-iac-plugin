@@ -8,7 +8,7 @@ param location string = 'eastus2'
 
 var tags = {
   environment: 'iacsharedtest'
-  owner: 'stema'
+  owner: 'iac-demo'
   purpose: 'iac-shared-livetest-r1'
 }
 
@@ -51,7 +51,7 @@ module keyvault 'br/public:avm/res/key-vault/vault:0.14.0' = {
     enableTelemetry: false
     accessPolicies: [
       {
-        objectId: '4b645026-a054-4404-8f64-62929c02052c'
+        objectId: '00000000-0000-0000-0000-000000000200'
         permissions: {
           secrets: [
             'get'

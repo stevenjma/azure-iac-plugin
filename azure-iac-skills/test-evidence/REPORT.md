@@ -2,7 +2,7 @@
 
 **Artifact under test:** `azure-iac-skills` skill bundle, PR #1 (`stevenjma-arm-mcp-iac-plan`)
 **Lanes:** Terraform **and** Bicep · **Mode:** full brownfield export → cleanup → fidelity gate
-**Tenant:** BAMI (`4f00b3b6-2940-4f2c-b037-94637c180d30`) · **Sub:** Terraform (`e4b62b3b-…`) · **RG:** `rg-iacexport-stema-20260722` (eastus2)
+**Tenant:** TEST (`11111111-1111-1111-1111-111111111111`) · **Sub:** Terraform (`00000000`) · **RG:** `rg-iacexport-demo-20260722` (eastus2)
 **Date:** live run this session · **Run by:** export→cleanup→validate / export→decompile→what-if pipelines executed by hand per the skill instructions
 
 ---
@@ -113,9 +113,9 @@ First filtered pass: **9 NoChange, 2 Modify**. The 2 Modify were:
 
 Neither adds/deletes a **resource**. Pruning both defaults (and the file/queue/table implicit sub-services the fixture never created) yielded the final **8 NoChange, 0 Modify**. Documents the iterate-to-clean loop working on the Bicep lane too.
 
-### 5.6 Dispatch tier — tier-3 REST fallback used
+### 5.6 Export dispatch — direct ARM control-plane REST
 
-The skill defines a tiered dispatch (MCP → CLI → raw REST). The available ARM MCP servers are **not** wired for these export operations (`azure-mcp-azureterraform` = docs / `aztfexport`-command generation only; `azure-mcp-arm` = ARG + deployments). Both lanes therefore fell through to **tier-3 raw REST via `Invoke-WebRequest` + bearer token**, exactly as the skill's fallback specifies. LRO handling: `exportTerraform` polls `Azure-AsyncOperation`; `exportTemplate` returns `202` + a `Location` header (**PowerShell surfaces it as `String[]` — must index `@($resp.Headers["Location"])[0]`**), poll `GET` until `200`.
+The export action calls the authenticated `management.azure.com` control-plane endpoints directly. Both lanes issued the export as a raw REST call (`Invoke-WebRequest` + bearer token; `az rest` behaves identically) — a remote ARM MCP server, when wired, serves only the read/query (ARG) and Bicep what-if operations it exposes, not export. LRO handling: `exportTerraform` polls `Azure-AsyncOperation`; `exportTemplate` returns `202` + a `Location` header (**PowerShell surfaces it as `String[]` — must index `@($resp.Headers["Location"])[0]`**), poll `GET` until `200`.
 
 ---
 
@@ -153,7 +153,7 @@ Both plugins hit their hard fidelity gates against live Azure. PR #1's export la
 
 ---
 
-## 9. Artifacts produced (session scratch, nothing committed)
+## 9. Artifacts produced (captured in this `test-evidence/` folder)
 
 ```
 live-test-pr1/
@@ -175,6 +175,6 @@ live-test-pr1/
 
 ---
 
-## 10. Teardown — PENDING
+## 10. Teardown — COMPLETE
 
-Deployed fixture (8 resources) remains live in `rg-iacexport-stema-20260722`. Teardown (`terraform destroy` on `live-test-pr1/fixture` + purge soft-deleted KV `kv-iacx-p1x7q` + verify RG gone) is the final step, **awaiting user confirmation**.
+The deployed fixture (8 resources) was torn down after the run (`terraform destroy` on the fixture + purge of the soft-deleted Key Vault); the test resource group no longer exists.

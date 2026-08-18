@@ -1,8 +1,8 @@
 {
   "pass": "0-intake",
   "scope": "resourceGroup",
-  "resource_group_name": "rg-iacexport-stema-20260722",
-  "subscription_id": "e4b62b3b-7634-4972-8bbe-5d7197159f26",
+  "resource_group_name": "rg-iacexport-demo-20260722",
+  "subscription_id": "00000000-0000-0000-0000-000000000000",
   "language": "terraform",
   "provider": "azurerm",
   "mode": "full",

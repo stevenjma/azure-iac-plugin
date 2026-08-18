@@ -11,7 +11,7 @@
       "location": "eastus2",
       "tags": {
         "environment": "iacexporttest",
-        "owner": "stema",
+        "owner": "demo",
         "purpose": "iac-export-livetest"
       },
       "properties": {
@@ -19,11 +19,11 @@
           "family": "A",
           "name": "standard"
         },
-        "tenantId": "4f00b3b6-2940-4f2c-b037-94637c180d30",
+        "tenantId": "11111111-1111-1111-1111-111111111111",
         "accessPolicies": [
           {
-            "tenantId": "4f00b3b6-2940-4f2c-b037-94637c180d30",
-            "objectId": "4b645026-a054-4404-8f64-62929c02052c",
+            "tenantId": "11111111-1111-1111-1111-111111111111",
+            "objectId": "00000000-0000-0000-0000-000000000104",
             "permissions": {
               "certificates": [],
               "keys": [],
@@ -57,7 +57,7 @@
       "location": "eastus2",
       "tags": {
         "environment": "iacexporttest",
-        "owner": "stema",
+        "owner": "demo",
         "purpose": "iac-export-livetest"
       },
       "properties": {
@@ -95,7 +95,7 @@
       "location": "eastus2",
       "tags": {
         "environment": "iacexporttest",
-        "owner": "stema",
+        "owner": "demo",
         "purpose": "iac-export-livetest"
       },
       "properties": {
@@ -123,7 +123,7 @@
       "location": "eastus2",
       "tags": {
         "environment": "iacexporttest",
-        "owner": "stema",
+        "owner": "demo",
         "purpose": "iac-export-livetest"
       },
       "sku": {

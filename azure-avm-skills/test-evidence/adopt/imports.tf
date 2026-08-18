@@ -30,7 +30,7 @@ import {
 
 import {
   to = module.keyvault.azurerm_key_vault_access_policy.this["guest"]
-  id = "${local.resource_group_id}/providers/Microsoft.KeyVault/vaults/kv-avmt-9d6lh/objectId/4b645026-a054-4404-8f64-62929c02052c"
+  id = "${local.resource_group_id}/providers/Microsoft.KeyVault/vaults/kv-avmt-9d6lh/objectId/00000000-0000-0000-0000-000000000104"
 }
 
 import {

@@ -9,8 +9,8 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id                 = "e4b62b3b-7634-4972-8bbe-5d7197159f26"
-  tenant_id                       = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+  subscription_id                 = "00000000-0000-0000-0000-000000000000"
+  tenant_id                       = "11111111-1111-1111-1111-111111111111"
   resource_provider_registrations = "none"
   features {
     key_vault {
@@ -21,18 +21,18 @@ provider "azurerm" {
 
 locals {
   location  = "eastus2"
-  tenant_id = "4f00b3b6-2940-4f2c-b037-94637c180d30"
+  tenant_id = "11111111-1111-1111-1111-111111111111"
   # disposable test object id (signed-in guest) — data-plane access for secret creation
-  admin_object_id = "4b645026-a054-4404-8f64-62929c02052c"
+  admin_object_id = "00000000-0000-0000-0000-000000000104"
   tags = {
     environment = "iacexporttest"
-    owner       = "stema"
+    owner       = "demo"
     purpose     = "iac-export-livetest"
   }
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-iacexport-stema-20260722"
+  name     = "rg-iacexport-demo-20260722"
   location = local.location
   tags     = local.tags
 }
